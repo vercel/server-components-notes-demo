@@ -27,28 +27,13 @@ const React = require('react')
 require('react-server-dom-webpack/node-register')()
 const ReactApp = require('../components/App.server').default
 
-async function generate(arg) {
-  // async function waitForWebpack() {
-  //   while (true) {
-  //     try {
-  //       readFileSync(path.resolve('.next/react-client-manifest.json'))
-  //       return;
-  //     } catch (err) {
-  //       // console.log(
-  //       //   'Could not find webpack build output. Will retry in a second...'
-  //       // );
-  //       await new Promise((resolve) => setTimeout(resolve, 1000))
-  //     }
-  //   }
-  // }
+const endpoint = process.env.ENDPOINT
+const fetch = require('node-fetch')
 
-  function renderReactTree(props, cb) {
-    // await waitForWebpack()
-    const manifest = readFileSync(
-      path.resolve('.next/react-client-manifest.json'),
-      'utf8'
-    )
-    const moduleMap = JSON.parse(manifest)
+async function generate(arg) {
+  async function renderReactTree(props, cb) {
+    const response = await fetch(endpoint + '/react-client-manifest.json')
+    const moduleMap = await response.json()
     
     let data = ''
     const dest = new stream.Writable({
