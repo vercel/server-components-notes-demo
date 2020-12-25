@@ -7,6 +7,10 @@ const path = require('path')
 // const nodeRequire = __non_webpack_require__
 
 const babelRegister = require('@babel/register')
+
+require('@babel/plugin-transform-modules-commonjs')
+require('@babel/preset-react')
+
 babelRegister({
   presets: ['@babel/preset-react'],
   plugins: ['@babel/transform-modules-commonjs'],
