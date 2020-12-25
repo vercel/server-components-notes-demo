@@ -279,6 +279,22 @@ ul.notes-list {
   min-width: 250px;
   width: 30%;
 }
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 10px;
+  left: 10px;
+  margin: 0;
+  width: 30px;
+  height: 30px;
+  background: url(/x.svg) #e2e2e2;
+  border-radius: 6px;
+  appearance: none;
+  background-size: 24px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 .sidebar-header {
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -315,6 +331,28 @@ ul.notes-list {
 .sidebar-note-list-item.flash {
   animation-name: flash;
   animation-duration: 0.6s;
+}
+
+@media screen and (max-width: 640px) {
+  .sidebar-toggle {
+    display: block;
+  }
+  .sidebar {
+    position: absolute;
+    transition: all .4s ease;
+  }
+  .sidebar-toggle:checked {
+    background: url(/menu.svg) #e2e2e2;
+    background-size: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .sidebar-toggle:checked + .sidebar {
+    transform: translateX(-120%);
+  }
+  .sidebar-header {
+    padding-top: 50px;
+  }
 }
 
 .sidebar-note-open {
@@ -503,6 +541,7 @@ ul.notes-list {
   justify-content: flex-end;
   align-items: center;
   margin-bottom: 12px;
+  float: right;
 }
 .note-editor-preview {
   margin-inline-start: 40px;
@@ -642,6 +681,27 @@ ul.notes-list {
   padding: 0;
   width: 1px;
   position: absolute;
+}
+
+@media screen and (max-width: 900px) {
+  .note-editor {
+    flex-direction: column-reverse;
+    padding: 20px;
+  }
+  .note-editor-preview {
+    margin-inline-start: 0;
+    overflow: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    flex: 2;
+  }
+  .note-editor-form {
+    flex: 1;
+    width: 100%;
+  }
+  .note-editor-form textarea {
+    max-width: 100%;
+  }
 }
 
 /* ---------------------------------------------------------------------------*/

@@ -12,6 +12,7 @@ import NoteListSkeleton from './NoteListSkeleton'
 export default function App({selectedId, isEditing, searchText}) {
   return (
     <div className="main">
+      <input type="checkbox" class="sidebar-toggle" />
       <section className="col sidebar">
         <section className="sidebar-header">
           <img
