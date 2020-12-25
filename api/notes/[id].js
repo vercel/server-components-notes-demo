@@ -25,9 +25,9 @@ export default async (req, res) => {
       if (note.id !== id) return note
       return {
         id,
-        title: req.body.title,
+        title: (req.body.title || '').slice(0, 255),
         updated_at: Date.now(),
-        body: req.body.body
+        body: (req.body.body || '').slice(0, 2048)
       }
     })
     await redis.set('rsc:notes', JSON.stringify(updated))

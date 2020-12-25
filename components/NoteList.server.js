@@ -19,9 +19,11 @@ export default function NoteList({searchText}) {
   return notes.length > 0 ? (
     <ul className="notes-list">
       {notes.map((note) => (
-        note && (!searchText || note.title.includes(searchText)) ? <li key={note.id}>
-          <SidebarNote note={note} />
-        </li> : null
+        note && (!searchText || (note.title.toLowerCase()).includes(searchText.toLowerCase()))
+          ? <li key={note.id}>
+            <SidebarNote note={note} />
+          </li>
+          : null
       ))}
     </ul>
   ) : (
