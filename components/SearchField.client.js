@@ -24,7 +24,7 @@ export default function SearchField() {
       </label>
       <input
         id="sidebar-search-input"
-        placeholder="Search by title"
+        placeholder="Search"
         value={text}
         onChange={(e) => {
           const newText = e.target.value;

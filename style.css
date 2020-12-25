@@ -236,8 +236,10 @@ hr {
   margin-inline-start: 6px;
   transition: all 0.2s ease-in-out;
 }
-.edit-button--solid:hover {
-  background: var(--secondary-blue);
+@media (hover: hover) {
+  .edit-button--solid:hover {
+    background: var(--secondary-blue);
+  }
 }
 .edit-button--solid:focus {
   box-shadow: var(--outline-box-shadow-contrast);
@@ -252,9 +254,11 @@ hr {
 .edit-button--outline:disabled {
   opacity: 0.5;
 }
-.edit-button--outline:hover:not([disabled]) {
-  background: var(--primary-blue);
-  color: var(--white);
+@media (hover: hover) {
+  .edit-button--outline:hover:not([disabled]) {
+    background: var(--primary-blue);
+    color: var(--white);
+  }
 }
 .edit-button--outline:focus {
   box-shadow: var(--outline-box-shadow);
@@ -377,6 +381,14 @@ ul.notes-list {
     padding-top: 70px;
     justify-content: flex-end;
   }
+  .note-header {
+    margin-top: 10px;
+  }
+  .note-editor-done,
+  .note-editor-delete {
+    padding: 3px 10px;
+    margin-top: 0;
+  }
 }
 
 .sidebar-note-open {
@@ -395,12 +407,15 @@ ul.notes-list {
   outline-style: none;
   color: transparent;
   font-size: 0px;
+  appearance: none;
 }
 .sidebar-note-open:focus {
   box-shadow: var(--outline-box-shadow);
 }
-.sidebar-note-open:hover {
-  background: var(--gray-90);
+@media (hover: hover) {
+  .sidebar-note-open:hover {
+    background: var(--gray-90);
+  }
 }
 .sidebar-note-header {
   z-index: 1;
@@ -419,6 +434,8 @@ ul.notes-list {
   z-index: 2;
   border-radius: 50%;
   height: 24px;
+  width: 24px;
+  padding: 0 6px;
   border: 1px solid var(--gray-60);
   cursor: pointer;
   flex-shrink: 0;
@@ -431,13 +448,21 @@ ul.notes-list {
 .sidebar-note-toggle-expand:focus {
   box-shadow: var(--outline-box-shadow);
 }
-.sidebar-note-open:hover + .sidebar-note-toggle-expand,
+
 .sidebar-note-open:focus + .sidebar-note-toggle-expand,
-.sidebar-note-toggle-expand:hover,
 .sidebar-note-toggle-expand:focus {
   visibility: visible;
   opacity: 1;
   transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+@media (hover: hover) {
+  .sidebar-note-open:hover + .sidebar-note-toggle-expand,
+  .sidebar-note-toggle-expand:hover {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity 300ms;
+  }
 }
 .sidebar-note-toggle-expand img {
   width: 10px;
@@ -460,6 +485,7 @@ ul.notes-list {
   width: 100%;
   height: 100%;
   outline-style: none;
+  appearance: none;
 }
 .search input:focus {
   box-shadow: var(--outline-box-shadow);
@@ -598,8 +624,10 @@ ul.notes-list {
 .note-editor-done:focus {
   box-shadow: var(--outline-box-shadow-contrast);
 }
-.note-editor-done:hover:not([disabled]) {
-  background: var(--secondary-blue);
+@media (hover: hover) {
+  .note-editor-done:hover:not([disabled]) {
+    background: var(--secondary-blue);
+  }
 }
 .note-editor-delete {
   border: 1px solid var(--red-25);
@@ -609,13 +637,15 @@ ul.notes-list {
 .note-editor-delete:focus {
   box-shadow: var(--outline-box-shadow);
 }
-.note-editor-delete:hover:not([disabled]) {
-  background: var(--red-25);
-  color: var(--white);
-}
-/* Hack to color our svg */
-.note-editor-delete:hover:not([disabled]) img {
-  filter: grayscale(1) invert(1) brightness(2);
+@media (hover: hover) {
+  .note-editor-delete:hover:not([disabled]) {
+    background: var(--red-25);
+    color: var(--white);
+  }
+  /* Hack to color our svg */
+  .note-editor-delete:hover:not([disabled]) img {
+    filter: grayscale(1) invert(1) brightness(2);
+  }
 }
 .note-editor-done > img {
   width: 14px;
