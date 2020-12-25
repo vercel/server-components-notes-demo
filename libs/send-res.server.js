@@ -3,19 +3,20 @@ const stream = require('stream')
 const {readFileSync} = require('fs')
 const path = require('path')
 
-async function generate(arg) {
-  // https://webpack.js.org/api/module-variables/#__non_webpack_require__-webpack-specific
-  const nodeRequire = __non_webpack_require__
-  const babelRegister = nodeRequire('@babel/register')
-  babelRegister({
-    presets: ['@babel/preset-react'],
-    plugins: ['@babel/plugin-transform-modules-commonjs'],
-  })
-  
-  const React = nodeRequire('react')
-  nodeRequire('react-server-dom-webpack/node-register')()
-  const ReactApp = nodeRequire(path.resolve('components/App.server')).default
+// https://webpack.js.org/api/module-variables/#__non_webpack_require__-webpack-specific
+// const nodeRequire = __non_webpack_require__
 
+const babelRegister = require('@babel/register')
+babelRegister({
+  presets: ['@babel/preset-react'],
+  plugins: ['@babel/plugin-transform-modules-commonjs'],
+})
+
+const React = require('react')
+require('react-server-dom-webpack/node-register')()
+const ReactApp = require(path.resolve('components/App.server')).default
+
+async function generate(arg) {
   // async function waitForWebpack() {
   //   while (true) {
   //     try {

@@ -1,5 +1,5 @@
-import redis from '../../../libs/redis.server'
-import sendRes from '../../../libs/send-res.server'
+import redis from '../../libs/redis.server'
+import sendRes from '../../libs/send-res.server'
 
 export default async (req, res) => {
   if (req.method === 'GET') {
