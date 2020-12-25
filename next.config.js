@@ -1,6 +1,7 @@
 const ReactServerWebpackPlugin = require('react-server-dom-webpack/plugin')
 const fs = require('fs')
 
+let manifest
 class CopyReactClientManifest {
   apply(compiler) {
     compiler.hooks.emit.tapAsync(
@@ -8,7 +9,16 @@ class CopyReactClientManifest {
       (compilation, callback) => {
         const asset = compilation.assets['react-client-manifest.json']
         const content = asset.source()
-        console.log(content)
+        // there might be multiple passes (?)
+        // we keep the larger manifest
+        if (manifest) {
+          if (manifest.length > content.length) {
+            callback()
+            return
+          }
+        } else {
+          manifest = content
+        }
         fs.writeFile('./public/react-client-manifest.json', content, callback)
       }
     );
