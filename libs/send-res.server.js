@@ -18,7 +18,7 @@ babelRegister({
 
 const React = require('react')
 require('react-server-dom-webpack/node-register')()
-const ReactApp = require(path.resolve('components/App.server')).default
+const ReactApp = require('../components/App.server').default
 
 async function generate(arg) {
   // async function waitForWebpack() {
