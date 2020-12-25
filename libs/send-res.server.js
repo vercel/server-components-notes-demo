@@ -36,7 +36,19 @@ async function generate(arg) {
   async function renderReactTree(props, cb) {
     if (!moduleMap) {
       const response = await fetch(endpoint + '/react-client-manifest.json')
-      moduleMap = await response.json()
+      const originalManifest = await response.json()
+      const manifest = {}
+
+      // hack: we need to modify the filepath in the manifest
+      // and proxy it to unify the map
+      for (let key in originalManifest) {
+        manifest[key.split('/').pop()] = originalManifest[key]
+      }
+      moduleMap = new Proxy(manifest, {
+        get: function(target, prop) {
+          return target[prop.split('/').pop()]
+        }
+      })
     }
     
     let data = ''

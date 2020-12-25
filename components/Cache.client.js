@@ -24,7 +24,11 @@ export function useServerResponse(location) {
     return response;
   }
   response = createFromFetch(
-    fetch('https://next-server-components.vercel.app' + '/api/react.server?location=' + encodeURIComponent(key))
+    fetch(
+      // 'http://localhost:3000' +
+      'https://next-server-components.vercel.app' +
+      '/api/react.server?location=' + encodeURIComponent(key)
+    )
   );
   cache.set(key, response);
   return response;
