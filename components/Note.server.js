@@ -14,7 +14,7 @@ import NotePreview from './NotePreview';
 import EditButton from './EditButton.client';
 import NoteEditor from './NoteEditor.client';
 
-const endpoint = process.env.ENDPOINT || 'https://next-server-components.vercel.app'
+const endpoint = process.env.ENDPOINT
 
 export default function Note({selectedId, isEditing}) {
   const note =

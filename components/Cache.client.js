@@ -1,7 +1,7 @@
 import {unstable_getCacheForType, unstable_useCacheRefresh} from 'react';
 import {createFromFetch} from 'react-server-dom-webpack';
 
-const endpoint = process.env.ENDPOINT || 'https://next-server-components.vercel.app'
+const endpoint = 'https://next-server-components.vercel.app'
 
 const cache = new Map();
 // function createResponseCache() {
@@ -26,7 +26,7 @@ export function useServerResponse(location) {
     return response;
   }
   response = createFromFetch(
-    fetch(endpoint + '/api/react?location=' + encodeURIComponent(key))
+    fetch(endpoint + '/api/react.server?location=' + encodeURIComponent(key))
   );
   cache.set(key, response);
   return response;
