@@ -283,7 +283,7 @@ ul.notes-list {
   display: none;
   position: fixed;
   z-index: 9999;
-  top: 10px;
+  top: 70px;
   left: 10px;
   margin: 0;
   width: 30px;
@@ -333,6 +333,20 @@ ul.notes-list {
   animation-duration: 0.6s;
 }
 
+.banner {
+  position: fixed;
+  z-index: 2000;
+  width: 100%;
+  background: #1f1f1f;
+  color: #e6e6e6;
+  text-align: center;
+  padding: 0 20px;
+  font-family: arial, sans-serif;
+}
+.banner a {
+  color: #3aa3ff;
+}
+
 @media screen and (max-width: 640px) {
   .sidebar-toggle {
     display: block;
@@ -351,7 +365,8 @@ ul.notes-list {
     transform: translateX(-120%);
   }
   .sidebar-header {
-    padding-top: 50px;
+    padding-top: 70px;
+    justify-content: flex-end;
   }
 }
 
@@ -692,7 +707,7 @@ ul.notes-list {
     margin-inline-start: 0;
     overflow: auto;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 50px;
     flex: 2;
   }
   .note-editor-form {

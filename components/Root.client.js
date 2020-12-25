@@ -3,10 +3,11 @@ import {ErrorBoundary} from 'react-error-boundary'
 
 import {useServerResponse} from './Cache.client'
 import {LocationContext} from './LocationContext.client'
+import Spinner from './Spinner'
 
 export default function Root() {
   return (
-    <Suspense fallback={<div>suspending...</div>}>
+    <Suspense fallback={<Spinner/>}>
       <ErrorBoundary FallbackComponent={Error}>
         <Content />
       </ErrorBoundary>
