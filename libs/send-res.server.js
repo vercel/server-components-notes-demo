@@ -30,10 +30,14 @@ const ReactApp = require('../components/App.server').default
 const endpoint = process.env.ENDPOINT
 const fetch = require('node-fetch')
 
+let moduleMap
+
 async function generate(arg) {
   async function renderReactTree(props, cb) {
-    const response = await fetch(endpoint + '/react-client-manifest.json')
-    const moduleMap = await response.json()
+    if (!moduleMap) {
+      const response = await fetch(endpoint + '/react-client-manifest.json')
+      moduleMap = await response.json()
+    }
     
     let data = ''
     const dest = new stream.Writable({

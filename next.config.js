@@ -3,10 +3,12 @@ const fs = require('fs')
 
 class CopyReactClientManifest {
   apply(compiler) {
-    compiler.hooks.emit.tapAsync(
+    compiler.hooks.assetEmitted.tapAsync(
       'CopyReactClientManifest',
       (compilation, callback) => {
-        const content = (compilation.assets['react-client-manifest.json']).source()
+        const asset = compilation.assets['react-client-manifest.json']
+        const content = asset.source()
+        console.log(content)
         fs.writeFile('./public/react-client-manifest.json', content, callback)
       }
     );
