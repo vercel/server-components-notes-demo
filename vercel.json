@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/react.server.js": {
+      "includeFiles": "components/**"
+    },
+    "api/notes/index.js": {
+      "includeFiles": "components/**"
+    },
+    "api/notes/[id].js": {
+      "includeFiles": "components/**"
+    }
+  }
+}
