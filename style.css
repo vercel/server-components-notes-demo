@@ -67,6 +67,7 @@ button,
 textarea,
 select {
   font: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Remove all animations and transitions for people that prefer not to see them */
@@ -340,11 +341,19 @@ ul.notes-list {
   background: #1f1f1f;
   color: #e6e6e6;
   text-align: center;
-  padding: 0 15px;
+  padding: 3px 15px;
+  font-size: 14px;
   font-family: arial, sans-serif;
 }
 .banner a {
   color: #3aa3ff;
+}
+.screen-center {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 640px) {
@@ -367,9 +376,6 @@ ul.notes-list {
   .sidebar-header {
     padding-top: 70px;
     justify-content: flex-end;
-  }
-  .banner {
-    font-size: 15px;
   }
 }
 
