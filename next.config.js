@@ -3,7 +3,7 @@ const fs = require('fs')
 
 class CopyReactClientManifest {
   apply(compiler) {
-    compiler.hooks.assetEmitted.tapAsync(
+    compiler.hooks.emit.tapAsync(
       'CopyReactClientManifest',
       (compilation, callback) => {
         const asset = compilation.assets['react-client-manifest.json']

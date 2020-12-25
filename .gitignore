@@ -7,3 +7,4 @@ yarn-error.log
 .vercel
 
 .env
+public/react-client-manifest.json
