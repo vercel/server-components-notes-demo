@@ -7,8 +7,6 @@ REDIS_URL='rediss://:<password>@<url>:<port>'
 ENDPOINT='http://localhost:3000' // <- need to be absolute url to run in prod/local
 ```
 
-Then change `components/Cache.client.js` line 27 to your environment's url origin.
+Then change `components/Cache.client.js` line 27 to your environment's url origin, for example `http://localhost:3000`.
 
-- dev: `yarn dev`
-- build: `yarn build`
-- start: `yarn start`
+- dev: `vercel dev`

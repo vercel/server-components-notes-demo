@@ -9,7 +9,7 @@ const path = require('path')
 const babelRegister = require('@babel/register')
 babelRegister({
   presets: ['@babel/preset-react'],
-  plugins: ['@babel/plugin-transform-modules-commonjs'],
+  plugins: ['@babel/transform-modules-commonjs'],
 })
 
 const React = require('react')
