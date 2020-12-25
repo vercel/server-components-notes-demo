@@ -340,7 +340,7 @@ ul.notes-list {
   background: #1f1f1f;
   color: #e6e6e6;
   text-align: center;
-  padding: 0 20px;
+  padding: 0 15px;
   font-family: arial, sans-serif;
 }
 .banner a {
@@ -367,6 +367,9 @@ ul.notes-list {
   .sidebar-header {
     padding-top: 70px;
     justify-content: flex-end;
+  }
+  .banner {
+    font-size: 15px;
   }
 }
 
