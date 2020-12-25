@@ -11,8 +11,10 @@ import {fetch} from 'react-fetch';
 
 import SidebarNote from './SidebarNote'
 
+const endpoint = process.env.ENDPOINT || 'https://next-server-components.vercel.app'
+
 export default function NoteList({searchText}) {
-  const notes = fetch('http://localhost:3000/api/notes').json()
+  const notes = fetch(endpoint + '/api/notes').json()
 
   return notes.length > 0 ? (
     <ul className="notes-list">

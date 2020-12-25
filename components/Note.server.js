@@ -14,10 +14,12 @@ import NotePreview from './NotePreview';
 import EditButton from './EditButton.client';
 import NoteEditor from './NoteEditor.client';
 
+const endpoint = process.env.ENDPOINT || 'https://next-server-components.vercel.app'
+
 export default function Note({selectedId, isEditing}) {
   const note =
     selectedId != null
-      ? fetch(`http://localhost:3000/api/notes/${selectedId}`).json()
+      ? fetch(`${endpoint}/api/notes/${selectedId}`).json()
       : null;
 
   if (note === null) {

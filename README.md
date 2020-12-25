@@ -1,9 +1,10 @@
 # React Server Components in Next.js
 
-You need `REDIS_URL` to run this app:
+You need these environment variables to run this app:
 
 ```
 REDIS_URL='rediss://:<password>@<url>:<port>'
+ENDPOINT='http://localhost:3000' // <- need to be absolute url to run in prod/local
 ```
 
 - dev: `yarn dev`
