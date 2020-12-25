@@ -16,6 +16,13 @@ babelRegister({
   plugins: ['@babel/transform-modules-commonjs'],
 })
 
+// lambda deps
+require('react-fetch')
+require('date-fns')
+require('excerpts')
+require('marked')
+require('sanitize-html')
+
 const React = require('react')
 require('react-server-dom-webpack/node-register')()
 const ReactApp = require('../components/App.server').default
