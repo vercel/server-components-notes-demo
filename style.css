@@ -299,6 +299,7 @@ ul.notes-list {
   max-width: 350px;
   min-width: 250px;
   width: 30%;
+  height: auto;
 }
 .sidebar-toggle {
   display: none;
@@ -367,6 +368,7 @@ ul.notes-list {
   white-space: nowrap;
   overflow: hidden;
   letter-spacing: -0.02em;
+  flex: 0 0;
 }
 .banner:before {
   content: '⚠️ React Server Components are an experimental and unstable tech preview. '
