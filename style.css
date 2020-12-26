@@ -368,7 +368,7 @@ ul.notes-list {
   white-space: nowrap;
   overflow: hidden;
   letter-spacing: -0.02em;
-  flex: 0 0;
+  flex: 0 0 auto;
 }
 .banner:before {
   content: '⚠️ React Server Components are an experimental and unstable tech preview. '
