@@ -89,11 +89,14 @@ export default async (req, res, redirectToId) => {
   // if (stderr) {
   //   throw new Error(stderr)
   // }
+  
+  console.time('react render')
   const output = await generate({
     selectedId: location.selectedId,
     isEditing: location.isEditing,
     searchText: location.searchText,
   })
+  console.timeEnd('react render')
 
   res.end(output)
 }
