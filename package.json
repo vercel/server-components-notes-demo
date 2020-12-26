@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build": "node scripts/build && next build",
     "start": "next start"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/preset-react": "^7.12.10",
     "@babel/register": "^7.12.10",
+    "babel-loader": "^8.2.2",
     "date-fns": "^2.16.1",
     "excerpts": "^0.0.3",
     "ioredis": "^4.19.4",
@@ -24,7 +25,8 @@
     "react-error-boundary": "^3.1.0",
     "react-fetch": "0.0.0-experimental-3310209d0",
     "react-server-dom-webpack": "0.0.0-experimental-3310209d0",
-    "sanitize-html": "^2.3.0"
+    "sanitize-html": "^2.3.0",
+    "webpack": "4.44.1"
   },
   "devDependencies": {}
 }

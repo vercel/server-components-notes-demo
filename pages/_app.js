@@ -5,7 +5,7 @@ export default function MyApp({ Component, pageProps }) {
   return <>
     <Head>
       <title>React Server Components (Experimental Demo)</title>
-      <meta http-equiv="Content-Language" content="en"/>
+      <meta httpEquiv="Content-Language" content="en"/>
       <meta name="description" content="Experimental demo of React Server Components with Next.js. Hosted on Vercel."/>
       <meta name="og:description" content="Experimental demo of React Server Components with Next.js. Hosted on Vercel."/>
       <meta name="twitter:card" content="summary_large_image"/>

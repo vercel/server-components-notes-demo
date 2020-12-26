@@ -9,4 +9,5 @@ ENDPOINT='http://localhost:3000' // <- need to be absolute url to run in prod/lo
 
 Then change `components/Cache.client.js` line 27 to your environment's url origin, for example `http://localhost:3000`.
 
-- dev: `vercel dev`
+1. You need to first run `yarn build` to build necessary API assets
+2. `vercel dev`
