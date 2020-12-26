@@ -30,6 +30,9 @@ async function renderReactTree(props, res) {
 }
 
 module.exports = async (req, res, redirectToId) => {
+  console.time('react render')
+  res.on('close', () => console.timeEnd('react render'))
+
   const location = JSON.parse(req.query.location)
   if (redirectToId) {
     location.selectedId = redirectToId
