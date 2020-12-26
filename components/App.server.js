@@ -10,12 +10,12 @@ import NoteSkeleton from './NoteSkeleton'
 import NoteListSkeleton from './NoteListSkeleton'
 
 export default function App({selectedId, isEditing, searchText}) {
-  return (
+  return <div className="container">
+    <div className="banner">
+      ⚠️ React Server Components are an experimental and unstable tech preview.&nbsp;
+      <a href="https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html?utm_source=vercel" target="_blank">Learn more →</a>
+    </div>
     <div className="main">
-      <div className="banner">
-        ⚠️ React Server Components are an experimental and unstable tech preview.&nbsp;
-        <a href="https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html?utm_source=vercel" target="_blank">Learn more →</a>
-      </div>
       <input type="checkbox" class="sidebar-toggle" />
       <section className="col sidebar">
         <section className="sidebar-header">
@@ -45,5 +45,5 @@ export default function App({selectedId, isEditing, searchText}) {
         </Suspense>
       </section>
     </div>
-  );
+  </div>;
 }

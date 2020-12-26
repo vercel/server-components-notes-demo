@@ -11,14 +11,11 @@ class CopyReactClientManifest {
         const content = asset.source()
         // there might be multiple passes (?)
         // we keep the larger manifest
-        if (manifest) {
-          if (manifest.length > content.length) {
-            callback()
-            return
-          }
-        } else {
-          manifest = content
+        if (manifest && manifest.length > content.length) {
+          callback()
+          return
         }
+        manifest = content
         fs.writeFile('./public/react-client-manifest.json', content, callback)
       }
     );

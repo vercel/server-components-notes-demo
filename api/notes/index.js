@@ -7,6 +7,7 @@ export default async (req, res) => {
 
     const notes = (await redis.hvals('rsc:notes_2'))
       .map(note => JSON.parse(note))
+      .sort((a, b) => b.id - a.id)
 
     console.timeEnd('get all items from redis')
     return res.send(JSON.stringify(notes))

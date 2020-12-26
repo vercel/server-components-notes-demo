@@ -339,7 +339,6 @@ ul.notes-list {
 }
 
 .banner {
-  position: fixed;
   z-index: 2000;
   width: 100%;
   background: #1f1f1f;
@@ -378,7 +377,7 @@ ul.notes-list {
     transform: translateX(-120%);
   }
   .sidebar-header {
-    padding-top: 70px;
+    padding-top: 16px;
     justify-content: flex-end;
   }
   .note-header {
@@ -388,6 +387,9 @@ ul.notes-list {
   .note-editor-delete {
     padding: 3px 10px;
     margin-top: 0;
+  }
+  input, textarea {
+    font-size: 16px;
   }
 }
 

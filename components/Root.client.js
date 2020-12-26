@@ -7,7 +7,7 @@ import Spinner from './Spinner'
 
 export default function Root() {
   return (
-    <Suspense fallback={<div className="screen-center"><Spinner/></div>}>
+    <Suspense fallback={null}>
       <ErrorBoundary FallbackComponent={Error}>
         <Content />
       </ErrorBoundary>
