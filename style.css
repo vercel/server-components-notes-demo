@@ -413,7 +413,9 @@ ul.notes-list {
     justify-content: flex-end;
   }
   .note-editor-done,
-  .note-editor-delete {
+  .note-editor-delete,
+  .edit-button,
+   {
     padding: 3px 10px !important;
     margin: 0 0 0 4px !important;
     letter-spacing: 0.03em !important;
