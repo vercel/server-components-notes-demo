@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/preset-react": "^7.12.10",
     "@babel/register": "^7.12.10",
     "date-fns": "^2.16.1",

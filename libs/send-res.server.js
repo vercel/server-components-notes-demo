@@ -1,13 +1,19 @@
 const {pipeToNodeWritable} = require('react-server-dom-webpack/writer.node.server')
 const stream = require('stream')
+const {readFileSync} = require('fs')
+const path = require('path')
 
 // https://webpack.js.org/api/module-variables/#__non_webpack_require__-webpack-specific
 // const nodeRequire = __non_webpack_require__
 
 const babelRegister = require('@babel/register')
+
+require('@babel/plugin-transform-modules-commonjs')
 require('@babel/preset-react')
+
 babelRegister({
-  presets: ['@babel/preset-react']
+  presets: ['@babel/preset-react'],
+  plugins: ['@babel/transform-modules-commonjs'],
 })
 
 // lambda deps
@@ -19,7 +25,7 @@ require('sanitize-html')
 
 const React = require('react')
 require('react-server-dom-webpack/node-register')()
-import ReactApp from '../components/App.server'
+const ReactApp = require('../components/App.server').default
 
 const endpoint = process.env.ENDPOINT
 const fetch = require('node-fetch')
@@ -59,6 +65,7 @@ async function generate(arg) {
     pipeToNodeWritable(React.createElement(ReactApp, props), dest, moduleMap)
   }
 
+  // await renderReactTree(JSON.parse(process.argv[2]))
   return await new Promise(res => renderReactTree(arg, res))
 }
 
@@ -69,6 +76,20 @@ export default async (req, res, redirectToId) => {
   }
   res.setHeader('X-Location', JSON.stringify(location))
 
+  const arg = JSON.stringify({
+    selectedId: location.selectedId,
+    isEditing: location.isEditing,
+    searchText: location.searchText,
+  })
+
+  // we have to use another nodejs process to render it
+  // since it's very tricky within the webpack environment
+  // @TODO: how can we make streaming work?
+  // const { stdout, stderr } = await exec(`node ./_render.server.js '${arg}'`)
+  // if (stderr) {
+  //   throw new Error(stderr)
+  // }
+  
   console.time('react render')
   const output = await generate({
     selectedId: location.selectedId,
