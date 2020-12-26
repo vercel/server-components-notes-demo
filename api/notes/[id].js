@@ -13,8 +13,8 @@ export default async (req, res) => {
     const notes = JSON.parse(await redis.get('rsc:notes') || '[]')
     const index = notes.findIndex(note => note.id === id)
     if (index >= 0) {
-      const updated = notes.splice(index, 1)
-      await redis.set('rsc:notes', JSON.stringify(updated))
+      notes.splice(index, 1)
+      await redis.set('rsc:notes', JSON.stringify(notes))
     }
     return sendRes(req, res, null)
   }
