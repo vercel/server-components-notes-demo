@@ -4,8 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "postinstall": "node scripts/build",
     "dev": "next",
-    "build": "node scripts/build && next build",
+    "build": "next build",
     "start": "next start"
   },
   "dependencies": {

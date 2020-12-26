@@ -13,6 +13,5 @@ Then change `components/Cache.client.js` line 27 to your environment's url origi
 
 ## Development
 
-1. `yarn install`
-2. `yarn build` to build necessary API deps
-3. `vercel dev`
+1. `yarn install` (this will trigger the postinstall command)
+2. `vercel dev`
