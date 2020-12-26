@@ -6,37 +6,31 @@ export default async (req, res) => {
 
   if (req.method === 'GET') {
     console.time('get item from redis')
-    const notes = JSON.parse(await redis.get('rsc:notes') || '[]')
+    const note = await redis.hget('rsc:notes_2', id) || 'null'
     console.timeEnd('get item from redis')
-    return res.send(notes.find(note => note.id === id) || null)
+    
+    return res.send(note)
   }
 
   if (req.method === 'DELETE') {
     console.time('delete item from redis')
-    const notes = JSON.parse(await redis.get('rsc:notes') || '[]')
-    const index = notes.findIndex(note => note.id === id)
-    if (index >= 0) {
-      notes.splice(index, 1)
-      await redis.set('rsc:notes', JSON.stringify(notes))
-    }
+    await redis.hdel('rsc:notes_2', id)
     console.timeEnd('delete item from redis')
+
     return sendRes(req, res, null)
   }
 
   if (req.method === 'PUT') {
     console.time('update item from redis')
-    const notes = JSON.parse(await redis.get('rsc:notes') || '[]')
-    const updated = notes.map(note => {
-      if (note.id !== id) return note
-      return {
-        id,
-        title: (req.body.title || '').slice(0, 255),
-        updated_at: Date.now(),
-        body: (req.body.body || '').slice(0, 2048)
-      }
-    })
-    await redis.set('rsc:notes', JSON.stringify(updated))
+    const updated = {
+      id,
+      title: (req.body.title || '').slice(0, 255),
+      updated_at: Date.now(),
+      body: (req.body.body || '').slice(0, 2048)
+    }
+    await redis.hset('rsc:notes_2', id, JSON.stringify(updated))
     console.timeEnd('update item from redis')
+
     return sendRes(req, res, null)
   }
 }
