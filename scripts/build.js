@@ -10,7 +10,7 @@ webpack({
     libraryTarget: 'commonjs2'
   },
   optimization: {
-    minimize: false
+    // minimize: false
   },
   module: {
     rules: [
