@@ -299,7 +299,7 @@ ul.notes-list {
   max-width: 350px;
   min-width: 250px;
   width: 30%;
-  height: 100%;
+  height: auto;
 }
 .sidebar-toggle {
   display: none;
