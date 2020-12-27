@@ -33,4 +33,6 @@ export default async (req, res) => {
 
     return sendRes(req, res, null)
   }
+  
+  return res.send('Method not allowed.')
 }

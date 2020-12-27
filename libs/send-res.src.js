@@ -33,7 +33,13 @@ module.exports = async (req, res, redirectToId) => {
   console.time('react render')
   res.on('close', () => console.timeEnd('react render'))
 
-  const location = JSON.parse(req.query.location)
+  let location
+  try {
+    location = JSON.parse(req.query.location)
+  } catch (err) {
+    return res.send('Missing parameter, skipped.')
+  }
+
   if (redirectToId) {
     location.selectedId = redirectToId
   }
