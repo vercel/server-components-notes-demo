@@ -122,8 +122,7 @@ body {
   background: var(--gray-100);
   font-weight: 400;
   line-height: 1.75;
-  height: 100vh;
-  height: stretch;
+  height: 100%;
 }
 
 h1,
@@ -203,13 +202,11 @@ hr {
 
 /* ---------------------------------------------------------------------------*/
 #__next {
-  height: 100vh;
-  height: stretch;
+  height: 100%;
 }
 
 .container {
   height: 100%;
-  height: stretch;
   display: flex;
   flex-direction: column;
 }
