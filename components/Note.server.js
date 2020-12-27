@@ -19,7 +19,7 @@ const endpoint = process.env.ENDPOINT
 export default function Note({selectedId, isEditing}) {
   const note =
     selectedId != null
-      ? fetch(`${endpoint}/api/notes/${selectedId}`).json()
+      ? fetch(`${endpoint}/api?id=${selectedId}`).json()
       : null;
 
   if (note === null) {

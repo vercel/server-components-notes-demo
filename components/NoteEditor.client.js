@@ -20,11 +20,11 @@ export default function NoteEditor({noteId, initialTitle, initialBody}) {
   const [location, setLocation] = useLocation();
   const [startNavigating, isNavigating] = unstable_useTransition();
   const [isSaving, saveNote] = useMutation({
-    endpoint: noteId !== null ? `/api/notes/${noteId}` : `/api/notes/0`,
+    endpoint: noteId !== null ? `/api?id=${noteId}` : `/api?id=0`,
     method: noteId !== null ? 'PUT' : 'POST',
   });
   const [isDeleting, deleteNote] = useMutation({
-    endpoint: `/api/notes/${noteId}`,
+    endpoint: `/api?id=${noteId}`,
     method: 'DELETE',
   });
 

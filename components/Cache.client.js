@@ -27,7 +27,7 @@ export function useServerResponse(location) {
     fetch(
       // 'http://localhost:3000' +
       'https://next-server-components.vercel.app' +
-      '/api/react.server?location=' + encodeURIComponent(key)
+      '/api?location=' + encodeURIComponent(key)
     )
   );
   cache.set(key, response);

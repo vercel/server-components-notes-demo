@@ -4,7 +4,7 @@ import sendRes from '../../libs/send-res.server'
 export default async (req, res) => {
   const id = +req.query.id
 
-  // if `id` is `0`, we GET/POST for all notes
+  // if `id` is `0`, it points to the /notes endpoint
   if (id === 0) {
     if (req.method === 'GET') {
       console.time('get all items from redis')
@@ -38,7 +38,9 @@ export default async (req, res) => {
   
       return sendRes(req, res, id)
     }
-  } else {
+  } else if (!isNaN(id)) {
+    // if `id` is a number, it points to the /notes/[id] endpoint
+
     if (req.method === 'GET') {
       console.time('get item from redis')
       const note = await redis.hget('rsc:notes_2', id) || 'null'
@@ -69,6 +71,11 @@ export default async (req, res) => {
       return sendRes(req, res, null)
     }
   }
+
+  // if `id` is undefined, it points to /react endpoint
+  if (req.method !== 'GET') {
+    return res.send('Method not allowed.')
+  }
   
-  return res.send('Method not allowed.')
+  sendRes(req, res, null)
 }
