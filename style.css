@@ -410,6 +410,7 @@ ul.notes-list {
   }
   .sidebar-toggle:not(:checked) ~ .note-viewer {
     opacity: .2;
+    pointer-events: none;
   }
   .sidebar-header {
     padding-top: 14px;
@@ -580,6 +581,7 @@ ul.notes-list {
   line-height: 1.3;
   flex-grow: 1;
   overflow-wrap: break-word;
+  word-break: break-word;
 }
 .note-updated-at {
   color: var(--secondary-text);
