@@ -397,6 +397,7 @@ ul.notes-list {
   .sidebar {
     position: absolute;
     transition: all .4s ease;
+    height: 100%;
   }
   .sidebar-toggle:checked {
     background: url(/menu.svg) #e2e2e2;
