@@ -14,7 +14,7 @@ import SidebarNote from './SidebarNote'
 const endpoint = process.env.ENDPOINT
 
 export default function NoteList({searchText}) {
-  const notes = fetch(endpoint + '/api/notes').json()
+  const notes = fetch(endpoint + '/api/notes/0').json()
 
   return notes.length > 0 ? (
     <ul className="notes-list">

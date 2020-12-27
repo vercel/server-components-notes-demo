@@ -123,7 +123,7 @@ body {
   font-weight: 400;
   line-height: 1.75;
   height: 100vh;
-  height: fill-available;
+  height: stretch;
 }
 
 h1,
@@ -204,12 +204,12 @@ hr {
 /* ---------------------------------------------------------------------------*/
 #__next {
   height: 100vh;
-  height: fill-available;
+  height: stretch;
 }
 
 .container {
   height: 100%;
-  height: fill-available;
+  height: stretch;
   display: flex;
   flex-direction: column;
 }
