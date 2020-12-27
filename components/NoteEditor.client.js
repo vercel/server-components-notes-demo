@@ -145,7 +145,7 @@ function useMutation({endpoint, method}) {
     setIsSaving(true);
     try {
       const response = await fetch(
-        `${endpoint}?location=${encodeURIComponent(
+        `${endpoint}&location=${encodeURIComponent(
           JSON.stringify(requestedLocation)
         )}`,
         {
