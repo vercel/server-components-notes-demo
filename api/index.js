@@ -22,9 +22,9 @@ export default async (req, res) => {
   
       if (await redis.hlen('rsc:notes_2') >= 20) {
         console.timeEnd('create item from redis')
-        return sendRes(req, res, result.id)
+        return sendRes(req, res, null)
       }
-    
+
       const id = Date.now();
       const newNote = {
         id,
