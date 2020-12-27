@@ -51,6 +51,11 @@ export default function SidebarNote({id, title, children, expandedChildren}) {
         }}
         onClick={() => {
           startTransition(() => {
+            // hide the sidebar
+            const sidebarToggle = document.getElementById('sidebar-toggle')
+            if (sidebarToggle) {
+              sidebarToggle.checked = true
+            }
             setLocation((loc) => ({
               selectedId: id,
               isEditing: false,

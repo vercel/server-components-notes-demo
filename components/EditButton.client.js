@@ -22,6 +22,13 @@ export default function EditButton({noteId, children}) {
       ].join(' ')}
       disabled={isPending}
       onClick={() => {
+        if (isDraft) {
+          // hide the sidebar
+          const sidebarToggle = document.getElementById('sidebar-toggle')
+          if (sidebarToggle) {
+            sidebarToggle.checked = true
+          }
+        }
         startTransition(() => {
           setLocation((loc) => ({
             selectedId: noteId,

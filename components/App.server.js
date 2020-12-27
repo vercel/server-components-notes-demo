@@ -15,7 +15,7 @@ export default function App({selectedId, isEditing, searchText}) {
       <a href="https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html?utm_source=vercel" target="_blank">Learn more →</a>
     </div>
     <div className="main">
-      <input type="checkbox" class="sidebar-toggle" />
+      <input type="checkbox" class="sidebar-toggle" id="sidebar-toggle" />
       <section className="col sidebar">
         <section className="sidebar-header">
           <img
