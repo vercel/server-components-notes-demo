@@ -45,7 +45,6 @@ export default async (req, res) => {
       }
     )).json()
 
-    console.log(data)
     const accessToken = data.access_token
 
     // Let's also fetch the user info and store it in the session
@@ -59,7 +58,6 @@ export default async (req, res) => {
             'Accept': 'application/json'
         }
       })).json()
-      console.log(userInfo)
 
       req.session.login = userInfo.login
     } else {
