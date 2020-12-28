@@ -8,11 +8,4 @@ const session = cookieSession({
 
 export default (req, res) => {
   session(req, res)
-
-  const { accessToken, accessTokenSecret } = req.session
-  if (accessToken && accessTokenSecret) {
-    req.isLoggedIn = true
-  } else {
-    req.isLoggedIn = false
-  }
 }

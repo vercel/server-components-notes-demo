@@ -1,56 +1,75 @@
 import fetch from 'node-fetch'
 
-import oauth from '../lib/oauth'
-import session from '../lib/session'
+import session from '../libs/session'
+
+const CLIENT_ID = process.env.OAUTH_CLIENT_KEY
+const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
 
 export default async (req, res) => {
   session(req, res)
 
-  const { oauth_token, oauth_verifier } = req.query
+  const { code, verify } = req.query
 
-  // When there's no `oauth_token` param in this callback
+  // When there's no `code` param in this callback
   // request, it's a GET from the client side. 
-  // We return the authorization.
-  if (!oauth_token) {
-    console.log(req.session)
-    return res.send(JSON.stringify({
-      isLoggedIn: req.isLoggedIn
-    }))
+  // We go with the login flow.
+  if (!code) {
+    // Verify the authorization status
+    if (verify) {
+      console.log(req.session)
+      return res.send(JSON.stringify({
+        isLoggedIn: req.session.isLoggedIn
+      }))
+    }
+
+    // Login with GitHub
+    return res.writeHead(302, {
+      Location: `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&allow_signup=false`
+    })
   }
 
-  const { oauthToken, oauthTokenSecret } = req.session
-
-  const [accessToken, accessTokenSecret] = await new Promise((resolve, reject) => {
-    oauth.getOAuthAccessToken(
-      oauthToken,
-      oauthTokenSecret,
-      oauth_verifier,
-      (err, ...rest) => {
-        if (err) {
-          reject(err)
-          return
-        }
-        resolve(rest)
-      }
-    )
-  })
-
-  // Let's also fetch the user info
-  if (accessToken) {
-    const userInfo = await (await fetch('https://api.github.com/user', {
-      method: 'GET',
-      withCredentials: true,
-      credentials: 'include',
-      headers: {
-          'Authorization': `Bearer ${accessToken}`,
+  try {
+    const data = await (await fetch(
+      'https://github.com/login/oauth/access_token',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          code
+        }),
+        headers: {
           'Content-Type': 'application/json'
+        }
       }
-    })).json()
-    console.log(userInfo)
+    )).json()
+
+    const accessToken = data.access_token
+
+    // Let's also fetch the user info and store it in the session
+    if (accessToken) {
+      const userInfo = await (await fetch('https://api.github.com/user', {
+        method: 'GET',
+        withCredentials: true,
+        credentials: 'include',
+        headers: {
+            'Authorization': `token ${accessToken}`,
+            'Content-Type': 'application/json'
+        }
+      })).json()
+      console.log(userInfo)
+
+      // req.session.accessToken = accessToken
+      // req.session.accessTokenSecret = accessTokenSecret
+      req.session.isLoggedIn = true
+    } else {
+      req.session.isLoggedIn = false
+    }
+  } catch (err) {
+    console.error(err)
+    return res.status(500)
   }
 
-  req.session.accessToken = accessToken
-  req.session.accessTokenSecret = accessTokenSecret
   res.writeHead(302, { Location: `/` })
   res.end()
 }
