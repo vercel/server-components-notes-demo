@@ -40,7 +40,7 @@ export default async (req, res) => {
           code
         }),
         headers: {
-          'Content-Type': 'application/json'
+          'Accept': 'application/json'
         }
       }
     )).json()
@@ -55,7 +55,7 @@ export default async (req, res) => {
         credentials: 'include',
         headers: {
             'Authorization': `token ${accessToken}`,
-            'Content-Type': 'application/json'
+            'Accept': 'application/json'
         }
       })).json()
       console.log(userInfo)
@@ -63,12 +63,13 @@ export default async (req, res) => {
       // req.session.accessToken = accessToken
       // req.session.accessTokenSecret = accessTokenSecret
       req.session.isLoggedIn = true
+      req.session.login = userInfo.login
     } else {
       req.session.isLoggedIn = false
     }
   } catch (err) {
     console.error(err)
-    return res.status(500).send({ error: 'Failed to auth.' + err.message })
+    return res.status(500).send({ error: 'Failed to auth.' })
   }
 
   res.writeHead(302, { Location: `/` })
