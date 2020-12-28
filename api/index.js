@@ -52,16 +52,16 @@ export default async (req, res) => {
   } else if (!isNaN(id)) {
     // if `id` is a number, it points to the /notes/[id] endpoint
 
+    console.time('get item from redis')
+    const note = await redis.hget('rsc:notes_2', id) || 'null'
+    console.timeEnd('get item from redis')
+    
     if (req.method === 'GET') {
-      console.time('get item from redis')
-      const note = await redis.hget('rsc:notes_2', id) || 'null'
-      console.timeEnd('get item from redis')
-      
       return res.send(note)
     }
 
     if (req.method === 'DELETE') {
-      if (!login) {
+      if (!login || login !== note.created_by) {
         return res.status(403).send('Unauthorized')
       }
 
@@ -73,7 +73,7 @@ export default async (req, res) => {
     }
 
     if (req.method === 'PUT') {
-      if (!login) {
+      if (!login || login !== note.created_by) {
         return res.status(403).send('Unauthorized')
       }
 
