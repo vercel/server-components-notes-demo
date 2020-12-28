@@ -10,8 +10,9 @@ import React from 'react';
 import {fetch} from 'react-fetch';
 import {format} from 'date-fns';
 
-import NotePreview from './NotePreview';
-import NoteEditor from './NoteEditor.client';
+import NotePreview from './NotePreview'
+import NoteEditor from './NoteEditor.client'
+import EditButton from './EditButton.client'
 
 import AuthButton from './AuthButton.server'
 
@@ -64,7 +65,7 @@ export default function Note({selectedId, isEditing, login}) {
             {
               login === created_by
                 ? <AuthButton login={login} noteId={id}>Edit</AuthButton>
-                : <AuthButton disabled noteId={id}>Unauthorized</AuthButton>
+                : <EditButton disabled noteId={id} title="You can only edit your notes">Unauthorized</EditButton>
             }
           </div>
         </div>
