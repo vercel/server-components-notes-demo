@@ -16,9 +16,8 @@ export default async (req, res) => {
   if (!code) {
     // Verify the authorization status
     if (verify) {
-      console.log(req.session)
       return res.send(JSON.stringify({
-        isLoggedIn: req.session.isLoggedIn
+        login: req.session.login
       }))
     }
 
@@ -45,6 +44,7 @@ export default async (req, res) => {
       }
     )).json()
 
+    console.log(data)
     const accessToken = data.access_token
 
     // Let's also fetch the user info and store it in the session
@@ -60,12 +60,9 @@ export default async (req, res) => {
       })).json()
       console.log(userInfo)
 
-      // req.session.accessToken = accessToken
-      // req.session.accessTokenSecret = accessTokenSecret
-      req.session.isLoggedIn = true
       req.session.login = userInfo.login
     } else {
-      req.session.isLoggedIn = false
+      req.session.login = ''
     }
   } catch (err) {
     console.error(err)
