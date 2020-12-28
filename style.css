@@ -241,6 +241,7 @@ hr {
   border: 1px solid #ccc;
   vertical-align: -5px;
   margin-right: -5px;
+  margin-left: 5px;
 }
 .edit-button {
   border-radius: 100px;
@@ -604,12 +605,12 @@ ul.notes-list {
 
 .note-editor {
   display: flex;
-  padding: 20px;
+  padding: 16px;
   background: var(--white);
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1), 0px 0px 2px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  width: calc(100% - 40px);
-  height: calc(100% - 40px);
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
   overflow-y: auto;
 }
 .note-editor .label {
