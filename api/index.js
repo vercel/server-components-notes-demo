@@ -20,7 +20,7 @@ export default async (req, res) => {
     if (req.method === 'POST') {
       console.time('create item from redis')
 
-      if (await redis.hlen('rsc:notes_2') >= 20) {
+      if (await redis.hlen('rsc:notes_2') >= 40) {
         // let's remove the oldest note
         const noteIds = (await redis.hkeys('rsc:notes_2')).sort()
         if (noteIds[0]) {

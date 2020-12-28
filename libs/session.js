@@ -1,0 +1,18 @@
+import cookieSession from 'micro-cookie-session'
+
+const session = cookieSession({
+  name: 'session',
+  keys: [process.env.SESSION_KEY],
+  maxAge: 24 * 60 * 60 * 1000
+})
+
+export default (req, res) => {
+  session(req, res)
+
+  const { accessToken, accessTokenSecret } = req.session
+  if (accessToken && accessTokenSecret) {
+    req.isLoggedIn = true
+  } else {
+    req.isLoggedIn = false
+  }
+}

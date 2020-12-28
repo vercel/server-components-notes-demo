@@ -163,6 +163,7 @@ pre {
   background: var(--gray-95);
   padding: 12px;
   line-height: 1.5;
+  overflow: auto;
 }
 code {
   background: var(--yellow);
@@ -541,15 +542,16 @@ ul.notes-list {
   align-items: center;
   justify-content: center;
   height: auto;
+  max-width: 100%;
   transition: opacity .3s ease;
 }
 .note {
   background: var(--white);
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1), 0px 0px 2px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  width: calc(100% - 40px);
-  height: calc(100% - 40px);
-  padding: 20px;
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
+  padding: 16px;
   overflow-y: auto;
 }
 .note--empty-state {
@@ -587,7 +589,7 @@ ul.notes-list {
   overflow: hidden;
 }
 .note-preview {
-  margin-block-start: 50px;
+  margin: 50px 0;
 }
 
 .note-editor {
