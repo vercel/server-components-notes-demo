@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "api/index.js": {
-      "memory": 2048
-    }
-  }
-}

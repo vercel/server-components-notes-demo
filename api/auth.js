@@ -68,7 +68,7 @@ export default async (req, res) => {
     }
   } catch (err) {
     console.error(err)
-    return res.status(500).send({ error: 'Failed to auth.' })
+    return res.status(500).send({ error: 'Failed to auth.' + err.message })
   }
 
   res.writeHead(302, { Location: `/` })
