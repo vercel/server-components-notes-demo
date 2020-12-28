@@ -6,7 +6,7 @@
  *
  */
 
-import React, { Suspense } from 'react';
+import React from 'react';
 import {fetch} from 'react-fetch';
 import {format} from 'date-fns';
 
@@ -39,7 +39,7 @@ export default function Note({selectedId, isEditing, login}) {
     }
   }
 
-  let {id, title, body, updated_at} = note;
+  let {id, title, body, updated_at, created_by: created_by} = note;
   const updatedAt = new Date(updated_at);
 
   if (isEditing) {
@@ -49,21 +49,23 @@ export default function Note({selectedId, isEditing, login}) {
       <div className="note">
         <div className="note-header">
           <h1 className="note-title">{title}</h1>
-          {login ? 
+          {created_by ? 
             <div style={{
               flex: '1 0 100%',
               order: '-1',
               marginTop: 10
-            }}>By <img src={`https://avatars.githubusercontent.com/${login}?s=40`} alt="User Avatar" title={login} className="avatar" /></div> :
+            }}>By <img src={`https://avatars.githubusercontent.com/${created_by}?s=40`} alt="User Avatar" title={created_by} className="avatar" /></div> :
             null
           }
           <div className="note-menu" role="menubar">
             <small className="note-updated-at" role="status">
               Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
             </small>
-            <Suspense fallback={null}>
-              <AuthButton login={login} noteId={id}>Edit</AuthButton>
-            </Suspense>
+            {
+              login === created_by
+                ? <AuthButton login={login} noteId={id}>Edit</AuthButton>
+                : <AuthButton disabled noteId={id}>Unauthorized</AuthButton>
+            }
           </div>
         </div>
         <NotePreview body={body} />

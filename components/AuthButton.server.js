@@ -10,5 +10,5 @@ export default function AuthButton({ children, login, ...props }) {
     </EditButton>
   }
 
-  return <EditButton login noteId={null}>Login to {children}</EditButton>
+  return <EditButton login {...props}>Login to {children}</EditButton>
 }

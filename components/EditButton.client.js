@@ -10,7 +10,7 @@ import React, {unstable_useTransition} from 'react';
 
 import {useLocation} from './LocationContext.client';
 
-export default function EditButton({login, noteId, children}) {
+export default function EditButton({login, noteId, disabled, children}) {
   const [, setLocation] = useLocation();
   const [startTransition, isPending] = unstable_useTransition();
   const isDraft = noteId == null;
@@ -20,7 +20,7 @@ export default function EditButton({login, noteId, children}) {
         'edit-button',
         isDraft ? 'edit-button--solid' : 'edit-button--outline',
       ].join(' ')}
-      disabled={isPending}
+      disabled={isPending || disabled}
       onClick={() => {
         if (login) {
           // login needed

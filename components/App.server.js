@@ -30,9 +30,7 @@ export default function App({selectedId, isEditing, searchText, login}) {
         </section>
         <section className="sidebar-menu" role="menubar">
           <SearchField />
-          <Suspense fallback={null}>
-            <AuthButton login={login} noteId={null}>Add</AuthButton>
-          </Suspense>
+          <AuthButton login={login} noteId={null}>Add</AuthButton>
         </section>
         <nav>
           <Suspense fallback={<NoteListSkeleton />}>
