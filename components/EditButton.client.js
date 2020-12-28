@@ -10,7 +10,7 @@ import React, {unstable_useTransition} from 'react';
 
 import {useLocation} from './LocationContext.client';
 
-export default function EditButton({noteId, children}) {
+export default function EditButton({login, noteId, children}) {
   const [, setLocation] = useLocation();
   const [startTransition, isPending] = unstable_useTransition();
   const isDraft = noteId == null;
@@ -22,6 +22,11 @@ export default function EditButton({noteId, children}) {
       ].join(' ')}
       disabled={isPending}
       onClick={() => {
+        if (login) {
+          // login needed
+          window.location = '/api/auth'
+          return
+        }
         if (isDraft) {
           // hide the sidebar
           const sidebarToggle = document.getElementById('sidebar-toggle')

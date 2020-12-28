@@ -233,6 +233,15 @@ hr {
   margin-inline-end: 10px;
 }
 
+.avatar {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border-radius: 100%;
+  border: 1px solid #ccc;
+  vertical-align: -5px;
+  margin-right: -5px;
+}
 .edit-button {
   border-radius: 100px;
   letter-spacing: 0.12em;
@@ -242,6 +251,7 @@ hr {
   font-weight: 700;
   font-size: 14px;
   outline-style: none;
+  white-space: nowrap;
 }
 .edit-button--solid {
   background: var(--primary-blue);

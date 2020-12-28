@@ -49,5 +49,6 @@ module.exports = async (req, res, redirectToId) => {
     selectedId: location.selectedId,
     isEditing: location.isEditing,
     searchText: location.searchText,
+    login: req.session.login || null
   }, res)
 }

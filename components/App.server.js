@@ -1,15 +1,15 @@
 import React, {Suspense} from 'react'
 
 import SearchField from './SearchField.client'
-import EditButton from './EditButton.client'
 
 import Note from './Note.server'
 import NoteList from './NoteList.server'
+import AuthButton from './AuthButton.server'
 
 import NoteSkeleton from './NoteSkeleton'
 import NoteListSkeleton from './NoteListSkeleton'
 
-export default function App({selectedId, isEditing, searchText}) {
+export default function App({selectedId, isEditing, searchText, login}) {
   return <div className="container">
     <div className="banner">
       <a href="https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html?utm_source=vercel" target="_blank">Learn more →</a>
@@ -30,7 +30,9 @@ export default function App({selectedId, isEditing, searchText}) {
         </section>
         <section className="sidebar-menu" role="menubar">
           <SearchField />
-          <EditButton noteId={null}>New</EditButton>
+          <Suspense fallback={null}>
+            <AuthButton login={login} noteId={null}>Add</AuthButton>
+          </Suspense>
         </section>
         <nav>
           <Suspense fallback={<NoteListSkeleton />}>
@@ -40,7 +42,7 @@ export default function App({selectedId, isEditing, searchText}) {
       </section>
       <section className="col note-viewer">
         <Suspense fallback={<NoteSkeleton isEditing={isEditing} />}>
-          <Note selectedId={selectedId} isEditing={isEditing} />
+          <Note login={login} selectedId={selectedId} isEditing={isEditing} />
         </Suspense>
       </section>
     </div>

@@ -3,7 +3,6 @@ import {ErrorBoundary} from 'react-error-boundary'
 
 import {useServerResponse} from './Cache.client'
 import {LocationContext} from './LocationContext.client'
-import Spinner from './Spinner'
 
 export default function Root() {
   return (

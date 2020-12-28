@@ -1,8 +1,11 @@
 import redis from '../libs/redis.server'
 import sendRes from '../libs/send-res.server'
+import session from '../libs/session'
 
 export default async (req, res) => {
+  session(req, res)
   const id = +req.query.id
+  const login = req.session.login
 
   // if `id` is `0`, it points to the /notes endpoint
   if (id === 0) {
@@ -18,6 +21,10 @@ export default async (req, res) => {
     }
   
     if (req.method === 'POST') {
+      if (!login) {
+        return res.status(403).send('Unauthorized')
+      }
+
       console.time('create item from redis')
 
       if (await redis.hlen('rsc:notes_2') >= 40) {
@@ -33,7 +40,8 @@ export default async (req, res) => {
         id,
         title: (req.body.title || '').slice(0, 255),
         updated_at: Date.now(),
-        body: (req.body.body || '').slice(0, 2048)
+        body: (req.body.body || '').slice(0, 2048),
+        created_by: login
       }
   
       await redis.hset('rsc:notes_2', id, JSON.stringify(newNote))
@@ -53,6 +61,10 @@ export default async (req, res) => {
     }
 
     if (req.method === 'DELETE') {
+      if (!login) {
+        return res.status(403).send('Unauthorized')
+      }
+
       console.time('delete item from redis')
       await redis.hdel('rsc:notes_2', id)
       console.timeEnd('delete item from redis')
@@ -61,12 +73,17 @@ export default async (req, res) => {
     }
 
     if (req.method === 'PUT') {
+      if (!login) {
+        return res.status(403).send('Unauthorized')
+      }
+
       console.time('update item from redis')
       const updated = {
         id,
         title: (req.body.title || '').slice(0, 255),
         updated_at: Date.now(),
-        body: (req.body.body || '').slice(0, 2048)
+        body: (req.body.body || '').slice(0, 2048),
+        created_by: login
       }
       await redis.hset('rsc:notes_2', id, JSON.stringify(updated))
       console.timeEnd('update item from redis')

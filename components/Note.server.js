@@ -6,17 +6,18 @@
  *
  */
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import {fetch} from 'react-fetch';
 import {format} from 'date-fns';
 
 import NotePreview from './NotePreview';
-import EditButton from './EditButton.client';
 import NoteEditor from './NoteEditor.client';
+
+import AuthButton from './AuthButton.server'
 
 const endpoint = process.env.ENDPOINT
 
-export default function Note({selectedId, isEditing}) {
+export default function Note({selectedId, isEditing, login}) {
   const note =
     selectedId != null
       ? fetch(`${endpoint}/api?id=${selectedId}`).json()
@@ -52,7 +53,9 @@ export default function Note({selectedId, isEditing}) {
             <small className="note-updated-at" role="status">
               Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
             </small>
-            <EditButton noteId={id}>Edit</EditButton>
+            <Suspense fallback={null}>
+              <AuthButton login={login} noteId={id}>Edit</AuthButton>
+            </Suspense>
           </div>
         </div>
         <NotePreview body={body} />
