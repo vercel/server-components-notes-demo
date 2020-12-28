@@ -8,19 +8,12 @@ const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
 export default async (req, res) => {
   session(req, res)
 
-  const { code, verify } = req.query
+  const { code } = req.query
 
   // When there's no `code` param in this callback
   // request, it's a GET from the client side. 
   // We go with the login flow.
   if (!code) {
-    // Verify the authorization status
-    if (verify) {
-      return res.send(JSON.stringify({
-        login: req.session.login
-      }))
-    }
-
     // Login with GitHub
     res.writeHead(302, {
       Location: `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&allow_signup=false`
