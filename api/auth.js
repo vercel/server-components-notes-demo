@@ -23,9 +23,10 @@ export default async (req, res) => {
     }
 
     // Login with GitHub
-    return res.writeHead(302, {
+    res.writeHead(302, {
       Location: `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&allow_signup=false`
     })
+    return res.end()
   }
 
   try {
@@ -67,7 +68,7 @@ export default async (req, res) => {
     }
   } catch (err) {
     console.error(err)
-    return res.status(500)
+    return res.status(500).send({ error: 'Failed to auth.' })
   }
 
   res.writeHead(302, { Location: `/` })
