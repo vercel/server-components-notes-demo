@@ -12,7 +12,6 @@ import {format} from 'date-fns';
 
 import NotePreview from './NotePreview'
 import NoteEditor from './NoteEditor.client'
-import EditButton from './EditButton.client'
 
 import AuthButton from './AuthButton.server'
 

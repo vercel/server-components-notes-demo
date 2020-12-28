@@ -14,8 +14,9 @@ async function renderReactTree(props, res) {
     const originalManifest = await response.json()
     const manifest = {}
 
-    // hack: we need to modify the filepath in the manifest
+    // Hack: we need to modify the filepath in the manifest
     // and proxy it to unify the map
+    // @TODO: this is unsafe, we need to consider file path as well
     for (let key in originalManifest) {
       manifest[key.split('/').pop()] = originalManifest[key]
     }
