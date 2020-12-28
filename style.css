@@ -253,6 +253,7 @@ hr {
   font-size: 14px;
   outline-style: none;
   white-space: nowrap;
+  flex: 0 0 auto;
 }
 .edit-button--solid {
   background: var(--primary-blue);

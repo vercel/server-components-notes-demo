@@ -49,6 +49,14 @@ export default function Note({selectedId, isEditing, login}) {
       <div className="note">
         <div className="note-header">
           <h1 className="note-title">{title}</h1>
+          {login ? 
+            <div style={{
+              flex: '1 0 100%',
+              order: '-1',
+              marginTop: 10
+            }}>By <img src={`https://avatars.githubusercontent.com/${login}?s=40`} alt="User Avatar" title={login} className="avatar" /></div> :
+            null
+          }
           <div className="note-menu" role="menubar">
             <small className="note-updated-at" role="status">
               Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
