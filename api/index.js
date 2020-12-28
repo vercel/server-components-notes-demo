@@ -53,11 +53,11 @@ export default async (req, res) => {
     // if `id` is a number, it points to the /notes/[id] endpoint
 
     console.time('get item from redis')
-    const note = await redis.hget('rsc:notes_2', id) || 'null'
+    const note = JSON.parse(await redis.hget('rsc:notes_2', id) || 'null')
     console.timeEnd('get item from redis')
     
     if (req.method === 'GET') {
-      return res.send(note)
+      return res.send(JSON.stringify(note))
     }
 
     if (req.method === 'DELETE') {
