@@ -55,7 +55,12 @@ export default function Note({selectedId, isEditing, login}) {
               flex: '1 0 100%',
               order: '-1',
               marginTop: 10
-            }}>By <img src={`https://avatars.githubusercontent.com/${created_by}?s=40`} alt="User Avatar" title={created_by} className="avatar" /></div> :
+            }}>By <img src={`https://avatars.githubusercontent.com/${created_by}?s=40`} alt="User Avatar" title={created_by} className="avatar" />
+              &nbsp;
+              <a href={`https://github.com/${created_by}`} target="_blank" rel="noopener noreferrer">
+                {created_by}
+              </a>
+            </div> :
             null
           }
           <div className="note-menu" role="menubar">
@@ -65,7 +70,7 @@ export default function Note({selectedId, isEditing, login}) {
             {
               login === created_by
                 ? <AuthButton login={login} noteId={id}>Edit</AuthButton>
-                : <EditButton disabled noteId={id} title="You can only edit your notes">Unauthorized</EditButton>
+                : <div style={{ height: 30 }}/>
             }
           </div>
         </div>

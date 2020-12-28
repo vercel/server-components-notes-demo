@@ -240,8 +240,10 @@ hr {
   border-radius: 100%;
   border: 1px solid #ccc;
   vertical-align: -5px;
-  margin-right: -5px;
   margin-left: 5px;
+}
+button .avatar {
+  margin-right: -5px;
 }
 .edit-button {
   border-radius: 100px;
