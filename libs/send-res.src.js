@@ -8,22 +8,26 @@ const fetch = require('node-fetch').default
 
 let moduleMap
 
+const componentRegex = /components\/.+\.js/
+
 async function renderReactTree(props, res) {
+  // @TODO: do this at build time
   if (!moduleMap) {
     const response = await fetch(endpoint + '/react-client-manifest.json')
     const originalManifest = await response.json()
     const manifest = {}
 
-    // Hack: we need to modify the filepath in the manifest
-    // and proxy it to unify the map
-    // @TODO: this is unsafe, we need to consider file path as well
+    // We need to remap the filepaths in the manifest
+    // because they have different working directory
+    // inside the function.
     for (let key in originalManifest) {
-      manifest[key.split('/').pop()] = originalManifest[key]
+      const componentPath = key.match(componentRegex)[0]
+      manifest[componentPath] = originalManifest[key]
     }
     moduleMap = new Proxy(manifest, {
       get: function(target, prop) {
-        console.log(prop)
-        return target[prop.split('/').pop()]
+        const componentPath = prop.match(componentRegex)[0]
+        return target[componentPath]
       }
     })
   }

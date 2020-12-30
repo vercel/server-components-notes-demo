@@ -21,7 +21,6 @@
     "marked": "^1.2.7",
     "micro-cookie-session": "^2.0.0-beta.1",
     "next": "^10.0.4",
-    "node-fetch": "^2.6.1",
     "oauth": "^0.9.15",
     "react": "0.0.0-experimental-3310209d0",
     "react-dom": "0.0.0-experimental-3310209d0",
