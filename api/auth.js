@@ -10,8 +10,8 @@ export default async (req, res) => {
 
   const { code } = req.query
 
-  // When there's no `code` param in this callback
-  // request, it's a GET from the client side. 
+  // When there's no `code` param specified,
+  // it's a GET from the client side. 
   // We go with the login flow.
   if (!code) {
     // Login with GitHub
@@ -40,7 +40,7 @@ export default async (req, res) => {
 
     const accessToken = data.access_token
 
-    // Let's also fetch the user info and store it in the session
+    // Let's also fetch the user info and store it in the session.
     if (accessToken) {
       const userInfo = await (await fetch('https://api.github.com/user', {
         method: 'GET',

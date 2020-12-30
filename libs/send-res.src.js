@@ -22,6 +22,7 @@ async function renderReactTree(props, res) {
     }
     moduleMap = new Proxy(manifest, {
       get: function(target, prop) {
+        console.log(prop)
         return target[prop.split('/').pop()]
       }
     })
