@@ -1,19 +1,17 @@
 const {pipeToNodeWritable} = require('react-server-dom-webpack/writer.node.server')
 
 const React = require('react')
-const ReactApp = require('../components/App.server').default
+const App = require('../components/App.server').default
 
 const endpoint = process.env.ENDPOINT
 const fetch = require('node-fetch').default
-
-const moduleMap_ = require('../public/react-client-manifest.json')
 
 let moduleMap
 
 const componentRegex = /components\/.+\.js/
 
 async function renderReactTree(props, res) {
-  console.log(moduleMap_)
+  // console.log(moduleMap_)
   // @TODO: do this at build time
   if (!moduleMap) {
     const response = await fetch(endpoint + '/react-client-manifest.json')
@@ -35,10 +33,10 @@ async function renderReactTree(props, res) {
     })
   }
 
-  pipeToNodeWritable(React.createElement(ReactApp, props), res, moduleMap)
+  pipeToNodeWritable(React.createElement(App, props), res, moduleMap)
 }
 
-module.exports = async (req, res, redirectToId) => {
+module.exports = async (req, res, redirectToId, moduleMap) => {
   console.time('react render')
   res.on('close', () => console.timeEnd('react render'))
 
@@ -59,5 +57,5 @@ module.exports = async (req, res, redirectToId) => {
     isEditing: location.isEditing,
     searchText: location.searchText,
     login: req.session.login || null
-  }, res)
+  }, res, moduleMap)
 }

@@ -9,4 +9,4 @@ yarn-error.log
 .env
 
 public/react-client-manifest.json
-libs/send-res.server.js
+libs/app.build.js

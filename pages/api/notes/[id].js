@@ -1,5 +1,5 @@
-import redis from '../../../libs/redis.server'
-import sendRes from '../../../libs/send-res.server'
+import redis from '../../../libs/redis'
+import sendRes from '../../../libs/send-res-with-module-map'
 import session from '../../../libs/session'
 
 export default async (req, res) => {

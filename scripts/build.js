@@ -3,10 +3,10 @@ const path = require('path')
 
 webpack({
   mode: 'production',
-  entry: './libs/send-res.src',
+  entry: './libs/send-res.js',
   output: {
     path: path.resolve('./libs'),
-    filename: 'send-res.server.js',
+    filename: 'send-res.build.js',
     libraryTarget: 'commonjs2'
   },
   optimization: {
