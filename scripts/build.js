@@ -36,7 +36,11 @@ webpack({
   stats: 'errors-only',
   target: 'node'
 }, (err, stats) => {
-  if (err || stats.hasErrors()) {
-    console.log('errored while compiling')
+  if (err) {
+    console.error(err)
+  }
+  if (stats.hasErrors()) {
+    const info = stats.toJson()
+    console.error(info.errors)
   }
 })
