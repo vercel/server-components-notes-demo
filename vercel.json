@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "pages/api/*.js": {
+      "includeFiles": "public/react-client-manifest.json"
+    }
+  }
+}

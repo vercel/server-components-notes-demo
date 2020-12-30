@@ -6,11 +6,14 @@ const ReactApp = require('../components/App.server').default
 const endpoint = process.env.ENDPOINT
 const fetch = require('node-fetch').default
 
+const moduleMap_ = require('../public/react-client-manifest.json')
+
 let moduleMap
 
 const componentRegex = /components\/.+\.js/
 
 async function renderReactTree(props, res) {
+  console.log(moduleMap_)
   // @TODO: do this at build time
   if (!moduleMap) {
     const response = await fetch(endpoint + '/react-client-manifest.json')
