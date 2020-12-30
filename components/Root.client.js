@@ -1,4 +1,4 @@
-import {useState, Suspense} from 'react';
+import {useState, Suspense} from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 
 import {useServerResponse} from './Cache.client'

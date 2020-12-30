@@ -15,6 +15,12 @@ webpack({
   module: {
     rules: [
       {
+        test: /\.client\.js/,
+        use: {
+          loader: path.resolve('./scripts/client-react-loader.js')
+        }
+      },
+      {
         test: /\.js$/,
         exclude: /(node_modules)/,
         use: {
@@ -23,12 +29,6 @@ webpack({
             presets: ['@babel/preset-react'],
             plugins: ['@babel/transform-modules-commonjs']
           }
-        }
-      },
-      {
-        test: /\.client\.js/,
-        use: {
-          loader: path.resolve('./scripts/client-react-loader.js')
         }
       }
     ],
