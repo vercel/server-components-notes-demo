@@ -8,5 +8,5 @@ yarn-error.log
 
 .env
 
-public/react-client-manifest.json
-libs/app.build.js
+libs/react-client-manifest.json
+libs/send-res.build.js

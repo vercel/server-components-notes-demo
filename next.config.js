@@ -16,7 +16,7 @@ class CopyReactClientManifest {
           return
         }
         manifest = content
-        fs.writeFile('./public/react-client-manifest.json', content, callback)
+        fs.writeFile('./libs/react-client-manifest.json', content, callback)
       }
     );
   }

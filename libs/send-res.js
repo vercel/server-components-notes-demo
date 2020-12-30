@@ -3,27 +3,19 @@ const {pipeToNodeWritable} = require('react-server-dom-webpack/writer.node.serve
 const React = require('react')
 const App = require('../components/App.server').default
 
-const endpoint = process.env.ENDPOINT
-const fetch = require('node-fetch').default
-
 let moduleMap
-
 const componentRegex = /components\/.+\.js/
 
 async function renderReactTree(props, res, moduleMap_) {
-  console.log(moduleMap_)
-  // @TODO: do this at build time
   if (!moduleMap) {
-    const response = await fetch(endpoint + '/react-client-manifest.json')
-    const originalManifest = await response.json()
     const manifest = {}
 
     // We need to remap the filepaths in the manifest
     // because they have different working directory
     // inside the function.
-    for (let key in originalManifest) {
+    for (let key in moduleMap_) {
       const componentPath = key.match(componentRegex)[0]
-      manifest[componentPath] = originalManifest[key]
+      manifest[componentPath] = moduleMap_[key]
     }
     moduleMap = new Proxy(manifest, {
       get: function(target, prop) {
