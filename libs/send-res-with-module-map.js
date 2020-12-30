@@ -1,6 +1,5 @@
 import sendRes from './send-res.build'
 
-const moduleMap_ = require('../public/react-client-manifest.json')
-console.log(moduleMap_)
+const moduleMap = require('../public/react-client-manifest.json')
 
-export default (...args) => sendRes(...args)
+export default (...args) => sendRes(...args, moduleMap)

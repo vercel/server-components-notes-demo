@@ -10,8 +10,8 @@ let moduleMap
 
 const componentRegex = /components\/.+\.js/
 
-async function renderReactTree(props, res) {
-  // console.log(moduleMap_)
+async function renderReactTree(props, res, moduleMap_) {
+  console.log(moduleMap_)
   // @TODO: do this at build time
   if (!moduleMap) {
     const response = await fetch(endpoint + '/react-client-manifest.json')
