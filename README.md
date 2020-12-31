@@ -1,6 +1,6 @@
 # React Server Components in Next.js
 
-React Server Components powered by Next.js.
+Experimental app of React Server Components with Next.js, based on [React Server Components Demo](https://github.com/reactjs/server-components-demo). **It's not ready for adoption. Use this in your projects at your own risk.**
 
 ## Development
 
