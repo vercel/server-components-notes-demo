@@ -14,7 +14,7 @@ export default function App({ selectedId, isEditing, searchText, login }) {
     <div className="container">
       <div className="banner">
         <a
-          href="https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html?utm_source=vercel"
+          href="https://vercel.com/blog/everything-about-react-server-components"
           target="_blank"
         >
           Learn more →
