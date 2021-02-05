@@ -31,10 +31,10 @@ Go to `localhost:3000` to view the application.
   <p>If you prefer Docker, make sure you have docker and docker-compose installed then follow the steps:</p>
   <p>1. prepare github oauth app id and secret</p>
   <p><a href="https://docs.github.com/en/developers/apps/authorizing-oauth-apps">how to enable other users to authorize your OAuth App.</a><p>
-  <p>2. replace OAUTH_CLIENT_KEY and OAUTH_CLIENT_SECRET in docker-compose.yml file</p>
-  <pre><code>environment: ß
-  OAUTH_CLIENT_KEY: {your app id}
-  OAUTH_CLIENT_SECRET: {your app secret}</code></pre>
+  <p>2. replace <code>OAUTH_CLIENT_KEY</code> and <code>OAUTH_CLIENT_SECRET</code> in docker-compose.yml file</p>
+  <pre><code>environment:
+  OAUTH_CLIENT_KEY: {github oauth app id from step 1}
+  OAUTH_CLIENT_SECRET: {github oauth app secret from step 1}</code></pre>
   <p>3. run container </p>
   <pre><code>docker-compose up</code></pre>
   <p>4. Go to <a href="http://localhost:3000">localhost:3000</a> to view the application.</p>
