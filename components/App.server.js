@@ -21,7 +21,7 @@ export default function App({ selectedId, isEditing, searchText, login }) {
         </a>
       </div>
       <div className="main">
-        <input type="checkbox" class="sidebar-toggle" id="sidebar-toggle" />
+        <input type="checkbox" className="sidebar-toggle" id="sidebar-toggle" />
         <section className="col sidebar">
           <section className="sidebar-header">
             <img
