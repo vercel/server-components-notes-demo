@@ -1,3 +1,3 @@
-import Root from '../components/Root.client'
+import App from '../components/App.server'
 
-export default Root
+export default App

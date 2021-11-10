@@ -1,17 +1,19 @@
 import React from 'react'
-import { fetch } from 'react-fetch'
+
 import { format } from 'date-fns'
 
 import NotePreview from './NotePreview'
 import NoteEditor from './NoteEditor.client'
 import AuthButton from './AuthButton.server'
+import { useData } from '../libs/use-fetch'
 
 const endpoint = process.env.ENDPOINT
 
 export default function Note({ selectedId, isEditing, login }) {
+  const apiKey = `${endpoint}/api/notes/${selectedId}`
   const note =
     selectedId != null
-      ? fetch(`${endpoint}/api/notes/${selectedId}`).json()
+      ? useData(apiKey, () => fetch(apiKey))
       : null
 
   if (note === null) {

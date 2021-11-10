@@ -9,7 +9,7 @@ import AuthButton from './AuthButton.server'
 import NoteSkeleton from './NoteSkeleton'
 import NoteListSkeleton from './NoteListSkeleton'
 
-export default function App({ selectedId, isEditing, searchText, login }) {
+export default function App({ selectedId, isEditing = false, searchText = '', login }) {
   return (
     <div className="container">
       <div className="banner">
@@ -21,7 +21,7 @@ export default function App({ selectedId, isEditing, searchText, login }) {
         </a>
       </div>
       <div className="main">
-        <input type="checkbox" class="sidebar-toggle" id="sidebar-toggle" />
+        <input type="checkbox" className="sidebar-toggle" id="sidebar-toggle" />
         <section className="col sidebar">
           <section className="sidebar-header">
             <img
@@ -35,10 +35,10 @@ export default function App({ selectedId, isEditing, searchText, login }) {
             <strong>React Notes</strong>
           </section>
           <section className="sidebar-menu" role="menubar">
-            <SearchField />
-            <AuthButton login={login} noteId={null}>
+            {/* <SearchField /> */}
+            {/* <AuthButton login={login} noteId={null}>
               Add
-            </AuthButton>
+            </AuthButton> */}
           </section>
           <nav>
             <Suspense fallback={<NoteListSkeleton />}>

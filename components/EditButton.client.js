@@ -1,6 +1,6 @@
-import React, { unstable_useTransition } from 'react'
+import React, { useTransition } from 'react'
 
-import { useLocation } from './LocationContext.client'
+// import { useLocation } from './LocationContext.client'
 
 export default function EditButton({
   login,
@@ -9,8 +9,8 @@ export default function EditButton({
   title,
   children,
 }) {
-  const [, setLocation] = useLocation()
-  const [startTransition, isPending] = unstable_useTransition()
+  // const [, setLocation] = useLocation()
+  const [startTransition, isPending] = useTransition()
   const isDraft = noteId == null
   return (
     <button
@@ -23,7 +23,7 @@ export default function EditButton({
       onClick={() => {
         if (login) {
           // login needed
-          window.location = '/api/auth'
+          // window.location = '/api/auth'
           return
         }
         if (isDraft) {
@@ -34,11 +34,11 @@ export default function EditButton({
           }
         }
         startTransition(() => {
-          setLocation(loc => ({
-            selectedId: noteId,
-            isEditing: true,
-            searchText: loc.searchText,
-          }))
+          // setLocation(loc => ({
+          //   selectedId: noteId,
+          //   isEditing: true,
+          //   searchText: loc.searchText,
+          // }))
         })
       }}
       role="menuitem"

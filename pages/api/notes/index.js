@@ -1,5 +1,5 @@
 import redis from '../../../libs/redis'
-import sendRes from '../../../libs/send-res-with-module-map'
+// import sendRes from '../../../libs/send-res-with-module-map'
 import session from '../../../libs/session'
 
 export default async (req, res) => {
@@ -13,7 +13,7 @@ export default async (req, res) => {
       .sort((a, b) => b.id - a.id)
 
     console.timeEnd('get all items from redis')
-    return res.send(JSON.stringify(notes))
+    return res.json(notes)
   }
 
   if (req.method === 'POST') {
@@ -45,7 +45,8 @@ export default async (req, res) => {
     await redis.hset('rsc:notes_2', id, JSON.stringify(newNote))
     console.timeEnd('create item from redis')
 
-    return sendRes(req, res, id)
+    return res.json(newNote)
+    // return sendRes(req, res, id)
   }
 
   return res.send('Method not allowed.')
