@@ -35,10 +35,10 @@ export default function App({ selectedId, isEditing = false, searchText = '', lo
             <strong>React Notes</strong>
           </section>
           <section className="sidebar-menu" role="menubar">
-            {/* <SearchField /> */}
-            {/* <AuthButton login={login} noteId={null}>
+            <SearchField />
+            <AuthButton login={login} noteId={null}>
               Add
-            </AuthButton> */}
+            </AuthButton>
           </section>
           <nav>
             <Suspense fallback={<NoteListSkeleton />}>

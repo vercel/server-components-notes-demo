@@ -15,13 +15,19 @@
     "ioredis": "^4.19.4",
     "marked": "^1.2.7",
     "micro-cookie-session": "^2.0.0-beta.1",
-    "next": "^12.0.4-canary.4",
+    "next": "file:../next.js/packages/next",
     "oauth": "^0.9.15",
     "react": "^0.0.0-experimental-327d5c484-20211106",
     "react-dom": "^0.0.0-experimental-327d5c484-20211106",
     "react-error-boundary": "^3.1.0",
     "react-fetch": "0.0.0-experimental-3310209d0",
     "sanitize-html": "^2.3.0"
+  },
+  "optionalDependencies": {
+    "@next/swc-darwin-arm64": "canary",
+    "@next/swc-darwin-x64": "canary",
+    "@next/swc-linux-x64-gnu": "canary",
+    "@next/swc-win32-x64-msvc": "canary"
   },
   "devDependencies": {
     "prettier": "2.2.1"

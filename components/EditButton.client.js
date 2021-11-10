@@ -10,7 +10,7 @@ export default function EditButton({
   children,
 }) {
   // const [, setLocation] = useLocation()
-  const [startTransition, isPending] = useTransition()
+  const [isPending, startTransition] = useTransition()
   const isDraft = noteId == null
   return (
     <button
@@ -18,12 +18,12 @@ export default function EditButton({
         'edit-button',
         isDraft ? 'edit-button--solid' : 'edit-button--outline',
       ].join(' ')}
-      disabled={isPending || disabled}
+      disabled={Boolean(isPending || disabled)}
       title={title}
       onClick={() => {
         if (login) {
           // login needed
-          // window.location = '/api/auth'
+          window.location = '/api/auth'
           return
         }
         if (isDraft) {

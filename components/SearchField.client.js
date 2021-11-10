@@ -5,7 +5,7 @@ import Spinner from './Spinner'
 
 export default function SearchField() {
   const [text, setText] = useState('')
-  const [startSearching, isSearching] = useTransition(false)
+  const [isSearching, startSearching] = useTransition({ timeoutMs: 200 })
   // const [, setLocation] = useLocation()
   return (
     <form className="search" role="search" onSubmit={e => e.preventDefault()}>

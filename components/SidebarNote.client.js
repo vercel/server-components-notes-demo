@@ -6,7 +6,7 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
   // const [location, setLocation] = useLocation()
   const location = {}
   const setLocation = () => {}
-  const [startTransition, isPending] = useTransition()
+  const [isPending, startTransition] = useTransition()
   const [isExpanded, setIsExpanded] = useState(false)
   const isActive = id === location.selectedId
 

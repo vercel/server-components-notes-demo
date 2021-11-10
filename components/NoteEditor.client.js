@@ -12,7 +12,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
   // const [location, setLocation] = useLocation()
   const location = {}
   const setLocation = () => {}
-  const [startNavigating, isNavigating] = useTransition()
+  const [isNavigating, startNavigating] = useTransition()
   const [isSaving, saveNote] = useMutation({
     endpoint: noteId !== null ? `/api/notes/${noteId}` : `/api/notes`,
     method: noteId !== null ? 'PUT' : 'POST',
@@ -86,7 +86,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
         <div className="note-editor-menu" role="menubar">
           <button
             className="note-editor-done"
-            disabled={isSaving || isNavigating}
+            disabled={Boolean(isSaving || isNavigating)}
             onClick={() => handleSave()}
             role="menuitem"
           >
@@ -102,7 +102,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
           {!isDraft && (
             <button
               className="note-editor-delete"
-              disabled={isDeleting || isNavigating}
+              disabled={Boolean(isDeleting || isNavigating)}
               onClick={() => handleDelete()}
               role="menuitem"
             >
