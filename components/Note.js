@@ -1,11 +1,10 @@
 import React from 'react'
-
 import { format } from 'date-fns'
+import { fetch as useFetch } from 'react-fetch'
 
 import NotePreview from './NotePreview'
 import NoteEditor from './NoteEditor.client'
 import AuthButton from './AuthButton.server'
-import { useData } from '../libs/use-fetch'
 
 const endpoint = process.env.ENDPOINT
 
@@ -13,7 +12,7 @@ export default function Note({ selectedId, isEditing, login }) {
   const apiKey = `${endpoint}/api/notes/${selectedId}`
   const note =
     selectedId != null
-      ? useData(apiKey, () => fetch(apiKey))
+      ? useFetch(apiKey).json()
       : null
 
   if (note === null) {
@@ -30,7 +29,7 @@ export default function Note({ selectedId, isEditing, login }) {
     }
   }
 
-  let { id, title, body, updated_at, created_by: created_by } = note
+  let { id, title, body, updated_at, created_by: createdBy } = note
   const updatedAt = new Date(updated_at)
 
   if (isEditing) {
@@ -40,7 +39,7 @@ export default function Note({ selectedId, isEditing, login }) {
       <div className="note">
         <div className="note-header">
           <h1 className="note-title">{title}</h1>
-          {created_by ? (
+          {createdBy ? (
             <div
               style={{
                 flex: '1 0 100%',
@@ -50,18 +49,18 @@ export default function Note({ selectedId, isEditing, login }) {
             >
               By{' '}
               <img
-                src={`https://avatars.githubusercontent.com/${created_by}?s=40`}
+                src={`https://avatars.githubusercontent.com/${createdBy}?s=40`}
                 alt="User Avatar"
-                title={created_by}
+                title={createdBy}
                 className="avatar"
               />
               &nbsp;
               <a
-                href={`https://github.com/${created_by}`}
+                href={`https://github.com/${createdBy}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {created_by}
+                {createdBy}
               </a>
             </div>
           ) : null}
@@ -69,7 +68,7 @@ export default function Note({ selectedId, isEditing, login }) {
             <small className="note-updated-at" role="status">
               Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
             </small>
-            {login === created_by ? (
+            {login === createdBy ? (
               <AuthButton login={login} noteId={id}>
                 Edit
               </AuthButton>

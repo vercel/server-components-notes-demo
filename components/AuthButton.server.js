@@ -1,9 +1,13 @@
 import React from 'react'
-
 import EditButton from './EditButton.client'
 
 export default function AuthButton({ children, login, ...props }) {
-  if (login) {
+  // return null
+  // DEBUG
+  // if (process.env.NODE_ENV === 'development') {
+  //   login = false
+  // }
+  if (!login) {
     return (
       <EditButton {...props}>
         {children}

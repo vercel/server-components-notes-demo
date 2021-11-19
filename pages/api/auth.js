@@ -3,8 +3,18 @@ import session from '../../libs/session'
 const CLIENT_ID = process.env.OAUTH_CLIENT_KEY
 const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
 
+function redirect(req, res, token) {
+  req.session.login = token
+  res.writeHead(302, { Location: `/` })
+  res.end()
+}
+
 export default async (req, res) => {
   session(req, res)
+  if (process.env.NODE_ENV === 'development') {
+    console.log('dev')
+    return redirect(req, res, 'dev_token')
+  }
 
   const { code } = req.query
 
@@ -19,6 +29,7 @@ export default async (req, res) => {
     return res.end()
   }
 
+  let token = ''
   try {
     const data = await (
       await fetch('https://github.com/login/oauth/access_token', {
@@ -51,15 +62,12 @@ export default async (req, res) => {
         })
       ).json()
 
-      req.session.login = userInfo.login
-    } else {
-      req.session.login = ''
+      token = userInfo.login
     }
   } catch (err) {
     console.error(err)
     return res.status(500).send({ error: 'Failed to auth.' })
   }
 
-  res.writeHead(302, { Location: `/` })
-  res.end()
+  return redirect(req, res, token)
 }

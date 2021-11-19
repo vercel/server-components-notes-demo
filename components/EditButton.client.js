@@ -9,6 +9,7 @@ export default function EditButton({
   title,
   children,
 }) {
+  console.log('login', login)
   // const [, setLocation] = useLocation()
   const [isPending, startTransition] = useTransition()
   const isDraft = noteId == null
