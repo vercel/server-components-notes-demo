@@ -14,7 +14,8 @@ const mockItem = {
 export default async (req, res) => {
   session(req, res)
   const id = +req.query.id
-  const login = req.session.login
+  // TODO: add auth logic
+  const login = req.session.login || 'huozhi'
 
   console.time('get item from redis')
   const note = JSON.parse((await redis.hget('rsc:notes_2', id)) || 'null')

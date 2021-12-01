@@ -6,7 +6,7 @@ export function useData(key, fetcher) {
     let promise
     cache[key] = () => {
       if (data !== undefined) return data
-      if (!promise) promise = fetcher().then((r) => (data = r))
+      if (!promise) promise = fetcher(key).then((r) => (data = r))
       throw promise
     }
   }

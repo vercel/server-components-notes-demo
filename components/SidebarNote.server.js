@@ -6,6 +6,8 @@
  *
  */
 
+// FIXME: This is a temporary workaround for unsupported hooks in rsc
+// renamed SidebarNote to SidebarNote.server
 import React from 'react'
 import { format, isToday } from 'date-fns'
 import excerpts from 'excerpts'

@@ -1,7 +1,5 @@
 import React, { forwardRef } from 'react'
 
-// import { useLocation } from './LocationContext.client'
-
 function EditButton({
   component: Component = 'button',
   noteId,

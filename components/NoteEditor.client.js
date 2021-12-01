@@ -1,18 +1,20 @@
 import React, { useState, useTransition } from 'react'
+import { useRouter } from 'next/router'
 // import { createFromReadableStream } from 'react-server-dom-webpack'
 
 import NotePreview from './NotePreview'
 // import { useRefresh } from './Cache.client'
-// import { useLocation } from './LocationContext.client'
 
 export default function NoteEditor({ noteId, initialTitle, initialBody }) {
   // const refresh = useRefresh()
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
+  const router = useRouter()
+  // const router = { push() {} }
   // const [location, setLocation] = useLocation()
   const location = {}
-  const setLocation = () => {}
-  const [isNavigating, startNavigating] = useTransition()
+  // const setLocation = () => {}
+  const [isNavigating, startNavigating] = [false, () => {}] // useTransition()
   const [isSaving, saveNote] = useMutation({
     endpoint: noteId !== null ? `/api/notes/${noteId}` : `/api/notes`,
     method: noteId !== null ? 'PUT' : 'POST',
@@ -29,8 +31,10 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
       isEditing: false,
       searchText: location.searchText || '',
     }
-    const response = await saveNote(payload, requestedLocation)
-    navigate(response)
+    // const response = 
+    await saveNote(payload, requestedLocation)
+    // navigate(`/node/${noteId}`)
+    // navigate(response)
   }
 
   async function handleDelete() {
@@ -40,18 +44,21 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
       isEditing: false,
       searchText: location.searchText || '',
     }
-    const response = await deleteNote(payload, requestedLocation)
-    navigate(response)
+    // const response = 
+    await deleteNote(payload, requestedLocation)
+    // navigate('/')
   }
 
-  async function navigate(response) {
-    const cacheKey = response.headers.get('X-Location')
-    const nextLocation = JSON.parse(cacheKey)
+  async function navigate(url) {
+    // const cacheKey = response.headers.get('X-Location')
+    // const nextLocation = JSON.parse(cacheKey)
     // const seededResponse = createFromReadableStream(response.body)
-    startNavigating(() => {
-      // refresh(cacheKey, seededResponse)
-      setLocation(nextLocation)
-    })
+    // startNavigating(() => {
+      // router.push(url)
+    //   // refresh(cacheKey, seededResponse)
+    //   // setLocation(nextLocation)
+    //   router.push(nextLocation)
+    // })
   }
 
   const isDraft = noteId === null

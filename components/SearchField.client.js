@@ -1,6 +1,5 @@
 import React, { useState, useTransition } from 'react'
 
-// import { useLocation } from './LocationContext.client'
 import Spinner from './Spinner'
 
 export default function SearchField() {

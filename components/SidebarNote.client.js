@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, useTransition } from 'react'
 
-// import { useLocation } from './LocationContext.client'
 
 export default function SidebarNote({ id, title, children, expandedChildren }) {
   // const [location, setLocation] = useLocation()
@@ -39,7 +38,7 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
             ? 'var(--gray-80)'
             : isActive
             ? 'var(--tertiary-blue)'
-            : '',
+            : undefined,
           border: isActive
             ? '1px solid var(--primary-border)'
             : '1px solid transparent',
