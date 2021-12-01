@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-
+import Link from 'next/link'
 import SearchField from './SearchField.client'
 
 // import Note from './note'
@@ -26,7 +26,7 @@ export default function Page({ children, selectedId, isEditing = false, searchTe
           <section className="sidebar-header">
             <img
               className="logo"
-              src="logo.svg"
+              src="/logo.svg"
               width="22px"
               height="20px"
               alt=""
@@ -36,9 +36,11 @@ export default function Page({ children, selectedId, isEditing = false, searchTe
           </section>
           <section className="sidebar-menu" role="menubar">
             <SearchField />
-            <AuthButton login={login} noteId={null}>
-              Add
-            </AuthButton>
+            <Link href={`/note/edit`}>
+              <AuthButton login={login} noteId={null}>
+                Add
+              </AuthButton>
+            </Link>
           </section>
           <nav>
             <Suspense fallback={<NoteListSkeleton />}>

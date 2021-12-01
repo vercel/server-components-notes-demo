@@ -91,7 +91,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
             role="menuitem"
           >
             <img
-              src="checkmark.svg"
+              src="/checkmark.svg"
               width="14px"
               height="10px"
               alt=""

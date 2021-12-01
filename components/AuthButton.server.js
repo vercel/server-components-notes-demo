@@ -7,9 +7,9 @@ export default function AuthButton({ children, login, ...props }) {
   // if (process.env.NODE_ENV === 'development') {
   //   login = false
   // }
-  if (!login) {
+  if (login) {
     return (
-      <EditButton {...props}>
+      <EditButton component="a" login={login} {...props}>
         {children}
         <img
           src={`https://avatars.githubusercontent.com/${login}?s=40`}
@@ -22,7 +22,7 @@ export default function AuthButton({ children, login, ...props }) {
   }
 
   return (
-    <EditButton login {...props}>
+    <EditButton {...props}>
       Login to {children}
     </EditButton>
   )

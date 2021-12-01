@@ -1,7 +1,7 @@
 import React from 'react'
 import { format } from 'date-fns'
-import { fetch as useFetch } from 'react-fetch'
-
+// import { fetch as useFetch } from 'react-fetch'
+import { useData } from '../libs/use-fetch'
 import NotePreview from './NotePreview'
 import NoteEditor from './NoteEditor.client'
 import AuthButton from './AuthButton.server'
@@ -12,21 +12,21 @@ export default function Note({ selectedId, isEditing, login }) {
   const apiKey = `${endpoint}/api/notes/${selectedId}`
   const note =
     selectedId != null
-      ? useFetch(apiKey).json()
+      ? useData(apiKey, () => fetch(apiKey).then(r => r.json())) // useFetch(apiKey).json()
       : null
 
   if (note === null) {
-    if (isEditing) {
-      return <NoteEditor noteId={null} initialTitle="Untitled" initialBody="" />
-    } else {
-      return (
-        <div className="note--empty-state">
-          <span className="note-text--empty-state">
-            Click a note on the left to view something! 🥺
-          </span>
-        </div>
-      )
-    }
+    // if (isEditing) {
+    //   return <NoteEditor noteId={null} initialTitle="Untitled" initialBody="" />
+    // } else {
+    // }
+    return (
+      <div className="note--empty-state">
+        <span className="note-text--empty-state">
+          Click a note on the left to view something! 🥺
+        </span>
+      </div>
+    )
   }
 
   let { id, title, body, updated_at, created_by: createdBy } = note
