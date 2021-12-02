@@ -1,20 +1,13 @@
 import React, { useState, useTransition } from 'react'
 import { useRouter } from 'next/router'
-// import { createFromReadableStream } from 'react-server-dom-webpack'
-
 import NotePreview from './NotePreview'
-// import { useRefresh } from './Cache.client'
 
 export default function NoteEditor({ noteId, initialTitle, initialBody }) {
-  // const refresh = useRefresh()
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
   const router = useRouter()
-  // const router = { push() {} }
-  // const [location, setLocation] = useLocation()
   const location = {}
-  // const setLocation = () => {}
-  const [isNavigating, startNavigating] = [false, () => {}] // useTransition()
+  const [isNavigating, startNavigating] = useTransition()
   const [isSaving, saveNote] = useMutation({
     endpoint: noteId !== null ? `/api/notes/${noteId}` : `/api/notes`,
     method: noteId !== null ? 'PUT' : 'POST',
@@ -31,10 +24,11 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
       isEditing: false,
       searchText: location.searchText || '',
     }
-    // const response = 
-    await saveNote(payload, requestedLocation)
-    // navigate(`/node/${noteId}`)
-    // navigate(response)
+
+    const response = await saveNote(payload, requestedLocation)
+    console.log('saving note', payload, response)
+    await response.json()
+    navigate(`/note/${noteId || ''}`)
   }
 
   async function handleDelete() {
@@ -44,21 +38,14 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
       isEditing: false,
       searchText: location.searchText || '',
     }
-    // const response = 
+
     await deleteNote(payload, requestedLocation)
-    // navigate('/')
+    navigate('/')
   }
 
   async function navigate(url) {
-    // const cacheKey = response.headers.get('X-Location')
-    // const nextLocation = JSON.parse(cacheKey)
-    // const seededResponse = createFromReadableStream(response.body)
-    // startNavigating(() => {
-      // router.push(url)
-    //   // refresh(cacheKey, seededResponse)
-    //   // setLocation(nextLocation)
-    //   router.push(nextLocation)
-    // })
+    router.push(url)
+    // startNavigating(() => router.push(url))
   }
 
   const isDraft = noteId === null
@@ -114,7 +101,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
               role="menuitem"
             >
               <img
-                src="cross.svg"
+                src="/cross.svg"
                 width="10px"
                 height="10px"
                 alt=""
@@ -145,24 +132,23 @@ function useMutation({ endpoint, method }) {
 
   async function performMutation(payload, requestedLocation) {
     setIsSaving(true)
+    // ?location=${encodeURIComponent(
+    //  JSON.stringify(requestedLocation)
+    //  )
     try {
-      const response = await fetch(
-        `${endpoint}?location=${encodeURIComponent(
-          JSON.stringify(requestedLocation)
-        )}`,
-        {
-          method,
-          body: JSON.stringify(payload),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      const response = await fetch(`${endpoint}}`, {
+        method,
+        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
       if (!response.ok) {
         throw new Error(await response.text())
       }
       return response
     } catch (e) {
+      console.error(e)
       setDidError(true)
       setError(e)
     } finally {

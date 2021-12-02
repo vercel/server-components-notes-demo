@@ -1,5 +1,6 @@
 import React from 'react'
 import { format } from 'date-fns'
+import Link from 'next/link'
 // import { fetch as useFetch } from 'react-fetch'
 import { useData } from '../libs/use-fetch'
 import NotePreview from './NotePreview'
@@ -30,6 +31,8 @@ export default function Note({ selectedId, isEditing, login }) {
   }
 
   let { id, title, body, updated_at, created_by: createdBy } = note
+  // FIXME
+  createdBy = login
   const updatedAt = new Date(updated_at)
 
   if (isEditing) {
@@ -69,9 +72,11 @@ export default function Note({ selectedId, isEditing, login }) {
               Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
             </small>
             {login === createdBy ? (
-              <AuthButton login={login} noteId={id}>
-                Edit
-              </AuthButton>
+              <Link href={`/edit/${id}`}>
+                <AuthButton component="a" login={login} noteId={id}>
+                  Edit
+                </AuthButton>
+              </Link>
             ) : (
               <div style={{ height: 30 }} />
             )}

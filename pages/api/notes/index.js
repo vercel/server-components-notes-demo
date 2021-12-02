@@ -17,7 +17,7 @@ export default async (req, res) => {
 
   if (req.method === 'POST') {
     // FIXME: auth
-    const login = req.session.login || 'huozhi'
+    const login = req.session.login || process.env.LOGIN
 
     if (!login) {
       return res.status(403).send('Unauthorized')

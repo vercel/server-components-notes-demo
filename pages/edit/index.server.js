@@ -5,9 +5,9 @@ import NoteEditor from '../../components/NoteEditor.client'
 import NoteSkeleton from '../../components/NoteSkeleton'
 import Page from '../../components/Page.server'
 
-export default function NotePage({login, selectedId = null, isEditing = true}) {
+export default function NotePage({login, isEditing = true}) {
   // TODO: get login information from request
-  login = 'huozhi'
+  login = process.env.LOGIN
 
   return (
     <Page login={login}>

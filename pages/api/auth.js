@@ -1,18 +1,17 @@
-import session from '../../libs/session'
+// import session from '../../libs/session'
 
 const CLIENT_ID = process.env.OAUTH_CLIENT_KEY
 const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
 
 function redirect(req, res, token) {
-  req.session.login = token
+  // req.session.login = token
   res.writeHead(302, { Location: `/` })
   res.end()
 }
 
 export default async (req, res) => {
-  session(req, res)
+  // session(req, res)
   if (process.env.NODE_ENV === 'development') {
-    console.log('dev')
     return redirect(req, res, 'dev_token')
   }
 
