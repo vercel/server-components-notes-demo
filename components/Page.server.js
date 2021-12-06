@@ -1,15 +1,11 @@
 import React, { Suspense } from 'react'
 import Link from 'next/link'
 import SearchField from './SearchField.client'
-
-// import Note from './note'
 import NoteList from './NoteList.server'
 import AuthButton from './AuthButton.server'
-
-// import NoteSkeleton from './NoteSkeleton'
 import NoteListSkeleton from './NoteListSkeleton'
 
-export default function Page({ children, selectedId, isEditing = false, searchText = '', login }) {
+export default function Page({ children, searchText = '', login }) {
   return (
     <div className="container">
       <div className="banner">
@@ -50,9 +46,6 @@ export default function Page({ children, selectedId, isEditing = false, searchTe
         </section>
         <section className="col note-viewer">
           {children}
-          {/* <Suspense fallback={<NoteSkeleton isEditing={isEditing} />}>
-            <Note login={login} selectedId={selectedId} isEditing={isEditing} />
-          </Suspense> */}
         </section>
       </div>
     </div>

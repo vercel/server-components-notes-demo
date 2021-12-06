@@ -130,15 +130,13 @@ function useMutation({ endpoint, method }) {
     throw error
   }
 
-  async function performMutation(payload, requestedLocation) {
+  async function performMutation(payload) {
     setIsSaving(true)
-    // ?location=${encodeURIComponent(
-    //  JSON.stringify(requestedLocation)
-    //  )
     try {
-      const response = await fetch(`${endpoint}}`, {
+      const response = await fetch(`${endpoint}`, {
         method,
         body: JSON.stringify(payload),
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },

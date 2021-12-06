@@ -7,9 +7,7 @@ const endpoint = process.env.ENDPOINT
 const apiKey = endpoint + '/api/notes'
 
 export default function NoteList({ searchText }) {
-  // const notes = useFetch(apiKey).json()
   const notes = useData(apiKey, () => fetch(apiKey).then(r => r.json()))
-
   return notes.length > 0 ? (
     <ul className="notes-list">
       {notes.map(note =>

@@ -1,9 +1,7 @@
 import redis from '../../../libs/redis'
-import session from '../../../libs/session'
+import { getUser } from '../../../libs/session'
 
 export default async (req, res) => {
-  session(req, res)
-
   if (req.method === 'GET') {
     console.time('get all items from redis')
 
@@ -14,11 +12,10 @@ export default async (req, res) => {
     console.timeEnd('get all items from redis')
     return res.json(notes)
   }
-
+  
+  const login = getUser(req) // /*req.session.login || */process.env.LOGIN
+  console.log('/notes/', login)
   if (req.method === 'POST') {
-    // FIXME: auth
-    const login = req.session.login || process.env.LOGIN
-
     if (!login) {
       return res.status(403).send('Unauthorized')
     }

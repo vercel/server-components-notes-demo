@@ -1,11 +1,10 @@
-import cookieSession from 'micro-cookie-session'
+export const userCookieKey = '_un'
+export const sessionKey = '_sess'
 
-const session = cookieSession({
-  name: 'session',
-  keys: [process.env.SESSION_KEY],
-  maxAge: 24 * 60 * 60 * 1000,
-})
+export function getUser(req) {
+  return req.cookies[userCookieKey]
+}
 
-export default (req, res) => {
-  session(req, res)
+export function getSession(req) {
+  return req.cookies[sessionKey]
 }

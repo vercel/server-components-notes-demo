@@ -13,7 +13,7 @@ export default function Note({ selectedId, isEditing, login }) {
   const apiKey = `${endpoint}/api/notes/${selectedId}`
   const note =
     selectedId != null
-      ? useData(apiKey, () => fetch(apiKey).then(r => r.json())) // useFetch(apiKey).json()
+      ? useData(apiKey, () => fetch(apiKey, { headers: { login }}).then(r => r.json())) // useFetch(apiKey).json()
       : null
 
   if (note === null) {
@@ -32,7 +32,7 @@ export default function Note({ selectedId, isEditing, login }) {
 
   let { id, title, body, updated_at, created_by: createdBy } = note
   // FIXME
-  createdBy = login
+  // createdBy = login
   const updatedAt = new Date(updated_at)
 
   if (isEditing) {

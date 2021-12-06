@@ -1,34 +1,22 @@
 import redis from '../../../libs/redis'
-// import sendRes from '../../../libs/send-res-with-module-map'
-// import session from '../../../libs/session'
-
-// TODO: replace with actual response
-// const mockItem = {
-//   "id": 1635407657969,
-//   "title": "Count Server components",
-//   "updated_at": 1635407675614,
-//   "body": "## Agros consedit tertia tandem ominibus et sensisse\n\n",
-//   "created_by": "Fredkiss3"
-// }
+import { getUser } from '../../../libs/session'
 
 export default async (req, res) => {
-  // session(req, res)
   const id = +req.query.id
-  // TODO: add auth logic
-  const login = process.env.LOGIN /*req.session.login || */
 
   console.time('get item from redis')
   const note = JSON.parse((await redis.hget('rsc:notes_2', id)) || '{}')
   console.timeEnd('get item from redis')
-
-  const isLogin = true // !login || login !== note.created_by
-
+  
   if (req.method === 'GET') {
     return res.json(note)
   }
 
+  const login = getUser(req) // !login || login !== note.created_by
+  console.log('note[id]', login, req.method, id)
+
   if (req.method === 'DELETE') {
-    if (!isLogin) {
+    if (!login) {
       return res.status(403).send('Unauthorized')
     }
 
@@ -40,7 +28,7 @@ export default async (req, res) => {
   }
 
   if (req.method === 'PUT') {
-    if (!isLogin) {
+    if (!login) {
       return res.status(403).send('Unauthorized')
     }
 
