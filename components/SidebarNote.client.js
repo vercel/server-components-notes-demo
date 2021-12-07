@@ -43,15 +43,14 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
             : '1px solid transparent',
         }}
         onClick={() => {
+          // hide the sidebar
           const sidebarToggle = document.getElementById('sidebar-toggle')
           if (sidebarToggle) {
             sidebarToggle.checked = true
           }
-          console.log('push', id)
-          router.push(`/note/${id}`)
-          startTransition(() => {
-            // hide the sidebar
-          })
+          router.push(`/note?id=${id}`)
+          // startTransition(() => {
+          // })
         }}
       >
         Open note for preview

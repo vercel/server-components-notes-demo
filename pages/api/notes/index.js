@@ -14,7 +14,6 @@ export default async (req, res) => {
   }
   
   const login = getUser(req) // /*req.session.login || */process.env.LOGIN
-  console.log('/notes/', login)
   if (req.method === 'POST') {
     if (!login) {
       return res.status(403).send('Unauthorized')

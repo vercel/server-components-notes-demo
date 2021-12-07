@@ -17,10 +17,6 @@ export default function Note({ selectedId, isEditing, login }) {
       : null
 
   if (note === null) {
-    // if (isEditing) {
-    //   return <NoteEditor noteId={null} initialTitle="Untitled" initialBody="" />
-    // } else {
-    // }
     return (
       <div className="note--empty-state">
         <span className="note-text--empty-state">
@@ -30,9 +26,7 @@ export default function Note({ selectedId, isEditing, login }) {
     )
   }
 
-  let { id, title, body, updated_at, created_by: createdBy } = note
-  // FIXME
-  // createdBy = login
+  const { id, title, body, updated_at, created_by: createdBy } = note
   const updatedAt = new Date(updated_at)
 
   if (isEditing) {
@@ -72,7 +66,7 @@ export default function Note({ selectedId, isEditing, login }) {
               Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
             </small>
             {login === createdBy ? (
-              <Link href={`/edit/${id}`}>
+              <Link href={`/note/edit?id=${id}`}>
                 <AuthButton component="a" login={login} noteId={id}>
                   Edit
                 </AuthButton>

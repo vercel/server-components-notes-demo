@@ -5,14 +5,14 @@ import NoteSkeleton from '../../components/NoteSkeleton'
 import Page from '../../components/Page.server'
 import { getUser } from '../../libs/session'
 
-export default function NotePage({login, isEditing = false, router }) {
-  const { pathname } = router
-  const selectedId = pathname.replace('/note/', '')
+export default function NotePage({login, router }) {
+  const { query } = router
+  const { id } = query
 
   return (
     <Page login={login}>
-      <Suspense fallback={<NoteSkeleton isEditing={isEditing} />}>
-        <Note login={login} selectedId={selectedId} isEditing={isEditing} />
+      <Suspense fallback={<NoteSkeleton isEditing={false} />}>
+        <Note login={login} selectedId={id} isEditing={false} />
       </Suspense>
     </Page>
   )

@@ -5,14 +5,14 @@ export default async (req, res) => {
   const id = +req.query.id
 
   console.time('get item from redis')
-  const note = JSON.parse((await redis.hget('rsc:notes_2', id)) || '{}')
+  const note = JSON.parse((await redis.hget('rsc:notes_2', id)) || 'null')
   console.timeEnd('get item from redis')
   
   if (req.method === 'GET') {
     return res.json(note)
   }
 
-  const login = getUser(req) // !login || login !== note.created_by
+  const login = getUser(req)
   console.log('note[id]', login, req.method, id)
 
   if (req.method === 'DELETE') {

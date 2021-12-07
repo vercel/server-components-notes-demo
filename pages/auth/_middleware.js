@@ -38,7 +38,6 @@ function createEncrypt(pwHash, algo) {
     const encryptKey = await crypto.subtle.importKey('raw', pwHash, algo, false, [
       'encrypt',
     ])
-    // console.log('encryptKey', encryptKey)
     const encrypted = await crypto.subtle.encrypt(algo, encryptKey, encode(data))
     return arrayBufferToBase64(encrypted)
   }

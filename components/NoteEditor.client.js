@@ -26,9 +26,9 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     }
 
     const response = await saveNote(payload, requestedLocation)
-    console.log('saving note', payload, response)
+    console.log('saving note')
     await response.json()
-    navigate(`/note/${noteId || ''}`)
+    navigate(`/note?id=${noteId || ''}`)
   }
 
   async function handleDelete() {
@@ -71,8 +71,8 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
           Enter the body for your note
         </label>
         <textarea
-          id="note-body-input"
           value={body}
+          id="note-body-input"
           onChange={e => setBody(e.target.value)}
         />
       </form>

@@ -5,15 +5,14 @@ import NoteSkeleton from '../../components/NoteSkeleton'
 import Page from '../../components/Page.server'
 import { getUser } from '../../libs/session'
 
-export default function EditNote({login, router, isEditing = true}) {
-  const selectedId = router.pathname.replace('/edit/', '')
+export default function EditNote({login, router}) {
+  const selectedId = router.query.id
   const apiKey = `${process.env.ENDPOINT}/api/notes/${selectedId}`
   const note = useData(apiKey, () => fetch(apiKey).then(res => res.json()))
 
-
   return (
     <Page login={login}>
-      <Suspense fallback={<NoteSkeleton isEditing={isEditing} />}>
+      <Suspense fallback={<NoteSkeleton isEditing />}>
         <NoteEditor noteId={selectedId} initialTitle={note.title} initialBody={note.body} />
       </Suspense>
     </Page>
