@@ -26,8 +26,9 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     }
 
     const response = await saveNote(payload, requestedLocation)
-    await response.json()
-    navigate(`/note?id=${noteId || ''}`)
+    const { id } = await response.json()
+    const finalId = noteId || id
+    navigate(`${finalId ? `/note/${finalId}` : '/'}`)
   }
 
   async function handleDelete() {
