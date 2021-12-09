@@ -1,16 +1,18 @@
 import React, { useState, useTransition } from 'react'
 import { useRouter } from 'next/router'
 import NotePreview from './NotePreview'
+import { unstable_useRefreshRoot } from 'next/rsc'
 
 export default function NoteEditor({ noteId, initialTitle, initialBody }) {
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
+  const refresh = unstable_useRefreshRoot()
   const router = useRouter()
   const location = {}
   const [isNavigating, startNavigating] = useTransition()
   const [isSaving, saveNote] = useMutation({
-    endpoint: noteId !== null ? `/api/notes/${noteId}` : `/api/notes`,
-    method: noteId !== null ? 'PUT' : 'POST',
+    endpoint: noteId != null ? `/api/notes/${noteId}` : `/api/notes`,
+    method: noteId != null ? 'PUT' : 'POST',
   })
   const [isDeleting, deleteNote] = useMutation({
     endpoint: `/api/notes/${noteId}`,
@@ -28,7 +30,8 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     const response = await saveNote(payload, requestedLocation)
     const { id } = await response.json()
     const finalId = noteId || id
-    navigate(`${finalId ? `/note/${finalId}` : '/'}`)
+    navigate(`${finalId ? `/note?id=${finalId}` : '/'}`)
+    refresh() 
   }
 
   async function handleDelete() {

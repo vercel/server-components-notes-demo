@@ -64,7 +64,7 @@ export default function Note({ selectedId, isEditing, login }) {
               Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
             </small>
             {login === createdBy ? (
-              <AuthButton component="a" login={login} noteId={id}>
+              <AuthButton login={login} noteId={id}>
                 Edit
               </AuthButton>
             
