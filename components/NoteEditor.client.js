@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import NotePreview from './NotePreview'
 import { unstable_useRefreshRoot } from 'next/rsc'
@@ -8,8 +8,6 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
   const [body, setBody] = useState(initialBody)
   const refresh = unstable_useRefreshRoot()
   const router = useRouter()
-  const location = {}
-  const [isNavigating, startNavigating] = useTransition()
   const [isSaving, saveNote] = useMutation({
     endpoint: noteId != null ? `/api/notes/${noteId}` : `/api/notes`,
     method: noteId != null ? 'PUT' : 'POST',
@@ -19,19 +17,30 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     method: 'DELETE',
   })
 
+  function handleRouteChangeComplete() {
+    refresh()
+  }
+
+  // NOTE: leverage routeChangeComplete to make sure the rsc cacheKey is updated
+  useEffect(() => {
+    router.events.on('routeChangeComplete', handleRouteChangeComplete)
+
+    return () => {
+      router.events.on('routeChangeComplete', handleRouteChangeComplete)
+    }
+  }, [])
+
   async function handleSave() {
     const payload = { title, body }
     const requestedLocation = {
       selectedId: noteId,
       isEditing: false,
-      searchText: location.searchText || '',
     }
 
     const response = await saveNote(payload, requestedLocation)
     const { id } = await response.json()
     const finalId = noteId || id
-    navigate(`${finalId ? `/note?id=${finalId}` : '/'}`)
-    refresh() 
+    navigate(`${finalId ? `/note?id=${finalId}` : '/'}`) 
   }
 
   async function handleDelete() {
@@ -39,7 +48,6 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     const requestedLocation = {
       selectedId: null,
       isEditing: false,
-      searchText: location.searchText || '',
     }
 
     await deleteNote(payload, requestedLocation)
@@ -48,7 +56,6 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
 
   async function navigate(url) {
     router.push(url)
-    // startNavigating(() => router.push(url))
   }
 
   const isDraft = noteId === null
@@ -83,7 +90,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
         <div className="note-editor-menu" role="menubar">
           <button
             className="note-editor-done"
-            disabled={Boolean(isSaving || isNavigating)}
+            disabled={Boolean(isSaving)}
             onClick={() => handleSave()}
             role="menuitem"
           >
@@ -99,7 +106,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
           {!isDraft && (
             <button
               className="note-editor-delete"
-              disabled={Boolean(isDeleting || isNavigating)}
+              disabled={Boolean(isDeleting)}
               onClick={() => handleDelete()}
               role="menuitem"
             >
