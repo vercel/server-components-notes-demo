@@ -7,19 +7,14 @@ export default async (req, res) => {
   console.time('get item from redis')
   const note = JSON.parse((await redis.hget('rsc:notes_2', id)) || 'null')
   console.timeEnd('get item from redis')
-  
+
   if (req.method === 'GET') {
     return res.json(note)
   }
 
   const login = getUser(req)
-  console.log('note[id]', login, req.method, id)
 
   if (req.method === 'DELETE') {
-    if (!login) {
-      return res.status(403).send('Unauthorized')
-    }
-
     console.time('delete item from redis')
     await redis.hdel('rsc:notes_2', id)
     console.timeEnd('delete item from redis')
@@ -28,10 +23,6 @@ export default async (req, res) => {
   }
 
   if (req.method === 'PUT') {
-    if (!login) {
-      return res.status(403).send('Unauthorized')
-    }
-
     console.time('update item from redis')
     const updated = {
       id,

@@ -2,9 +2,9 @@ export const userCookieKey = '_un'
 export const sessionKey = '_sess'
 
 export function getUser(req) {
-  return req.cookies[userCookieKey]
+  return req.cookies[userCookieKey] || null
 }
 
 export function getSession(req) {
-  return req.cookies[sessionKey]
+  return req.cookies[sessionKey] || null
 }

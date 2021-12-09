@@ -1,9 +1,6 @@
-import { NextResponse } from 'next/server'
 import { getUser, getSession, userCookieKey, sessionKey } from '../../libs/session'
 
 const iv = encode('encryptiv')
-// const userCookieKey = '_un'
-// const sessionKey = '_sess'
 const password = 'reactsc'
 const pwUtf8 = encode(password)
 const algo = { name: 'AES-GCM', iv }
@@ -58,30 +55,26 @@ function createDecrypt(pwHash, algo) {
 
 
 export async function middleware(req) {
-  const { method, nextUrl } = req
-  const { pathname } = nextUrl
-
-  console.log('/auth', method, pathname)
+  const { nextUrl } = req
+  const { searchParams } = nextUrl
+  const query = Object.fromEntries(searchParams)
   const pwHash = await crypto.subtle.digest('SHA-256', pwUtf8)
   const encrypt = createEncrypt(pwHash, algo)
   const decrypt = createDecrypt(pwHash, algo)
   
-  const cookies = req.cookies
 
-  const sessionCookie = getSession(req) // cookies[sessionKey]
-  const userCookie = getUser(req) //cookies[userCookieKey]
-  console.log('cookies', cookies, sessionCookie)
+  const sessionCookie = getSession(req)
+  const userCookie = getUser(req)
   // TODO: connect github OAuth
 
-  const fakeUser = 'huozhi'
+  const ghUser = query.name || 'ghost'
   const user = {
-    name: fakeUser,
-    encrypted: await encrypt(fakeUser),
+    name: ghUser,
+    encrypted: await encrypt(ghUser),
   }
 
   let login = null
   let authErr = null
-  console.log('user', userCookie)
   if (sessionCookie && userCookie) {
     try {
       login = await decrypt(sessionCookie)
@@ -90,25 +83,17 @@ export async function middleware(req) {
       authErr = e
     }
 
-    console.log('after auth')
     if (authErr || (login && (login !== userCookie))) {
       console.error('Unauthenticated', authErr, login, userCookie)
-      return new Response('Unauthorized', {
-        status: 403,
-      })
+      return new Response('Unauthorized', { status: 403 })
     }
   }
 
-  
-  
-  
   const headers = new Headers()
-  headers.append('Set-Cookie', `${userCookieKey}=${user.name}`)
-  headers.append('Set-Cookie', `${sessionKey}=${user.encrypted}`)
+  headers.append('Set-Cookie', `${userCookieKey}=${user.name}; Secure; HttpOnly`)
+  headers.append('Set-Cookie', `${sessionKey}=${user.encrypted}; Secure; HttpOnly`)
   headers.append('Location', '/')
 
-  console.log('login', login)
-  console.log('Auth', user, Object.fromEntries(headers))
   return new Response('', {
     status: 302,
     headers,

@@ -804,6 +804,14 @@ ul.notes-list {
   position: absolute;
 }
 
+.link--unstyled,
+.link--unstyled:active,
+.link--unstyled:visited,
+.link--unstyled:focus {
+  text-decoration: none;
+  color: unset;
+}
+
 @media screen and (max-width: 900px) {
   .note-editor {
     flex-direction: column-reverse;

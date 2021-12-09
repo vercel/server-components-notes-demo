@@ -10,7 +10,7 @@ export default function Page({ children, searchText = '', login }) {
     <div className="container">
       <div className="banner">
         <a
-          href="https://vercel.com/blog/everything-about-react-server-components"
+          href="https://nextjs.org/blog/next-12"
           target="_blank"
         >
           Learn more →
@@ -19,24 +19,26 @@ export default function Page({ children, searchText = '', login }) {
       <div className="main">
         <input type="checkbox" className="sidebar-toggle" id="sidebar-toggle" />
         <section className="col sidebar">
-          <section className="sidebar-header">
-            <img
-              className="logo"
-              src="/logo.svg"
-              width="22px"
-              height="20px"
-              alt=""
-              role="presentation"
-            />
-            <strong>React Notes</strong>
-          </section>
+          <Link href={'/'}>
+            <a className="link--unstyled">
+              <section className="sidebar-header">
+                <img
+                  className="logo"
+                  src="/logo.svg"
+                  width="22px"
+                  height="20px"
+                  alt=""
+                  role="presentation"
+                />
+                <strong>React Notes</strong>
+              </section>
+            </a>
+          </Link>
           <section className="sidebar-menu" role="menubar">
             <SearchField />
-            <Link href={`/note/edit`}>
-              <AuthButton login={login} noteId={null}>
-                Add
-              </AuthButton>
-            </Link>
+            <AuthButton login={login} noteId={null}>
+              Add
+            </AuthButton>
           </section>
           <nav>
             <Suspense fallback={<NoteListSkeleton />}>

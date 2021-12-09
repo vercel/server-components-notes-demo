@@ -13,12 +13,8 @@ export default async (req, res) => {
     return res.json(notes)
   }
   
-  const login = getUser(req) // /*req.session.login || */process.env.LOGIN
+  const login = getUser(req)
   if (req.method === 'POST') {
-    if (!login) {
-      return res.status(403).send('Unauthorized')
-    }
-
     console.time('create item from redis')
 
     if ((await redis.hlen('rsc:notes_2')) >= 40) {

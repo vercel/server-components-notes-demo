@@ -15,7 +15,7 @@
     "ioredis": "^4.19.4",
     "marked": "^1.2.7",
     "micro-cookie-session": "^2.0.0-beta.1",
-    "next": "^12.0.8-canary.0",
+    "next": "file:../next.js/packages/next",
     "oauth": "^0.9.15",
     "react": "^18.0.0-beta-a65ceef37-20211130",
     "react-dom": "^18.0.0-beta-a65ceef37-20211130",

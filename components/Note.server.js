@@ -13,7 +13,7 @@ export default function Note({ selectedId, isEditing, login }) {
   const apiKey = `${endpoint}/api/notes/${selectedId}`
   const note =
     selectedId != null
-      ? useData(apiKey, () => fetch(apiKey, { headers: { login }}).then(r => r.json())) // useFetch(apiKey).json()
+      ? useData(apiKey, () => fetch(apiKey).then(r => r.json())) // useFetch(apiKey).json()
       : null
 
   if (note === null) {
@@ -66,11 +66,10 @@ export default function Note({ selectedId, isEditing, login }) {
               Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
             </small>
             {login === createdBy ? (
-              <Link href={`/note/edit?id=${id}`}>
-                <AuthButton component="a" login={login} noteId={id}>
-                  Edit
-                </AuthButton>
-              </Link>
+              <AuthButton component="a" login={login} noteId={id}>
+                Edit
+              </AuthButton>
+            
             ) : (
               <div style={{ height: 30 }} />
             )}
