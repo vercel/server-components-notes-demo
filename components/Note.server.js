@@ -1,19 +1,17 @@
 import React from 'react'
 import { format } from 'date-fns'
-import Link from 'next/link'
 // import { fetch as useFetch } from 'react-fetch'
 import { useData } from '../libs/use-fetch'
 import NotePreview from './NotePreview'
 import NoteEditor from './NoteEditor.client'
 import AuthButton from './AuthButton.server'
 
-const endpoint = process.env.ENDPOINT
 
 export default function Note({ selectedId, isEditing, login }) {
-  const apiKey = `${endpoint}/api/notes/${selectedId}`
+  const apiKey = `/api/notes/${selectedId}`
   const note =
     selectedId != null
-      ? useData(apiKey, () => fetch(apiKey).then(r => r.json())) // useFetch(apiKey).json()
+      ? useData(apiKey, (key) => fetch(key).then(r => r.json())) // useFetch(apiKey).json()
       : null
 
   if (note === null) {
