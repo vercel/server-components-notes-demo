@@ -1,6 +1,5 @@
 import React from 'react'
 import { format } from 'date-fns'
-// import { fetch as useFetch } from 'react-fetch'
 import { useData } from '../libs/use-fetch'
 import NotePreview from './NotePreview'
 import NoteEditor from './NoteEditor.client'
@@ -11,7 +10,7 @@ export default function Note({ selectedId, isEditing, login }) {
   const apiKey = `/api/notes/${selectedId}`
   const note =
     selectedId != null
-      ? useData(apiKey, (key) => fetch(key).then(r => r.json())) // useFetch(apiKey).json()
+      ? useData(apiKey, (key) => fetch(key).then(r => r.json()))
       : null
 
   if (note === null) {
@@ -74,6 +73,7 @@ export default function Note({ selectedId, isEditing, login }) {
           </div>
         </div>
         <NotePreview body={body} />
+        {/* <AutoRefresh /> */}
       </div>
     )
   }

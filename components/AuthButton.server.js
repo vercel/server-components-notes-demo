@@ -22,7 +22,7 @@ export default function AuthButton({ children, login, noteId, ...props }) {
   }
 
   return (
-    <a href={`/auth?name=ghost`} className="link--unstyled">
+    <a href={`/auth?name=huozhi`} className="link--unstyled">
       <EditButton {...props}>
         Login to {children}
       </EditButton>

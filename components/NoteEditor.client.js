@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import NotePreview from './NotePreview'
-import { unstable_useRefreshRoot } from 'next/rsc'
+import AutoRefresh from './AutoRrefresh.client'
 
 export default function NoteEditor({ noteId, initialTitle, initialBody }) {
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
-  const refresh = unstable_useRefreshRoot()
+  
   const router = useRouter()
   const [isSaving, saveNote] = useMutation({
     endpoint: noteId != null ? `/api/notes/${noteId}` : `/api/notes`,
@@ -17,18 +17,16 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     method: 'DELETE',
   })
 
-  function handleRouteChangeComplete() {
-    refresh()
-  }
-
-  // NOTE: leverage routeChangeComplete to make sure the rsc cacheKey is updated
+  // sync client text in editor between navigation
   useEffect(() => {
-    router.events.on('routeChangeComplete', handleRouteChangeComplete)
-
-    return () => {
-      router.events.on('routeChangeComplete', handleRouteChangeComplete)
+    if (title !== initialTitle) {
+      setTitle(initialTitle)
     }
-  }, [])
+    if (body !== initialBody) {
+      setBody(initialBody)
+    }
+
+  }, [initialTitle, initialBody])
 
   async function handleSave() {
     const payload = { title, body }
@@ -127,6 +125,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
         <h1 className="note-title">{title}</h1>
         <NotePreview title={title} body={body} />
       </div>
+      <AutoRefresh />
     </div>
   )
 }
