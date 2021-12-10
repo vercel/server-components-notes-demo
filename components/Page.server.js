@@ -13,7 +13,7 @@ export default function Page({ children, searchText = '', login }) {
           href="https://nextjs.org/blog/next-12"
           target="_blank"
         >
-          Learn more →
+          Learn more about it with next.js →
         </a>
       </div>
       <div className="main">

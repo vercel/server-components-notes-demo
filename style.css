@@ -744,6 +744,7 @@ ul.notes-list {
 
 .text-with-markdown p {
   margin-bottom: 16px;
+  white-space: break-spaces;
 }
 .text-with-markdown img {
   width: 100%;
