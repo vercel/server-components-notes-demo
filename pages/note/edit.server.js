@@ -5,16 +5,20 @@ import NoteSkeleton from '../../components/NoteSkeleton'
 import Page from '../../components/Page.server'
 import { getUser } from '../../libs/session'
 
+const defaultNote = {
+  title: 'Untitled',
+  body: '',
+}
+
 export default function EditNote({ login, router, searchText }) {
   const selectedId = router.query.id
-  let apiKey = `${process.env.ENDPOINT}/api/notes/${selectedId}`
-  
-  const note = selectedId 
+  const apiKey = `${process.env.ENDPOINT}/api/notes/${selectedId}`
+
+  let note = selectedId != null
     ? useData(apiKey, () => fetch(apiKey).then(res => res.json())) 
-    : {
-      title: 'Untitled',
-      body: '',
-    }
+    : defaultNote
+
+  note = note || defaultNote
 
   return (
     <Page login={login} searchText={searchText}>

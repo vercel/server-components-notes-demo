@@ -18,10 +18,9 @@ export default function SearchField() {
         value={text}
         onChange={e => {
           const newText = e.target.value
-          startSearching(() => {
-            setText(newText)
-            refresh({ searchText: newText })
-          })
+          setText(newText)
+          refresh({ searchText: newText })
+          startSearching(() => {})
         }}
       />
       <Spinner active={isSearching} />

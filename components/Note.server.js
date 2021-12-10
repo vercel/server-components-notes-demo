@@ -73,7 +73,6 @@ export default function Note({ selectedId, isEditing, login }) {
           </div>
         </div>
         <NotePreview body={body} />
-        {/* <AutoRefresh /> */}
       </div>
     )
   }

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import NotePreview from './NotePreview'
 import AutoRefresh from './AutoRrefresh.client'
 
+
 export default function NoteEditor({ noteId, initialTitle, initialBody }) {
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
@@ -38,7 +39,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     const response = await saveNote(payload, requestedLocation)
     const { id } = await response.json()
     const finalId = noteId || id
-    navigate(`${finalId ? `/note?id=${finalId}` : '/'}`) 
+    navigate(`${finalId ? `/note?id=${finalId}` : '/'}`)
   }
 
   async function handleDelete() {
