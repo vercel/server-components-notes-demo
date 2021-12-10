@@ -5,7 +5,7 @@ import NoteSkeleton from '../../components/NoteSkeleton'
 import Page from '../../components/Page.server'
 import { getUser } from '../../libs/session'
 
-export default function EditNote({ login, router }) {
+export default function EditNote({ login, router, searchText }) {
   const selectedId = router.query.id
   let apiKey = `${process.env.ENDPOINT}/api/notes/${selectedId}`
   
@@ -17,7 +17,7 @@ export default function EditNote({ login, router }) {
     }
 
   return (
-    <Page login={login}>
+    <Page login={login} searchText={searchText}>
       <Suspense fallback={<NoteSkeleton isEditing />}>
         <NoteEditor noteId={selectedId} initialTitle={note.title} initialBody={note.body} />
       </Suspense>

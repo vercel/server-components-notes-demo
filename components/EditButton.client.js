@@ -29,13 +29,6 @@ function EditButton({
       //       sidebarToggle.checked = true
       //     }
       //   }
-      //   startTransition(() => {
-      //     // setLocation(loc => ({
-      //     //   selectedId: noteId,
-      //     //   isEditing: true,
-      //     //   searchText: loc.searchText,
-      //     // }))
-      //   })
       // }}
     >
       {children}

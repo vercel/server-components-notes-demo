@@ -1,8 +1,9 @@
+import { unstable_useRefreshRoot } from 'next/rsc'
 import React, { useState, useTransition } from 'react'
-
 import Spinner from './Spinner'
 
 export default function SearchField() {
+  const refresh = unstable_useRefreshRoot()
   const [text, setText] = useState('')
   const [isSearching, startSearching] = useTransition({ timeoutMs: 200 })
 
@@ -17,12 +18,9 @@ export default function SearchField() {
         value={text}
         onChange={e => {
           const newText = e.target.value
-          setText(newText)
           startSearching(() => {
-            // setLocation(loc => ({
-            //   ...loc,
-            //   searchText: newText,
-            // }))
+            setText(newText)
+            refresh({ searchText: newText })
           })
         }}
       />
