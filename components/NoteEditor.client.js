@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import NotePreview from './NotePreview'
-import AutoRefresh from './AutoRrefresh.client'
+// import AutoRefresh from './AutoRrefresh.client'
 
 
 export default function NoteEditor({ noteId, initialTitle, initialBody }) {
@@ -126,7 +126,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
         <h1 className="note-title">{title}</h1>
         <NotePreview title={title} body={body} />
       </div>
-      <AutoRefresh />
+      {/* <AutoRefresh /> */}
     </div>
   )
 }
