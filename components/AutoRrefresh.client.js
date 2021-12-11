@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { unstable_useRefreshRoot } from 'next/rsc'
+import { useRefreshRoot as unstable_useRefreshRoot } from 'next/dist/client/rsc'
 import { useRouter } from 'next/router'
 
 export default function AutoRefresh() {

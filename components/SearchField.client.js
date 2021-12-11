@@ -1,4 +1,4 @@
-import { unstable_useRefreshRoot } from 'next/rsc'
+import { useRefreshRoot as unstable_useRefreshRoot } from 'next/dist/client/rsc'
 import React, { useState, useTransition } from 'react'
 import Spinner from './Spinner'
 
