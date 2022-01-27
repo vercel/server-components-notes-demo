@@ -14,17 +14,11 @@
     "excerpts": "^0.0.3",
     "ioredis": "^4.19.4",
     "marked": "^1.2.7",
-    "next": "https://github.com/huozhi/gh-npm-dist#f01d5c2",
+    "next": "^12.0.9",
     "oauth": "^0.9.15",
-    "react": "^18.0.0-beta-a65ceef37-20211130",
-    "react-dom": "^18.0.0-beta-a65ceef37-20211130",
+    "react": "^18.0.0-rc.0",
+    "react-dom": "^18.0.0-rc.0",
     "sanitize-html": "^2.3.0"
-  },
-  "optionalDependencies": {
-    "@next/swc-linux-x64-gnu": "canary",
-    "@next/swc-win32-x64-msvc": "canary",
-    "@next/swc-darwin-x64": "canary",
-    "@next/swc-darwin-arm64": "canary"
   },
   "devDependencies": {
     "prettier": "2.2.1"
