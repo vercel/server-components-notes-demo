@@ -1,9 +1,9 @@
-import { unstable_useRefreshRoot } from 'next/rsc'
+import { unstable_useRefreshRoot as useRefreshRoot } from 'next/streaming'
 import React, { useState, useTransition } from 'react'
 import Spinner from './Spinner'
 
 export default function SearchField() {
-  const refresh = unstable_useRefreshRoot()
+  const refresh = useRefreshRoot()
   const [text, setText] = useState('')
   const [isSearching, startSearching] = useTransition({ timeoutMs: 200 })
 

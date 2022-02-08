@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
-import { unstable_useRefreshRoot } from 'next/rsc'
+import { unstable_useRefreshRoot as useRefreshRoot } from 'next/streaming'
 import { useRouter } from 'next/router'
 
 export default function AutoRefresh() {
   const router = useRouter()
-  const refresh = unstable_useRefreshRoot()
+  const refresh = useRefreshRoot()
   function handleRouteChangeComplete() {
     refresh()
   }
