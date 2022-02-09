@@ -12,7 +12,7 @@ const defaultNote = {
 
 export default function EditNote({ login, router, searchText }) {
   const selectedId = router.query.id
-  const apiKey = `${process.env.ENDPOINT}/api/notes/${selectedId}`
+  const apiKey = `/api/notes/${selectedId}`
 
   let note = selectedId != null
     ? useData(apiKey, () => fetch(apiKey).then(res => res.json())) 

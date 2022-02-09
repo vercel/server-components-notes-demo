@@ -1,5 +1,5 @@
 const cache = {}
-const endpoint = process.env.ENDPOINT
+const endpoint = process.env.ENDPOINT || ''
 
 export function useData(key, fetcher) {
   if (!cache[key]) {
