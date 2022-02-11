@@ -1,7 +1,7 @@
 module.exports = {
   experimental: {
     reactRoot: true,
-    runtime: 'edge',
+    runtime: 'nodejs',
     serverComponents: true,
   }
 }
