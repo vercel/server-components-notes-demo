@@ -48,7 +48,7 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
           if (sidebarToggle) {
             sidebarToggle.checked = true
           }
-          router.push(`/note?id=${id}`)
+          router.push(`/note/${id}`)
         }}
       >
         Open note for preview

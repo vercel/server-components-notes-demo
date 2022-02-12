@@ -5,8 +5,8 @@ import EditButton from './EditButton.client'
 export default function AuthButton({ children, login, noteId, ...props }) {
   if (login) {
     return (
-      <Link href={`/note/edit${noteId ? `?id=${noteId}` : ''}`}>
-        <a className="link--unstyled">
+      <Link href={`/note/edit/${noteId || ''}`}>
+        <a href={`/note/edit/${noteId || ''}`} className="link--unstyled">
           <EditButton {...props} login={login}>
             {children}
             <img
@@ -22,10 +22,12 @@ export default function AuthButton({ children, login, noteId, ...props }) {
   }
 
   return (
-    <a href={`/auth?name=huozhi`} className="link--unstyled">
-      <EditButton {...props}>
-        Login to {children}
-      </EditButton>
-    </a>
+    <Link href={`/auth`}>
+      <a className="link--unstyled">
+        <EditButton {...props}>
+          Login to {children}
+        </EditButton>
+      </a>
+    </Link>
   )
 }

@@ -16,20 +16,6 @@ function EditButton({
         isDraft ? 'edit-button--solid' : 'edit-button--outline',
       ].join(' ')}
       role="menuitem"
-      // onClick={() => {
-      //   if (!login) {
-      //     // login needed
-      //     window.location = '/api/auth'
-      //     return
-      //   }
-      //   if (isDraft) {
-      //     // hide the sidebar
-      //     const sidebarToggle = document.getElementById('sidebar-toggle')
-      //     if (sidebarToggle) {
-      //       sidebarToggle.checked = true
-      //     }
-      //   }
-      // }}
     >
       {children}
     </Component>

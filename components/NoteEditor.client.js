@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import NotePreview from './NotePreview'
-// import AutoRefresh from './AutoRrefresh.client'
-
 
 export default function NoteEditor({ noteId, initialTitle, initialBody }) {
   const [title, setTitle] = useState(initialTitle)
@@ -37,9 +35,10 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     }
 
     const response = await saveNote(payload, requestedLocation)
-    const { id } = await response.json()
-    const finalId = noteId || id
-    navigate(`${finalId ? `/note?id=${finalId}` : '/'}`)
+    const updatedData = await response.json()
+    console.log('updatedData', updatedData)
+    const finalId = noteId || updatedData.id
+    navigate(`${finalId ? `/note/${finalId}` : '/'}`)
   }
 
   async function handleDelete() {

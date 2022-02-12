@@ -4,9 +4,10 @@ import { getUser } from '../../../libs/session'
 export default async (req, res) => {
   const id = +req.query.id
 
-  console.time('get item from redis')
+  const timeKey = `get item from redis ${req.method}`
+  console.time(timeKey)
   const note = JSON.parse((await redis.hget('rsc:notes_2', id)) || null)
-  console.timeEnd('get item from redis')
+  console.timeEnd(timeKey)
 
   if (req.method === 'GET') {
     return res.send(note || 'null')

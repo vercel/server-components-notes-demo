@@ -1,9 +1,9 @@
 import { Suspense } from 'react'
-import { useData } from '../../libs/use-fetch'
-import NoteEditor from '../../components/NoteEditor.client'
-import NoteSkeleton from '../../components/NoteSkeleton'
-import Page from '../../components/Page.server'
-import { getUser } from '../../libs/session'
+import { useData } from '../libs/use-fetch'
+import { getUser } from '../libs/session'
+import NoteEditor from './NoteEditor.client'
+import NoteSkeleton from './NoteSkeleton'
+import Page from './Page.server'
 
 const defaultNote = {
   title: 'Untitled',
@@ -15,7 +15,7 @@ export default function EditNote({ login, router, searchText }) {
   const apiKey = `/api/notes/${selectedId}`
 
   let note = selectedId != null
-    ? useData(apiKey, () => fetch(apiKey).then(res => res.json())) 
+    ? useData(apiKey, (url) => fetch(url).then(res => res.json(), err => console.error('e', err))) 
     : defaultNote
 
   note = note || defaultNote
