@@ -1,5 +1,5 @@
 const cache = {}
-const endpoint = process.env.ENDPOINT || ''
+const endpoint = process.env.NEXT_PUBLIC_VERCEL_URL
 
 export function useData(key, fetcher) {
   if (!cache[key]) {
