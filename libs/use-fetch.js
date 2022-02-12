@@ -1,5 +1,13 @@
 const cache = {}
-const endpoint = process.env.NEXT_PUBLIC_VERCEL_URL
+let endpoint = ''
+
+if (process.env.NEXT_PUBLIC_VERCEL_URL?.includes('localhost')) {
+  endpoint = 'http://localhost:3000'
+} else if (process.env.NEXT_PUBLIC_VERCEL_URL !== undefined) {
+  endpoint = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+} else {
+  endpoint = 'http://localhost:3000'
+}
 
 export function useData(key, fetcher) {
   if (!cache[key]) {
