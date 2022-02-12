@@ -10,22 +10,57 @@ if (process.env.NEXT_PUBLIC_VERCEL_URL?.includes('localhost')) {
 
 const _CACHE = {}
 
-export function useData(key, fetcher) {
+export function useData(key, fetcher, opts = {}) {
+  const now = Date.now()
+  function mutate() {
+    _CACHE[key].isValidating = true
+    return fetcher(endpoint + key)
+      .then(
+        (r) => {
+          _CACHE[key].isValidating = false
+          _CACHE[key].timestamp = Date.now()
+          _CACHE[key].data = r
+          return r
+        }, 
+        (err) => {
+          _CACHE[key].isValidating = false
+          console.error(err)
+        }
+      )
+    
+  }
+
+  const createFetcher = () => () => {
+    const { data, isValidating, promise } = _CACHE[key]
+    if (data !== undefined && !isValidating) {
+      return data
+    }
+    if (!promise) {
+      _CACHE[key].promise = mutate()
+    }
+    throw _CACHE[key].promise
+  }
+
   if (!_CACHE[key]) {
-    let data
-    let promise
-    _CACHE[key] = () => {
-      if (data !== undefined) return data
-      if (!promise) {
-        promise = fetcher(endpoint + key)
-          .then((r) => {
-            return (data = r)
-          }, console.error)
+    _CACHE[key] = {
+      data: undefined,
+      promise: null,
+      timestamp: 0,
+      isValidating: false,
+    }
+    _CACHE[key].fn = createFetcher()
+  } else {    
+    if (opts.revalidate) {
+      const timeDiff = now - _CACHE[key].timestamp
+      
+      // revalidate
+      if (timeDiff > opts.revalidate * 1000) {
+        _CACHE[key].data = undefined
+        _CACHE[key].promise = undefined
       }
-      throw promise
     }
   }
-  const fn = _CACHE[key]
-  return fn()
+
+  return _CACHE[key].fn()
 }
 

@@ -36,7 +36,6 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
 
     const response = await saveNote(payload, requestedLocation)
     const updatedData = await response.json()
-    console.log('updatedData', updatedData)
     const finalId = noteId || updatedData.id
     navigate(`${finalId ? `/note/${finalId}` : '/'}`)
   }

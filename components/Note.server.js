@@ -10,7 +10,11 @@ export default function Note({ selectedId, isEditing, login }) {
   const apiKey = `/api/notes/${selectedId}`
   const note =
     selectedId != null
-      ? useData(apiKey, (key) => fetch(key).then(r => r.json()))
+      ? useData(
+        apiKey, 
+        (key) => fetch(key).then(r => r.json()), 
+        { revalidate: 1 }
+      )
       : null
 
   if (note === null) {
