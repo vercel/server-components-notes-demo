@@ -17,10 +17,7 @@ export default function EditNote({ login, router, searchText }) {
   let note =
     selectedId != null
       ? useData(apiKey, url =>
-          fetch(url).then(
-            res => res.json(),
-            err => console.error('e', err)
-          )
+          fetch(url).then(res => res.json())
         )
       : defaultNote
 

@@ -7,56 +7,56 @@ if (publicUrl !== undefined && !publicUrl.includes('localhost')) {
   endpoint = 'http://localhost:3000'
 }
 
-const _CACHE = {}
+const cache = {}
 
 export function useData(key, fetcher, opts = {}) {
   const now = Date.now()
   function mutate() {
-    _CACHE[key].isValidating = true
+    cache[key].isValidating = true
     return fetcher(endpoint + key).then(
       r => {
-        _CACHE[key].isValidating = false
-        _CACHE[key].timestamp = Date.now()
-        _CACHE[key].data = r
+        cache[key].isValidating = false
+        cache[key].timestamp = Date.now()
+        cache[key].data = r
         return r
       },
       err => {
-        _CACHE[key].isValidating = false
+        cache[key].isValidating = false
         console.error(err)
       }
     )
   }
 
   const createFetcher = () => () => {
-    const { data, isValidating, promise } = _CACHE[key]
+    const { data, isValidating, promise } = cache[key]
     if (data !== undefined && !isValidating) {
       return data
     }
     if (!promise) {
-      _CACHE[key].promise = mutate()
+      cache[key].promise = mutate()
     }
-    throw _CACHE[key].promise
+    throw cache[key].promise
   }
 
-  if (!_CACHE[key]) {
-    _CACHE[key] = {
+  if (!cache[key]) {
+    cache[key] = {
       data: undefined,
       promise: null,
       timestamp: 0,
       isValidating: false,
     }
-    _CACHE[key].fn = createFetcher()
+    cache[key].fn = createFetcher()
   } else {
     if (opts.revalidate) {
-      const timeDiff = now - _CACHE[key].timestamp
+      const timeDiff = now - cache[key].timestamp
 
       // revalidate
       if (timeDiff > opts.revalidate * 1000) {
-        _CACHE[key].data = undefined
-        _CACHE[key].promise = undefined
+        cache[key].data = undefined
+        cache[key].promise = undefined
       }
     }
   }
 
-  return _CACHE[key].fn()
+  return cache[key].fn()
 }
