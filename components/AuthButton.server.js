@@ -24,9 +24,7 @@ export default function AuthButton({ children, login, noteId, ...props }) {
   return (
     <Link href={`/auth`}>
       <a className="link--unstyled">
-        <EditButton {...props}>
-          Login to {children}
-        </EditButton>
+        <EditButton {...props}>Login to {children}</EditButton>
       </a>
     </Link>
   )

@@ -14,16 +14,26 @@ export default function EditNote({ login, router, searchText }) {
   const selectedId = router.query.id
   const apiKey = `/api/notes/${selectedId}`
 
-  let note = selectedId != null
-    ? useData(apiKey, (url) => fetch(url).then(res => res.json(), err => console.error('e', err))) 
-    : defaultNote
+  let note =
+    selectedId != null
+      ? useData(apiKey, url =>
+          fetch(url).then(
+            res => res.json(),
+            err => console.error('e', err)
+          )
+        )
+      : defaultNote
 
   note = note || defaultNote
 
   return (
     <Page login={login} searchText={searchText}>
       <Suspense fallback={<NoteSkeleton isEditing />}>
-        <NoteEditor noteId={selectedId} initialTitle={note.title} initialBody={note.body} />
+        <NoteEditor
+          noteId={selectedId}
+          initialTitle={note.title}
+          initialBody={note.body}
+        />
       </Suspense>
     </Page>
   )
@@ -31,6 +41,6 @@ export default function EditNote({ login, router, searchText }) {
 
 export async function getServerSideProps({ req }) {
   return {
-    props: { login: getUser(req) }
+    props: { login: getUser(req) },
   }
 }

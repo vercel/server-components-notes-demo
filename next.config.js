@@ -3,5 +3,5 @@ module.exports = {
     reactRoot: true,
     runtime: 'nodejs',
     serverComponents: true,
-  }
+  },
 }

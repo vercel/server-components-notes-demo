@@ -5,7 +5,7 @@ import NoteSkeleton from '../../components/NoteSkeleton'
 import Page from '../../components/Page.server'
 import { getUser } from '../../libs/session'
 
-export default function NotePage({login, searchText, router }) {
+export default function NotePage({ login, searchText, router }) {
   const { query } = router
   const { id } = query
 
@@ -20,6 +20,6 @@ export default function NotePage({login, searchText, router }) {
 
 export async function getServerSideProps({ req }) {
   return {
-    props: { login: getUser(req) }
+    props: { login: getUser(req) },
   }
 }

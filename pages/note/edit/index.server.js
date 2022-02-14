@@ -6,4 +6,3 @@ import EditorPage from '../../../components/EditorPage.server'
 export default function Editor(props) {
   return <EditorPage {...props} />
 }
-

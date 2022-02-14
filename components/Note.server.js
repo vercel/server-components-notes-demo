@@ -5,16 +5,13 @@ import NotePreview from './NotePreview'
 import NoteEditor from './NoteEditor.client'
 import AuthButton from './AuthButton.server'
 
-
 export default function Note({ selectedId, isEditing, login }) {
   const apiKey = `/api/notes/${selectedId}`
   const note =
     selectedId != null
-      ? useData(
-        apiKey, 
-        (key) => fetch(key).then(r => r.json()), 
-        { revalidate: 1 }
-      )
+      ? useData(apiKey, key => fetch(key).then(r => r.json()), {
+          revalidate: 1,
+        })
       : null
 
   if (note === null) {
@@ -70,7 +67,6 @@ export default function Note({ selectedId, isEditing, login }) {
               <AuthButton login={login} noteId={id}>
                 Edit
               </AuthButton>
-            
             ) : (
               <div style={{ height: 30 }} />
             )}

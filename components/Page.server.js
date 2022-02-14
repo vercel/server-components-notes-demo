@@ -9,10 +9,7 @@ export default function Page({ children, searchText = '', login }) {
   return (
     <div className="container">
       <div className="banner">
-        <a
-          href="https://nextjs.org/blog/next-12"
-          target="_blank"
-        >
+        <a href="https://nextjs.org/blog/next-12" target="_blank">
           Learn more about it with next.js →
         </a>
       </div>
@@ -46,9 +43,7 @@ export default function Page({ children, searchText = '', login }) {
             </Suspense>
           </nav>
         </section>
-        <section className="col note-viewer">
-          {children}
-        </section>
+        <section className="col note-viewer">{children}</section>
       </div>
     </div>
   )

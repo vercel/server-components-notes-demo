@@ -12,7 +12,7 @@ export default async (req, res) => {
     console.timeEnd('get all items from redis')
     return res.json(notes)
   }
-  
+
   const login = getUser(req)
   if (req.method === 'POST') {
     console.time('create item from redis')

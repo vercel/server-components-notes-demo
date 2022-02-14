@@ -1,8 +1,7 @@
 let endpoint = ''
+const publicUrl = process.env.NEXT_PUBLIC_VERCEL_URL
 
-if (process.env.NEXT_PUBLIC_VERCEL_URL?.includes('localhost')) {
-  endpoint = 'http://localhost:3000'
-} else if (process.env.NEXT_PUBLIC_VERCEL_URL !== undefined) {
+if (publicUrl !== undefined && !publicUrl.includes('localhost')) {
   endpoint = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
 } else {
   endpoint = 'http://localhost:3000'
@@ -14,20 +13,18 @@ export function useData(key, fetcher, opts = {}) {
   const now = Date.now()
   function mutate() {
     _CACHE[key].isValidating = true
-    return fetcher(endpoint + key)
-      .then(
-        (r) => {
-          _CACHE[key].isValidating = false
-          _CACHE[key].timestamp = Date.now()
-          _CACHE[key].data = r
-          return r
-        }, 
-        (err) => {
-          _CACHE[key].isValidating = false
-          console.error(err)
-        }
-      )
-    
+    return fetcher(endpoint + key).then(
+      r => {
+        _CACHE[key].isValidating = false
+        _CACHE[key].timestamp = Date.now()
+        _CACHE[key].data = r
+        return r
+      },
+      err => {
+        _CACHE[key].isValidating = false
+        console.error(err)
+      }
+    )
   }
 
   const createFetcher = () => () => {
@@ -49,10 +46,10 @@ export function useData(key, fetcher, opts = {}) {
       isValidating: false,
     }
     _CACHE[key].fn = createFetcher()
-  } else {    
+  } else {
     if (opts.revalidate) {
       const timeDiff = now - _CACHE[key].timestamp
-      
+
       // revalidate
       if (timeDiff > opts.revalidate * 1000) {
         _CACHE[key].data = undefined
@@ -63,4 +60,3 @@ export function useData(key, fetcher, opts = {}) {
 
   return _CACHE[key].fn()
 }
-

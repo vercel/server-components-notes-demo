@@ -5,7 +5,7 @@ import NotePreview from './NotePreview'
 export default function NoteEditor({ noteId, initialTitle, initialBody }) {
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
-  
+
   const router = useRouter()
   const [isSaving, saveNote] = useMutation({
     endpoint: noteId != null ? `/api/notes/${noteId}` : `/api/notes`,
@@ -24,7 +24,6 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     if (body !== initialBody) {
       setBody(initialBody)
     }
-
   }, [initialTitle, initialBody])
 
   async function handleSave() {

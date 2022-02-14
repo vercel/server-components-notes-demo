@@ -6,7 +6,7 @@ import SidebarNote from './SidebarNote.server'
 const apiKey = '/api/notes'
 
 export default function NoteList({ searchText }) {
-  const notes = useData(apiKey, (key) => fetch(key).then(r => r.json()))
+  const notes = useData(apiKey, key => fetch(key).then(r => r.json()))
   return notes.length > 0 ? (
     <ul className="notes-list">
       {notes.map(note =>

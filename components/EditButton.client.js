@@ -1,11 +1,9 @@
 import React, { forwardRef } from 'react'
 
-function EditButton({
-  component: Component = 'button',
-  noteId,
-  children,
-  ...props
-}, ref) {
+function EditButton(
+  { component: Component = 'button', noteId, children, ...props },
+  ref
+) {
   const isDraft = noteId == null
   return (
     <Component

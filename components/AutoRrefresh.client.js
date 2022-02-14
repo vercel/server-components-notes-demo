@@ -17,5 +17,4 @@ export default function AutoRefresh() {
       router.events.on('routeChangeComplete', handleRouteChangeComplete)
     }
   }, [])
-
 }
