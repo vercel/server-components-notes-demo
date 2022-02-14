@@ -6,7 +6,7 @@ export default function AuthButton({ children, login, noteId, ...props }) {
   if (login) {
     return (
       <Link href={`/note/edit/${noteId || ''}`}>
-        <a href={`/note/edit/${noteId || ''}`} className="link--unstyled">
+        <a className="link--unstyled">
           <EditButton {...props} login={login}>
             {children}
             <img

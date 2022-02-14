@@ -123,7 +123,6 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
         <h1 className="note-title">{title}</h1>
         <NotePreview title={title} body={body} />
       </div>
-      {/* <AutoRefresh /> */}
     </div>
   )
 }

@@ -38,7 +38,6 @@ export default async (req, res) => {
     console.timeEnd('create item from redis')
 
     return res.json(newNote)
-    // return sendRes(req, res, id)
   }
 
   return res.send('Method not allowed.')

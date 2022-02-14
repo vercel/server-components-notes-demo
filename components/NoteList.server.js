@@ -1,5 +1,4 @@
 import React from 'react'
-// import { fetch as useFetch } from 'react-fetch'
 import { useData } from '../libs/use-fetch'
 import SidebarNote from './SidebarNote.server'
 
