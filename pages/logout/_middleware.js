@@ -1,6 +1,6 @@
 import { sessionKey, userCookieKey } from '../../libs/session'
 
-export default function middleware() {
+export default function middleware(req) {
   // Set-Cookie: token=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
   const headers = new Headers()
   headers.append(
@@ -11,7 +11,10 @@ export default function middleware() {
     'Set-Cookie',
     `${sessionKey}=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`
   )
-  headers.append('Location', '/')
+
+  const url = req.nextUrl.clone()
+  url.pathname = '/'
+  headers.append('Location', url.toString())
 
   return new Response('', {
     status: 302,
