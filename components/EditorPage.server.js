@@ -11,7 +11,7 @@ const defaultNote = {
 }
 
 export default function EditNote({ login, router, searchText }) {
-  const selectedId = router.query.id
+  let selectedId = router.query.id
   const apiKey = `/api/notes/${selectedId}`
 
   let note =
@@ -22,6 +22,12 @@ export default function EditNote({ login, router, searchText }) {
       : defaultNote
 
   note = note || defaultNote
+
+  // If login user is not creator, fallback to create note
+  if (note.created_by !== login) {
+    note = defaultNote
+    selectedId = null
+  }
 
   return (
     <Page login={login} searchText={searchText}>

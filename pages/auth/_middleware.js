@@ -1,6 +1,6 @@
 import {
   userCookieKey,
-  sessionKey,
+  cookieSep,
   createEncrypt,
 } from '../../libs/session'
 
@@ -82,7 +82,7 @@ export async function middleware(req) {
   const headers = new Headers()
   headers.append(
     'Set-Cookie',
-    `${userCookieKey}=${user.name}; ${sessionKey}=${user.encrypted}; Secure; HttpOnly`
+    `${userCookieKey}=${user.name}${cookieSep}${user.encrypted}; Secure; HttpOnly`
   )
 
   const url = req.nextUrl.clone()

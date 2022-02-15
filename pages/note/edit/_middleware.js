@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server'
-import { createDecrypt, getSession, getUser } from '../../../libs/session'
+import { createDecrypt, getSession } from '../../../libs/session'
 
 export async function middleware(req) {
   const decrypt = createDecrypt()
-  const sessionCookie = getSession(req)
-  const userCookie = getUser(req)
+  const [userCookie, sessionCookie] = getSession(req)
 
   let login = null
   let authErr = null
