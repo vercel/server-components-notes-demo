@@ -1,9 +1,9 @@
 import { Suspense } from 'react'
 import { useData } from '../libs/use-fetch'
 import { getUser } from '../libs/session'
-import NoteEditor from './NoteEditor.client'
 import NoteSkeleton from './NoteSkeleton'
 import Page from './Page.server'
+import NoteUI from './NoteUI.server'
 
 const defaultNote = {
   title: 'Untitled',
@@ -23,19 +23,15 @@ export default function EditNote({ login, router, searchText }) {
 
   note = note || defaultNote
 
-  // If login user is not creator, fallback to create note
-  if (note.created_by !== login) {
-    note = defaultNote
-    selectedId = null
-  }
+  const isCreator = note.created_by === login
 
   return (
     <Page login={login} searchText={searchText}>
-      <Suspense fallback={<NoteSkeleton isEditing />}>
-        <NoteEditor
-          noteId={selectedId}
-          initialTitle={note.title}
-          initialBody={note.body}
+      <Suspense fallback={<NoteSkeleton isEditing={isCreator} />}>
+        <NoteUI
+          note={note}
+          isEditing={isCreator}
+          selectedId={selectedId}
         />
       </Suspense>
     </Page>
