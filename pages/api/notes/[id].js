@@ -1,37 +1,29 @@
 import redis from '../../../libs/redis'
-import sendRes from '../../../libs/send-res-with-module-map'
-import session from '../../../libs/session'
+import { getUser } from '../../../libs/session'
 
 export default async (req, res) => {
-  session(req, res)
   const id = +req.query.id
-  const login = req.session.login
 
-  console.time('get item from redis')
-  const note = JSON.parse((await redis.hget('rsc:notes_2', id)) || 'null')
-  console.timeEnd('get item from redis')
+  const timeKey = `get item from redis ${req.method}`
+  console.time(timeKey)
+  const note = JSON.parse((await redis.hget('rsc:notes_2', id)) || null)
+  console.timeEnd(timeKey)
 
   if (req.method === 'GET') {
-    return res.send(JSON.stringify(note))
+    return res.send(note || 'null')
   }
 
-  if (req.method === 'DELETE') {
-    if (!login || login !== note.created_by) {
-      return res.status(403).send('Unauthorized')
-    }
+  const login = getUser(req)
 
+  if (req.method === 'DELETE') {
     console.time('delete item from redis')
     await redis.hdel('rsc:notes_2', id)
     console.timeEnd('delete item from redis')
 
-    return sendRes(req, res, null)
+    return res.status(204).send(null)
   }
 
   if (req.method === 'PUT') {
-    if (!login || login !== note.created_by) {
-      return res.status(403).send('Unauthorized')
-    }
-
     console.time('update item from redis')
     const updated = {
       id,
@@ -43,7 +35,7 @@ export default async (req, res) => {
     await redis.hset('rsc:notes_2', id, JSON.stringify(updated))
     console.timeEnd('update item from redis')
 
-    return sendRes(req, res, null)
+    return res.json(updated)
   }
 
   return res.send('Method not allowed.')

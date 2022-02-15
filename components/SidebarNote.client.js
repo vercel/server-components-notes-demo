@@ -1,12 +1,12 @@
-import { useState, useRef, useEffect, unstable_useTransition } from 'react'
-
-import { useLocation } from './LocationContext.client'
+import { useState, useRef, useEffect, useTransition } from 'react'
+import { useRouter } from 'next/router'
 
 export default function SidebarNote({ id, title, children, expandedChildren }) {
-  const [location, setLocation] = useLocation()
-  const [startTransition, isPending] = unstable_useTransition()
+  const router = useRouter()
+  const selectedId = router.pathname.split('/')[1] || null
+  const [isPending, startTransition] = useTransition()
   const [isExpanded, setIsExpanded] = useState(false)
-  const isActive = id === location.selectedId
+  const isActive = id === selectedId
 
   // Animate after title is edited.
   const itemRef = useRef(null)
@@ -37,24 +37,18 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
             ? 'var(--gray-80)'
             : isActive
             ? 'var(--tertiary-blue)'
-            : '',
+            : undefined,
           border: isActive
             ? '1px solid var(--primary-border)'
             : '1px solid transparent',
         }}
         onClick={() => {
-          startTransition(() => {
-            // hide the sidebar
-            const sidebarToggle = document.getElementById('sidebar-toggle')
-            if (sidebarToggle) {
-              sidebarToggle.checked = true
-            }
-            setLocation(loc => ({
-              selectedId: id,
-              isEditing: false,
-              searchText: loc.searchText,
-            }))
-          })
+          // hide the sidebar
+          const sidebarToggle = document.getElementById('sidebar-toggle')
+          if (sidebarToggle) {
+            sidebarToggle.checked = true
+          }
+          router.push(`/note/${id}`)
         }}
       >
         Open note for preview
@@ -68,13 +62,13 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
       >
         {isExpanded ? (
           <img
-            src="chevron-down.svg"
+            src="/chevron-down.svg"
             width="10px"
             height="10px"
             alt="Collapse"
           />
         ) : (
-          <img src="chevron-up.svg" width="10px" height="10px" alt="Expand" />
+          <img src="/chevron-up.svg" width="10px" height="10px" alt="Expand" />
         )}
       </button>
       {isExpanded && expandedChildren}

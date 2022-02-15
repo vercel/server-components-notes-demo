@@ -1,13 +1,11 @@
 import React from 'react'
-import { fetch } from 'react-fetch'
+import { useData } from '../libs/use-fetch'
+import SidebarNote from './SidebarNote.server'
 
-import SidebarNote from './SidebarNote'
-
-const endpoint = process.env.ENDPOINT
+const apiKey = '/api/notes'
 
 export default function NoteList({ searchText }) {
-  const notes = fetch(endpoint + '/api/notes').json()
-
+  const notes = useData(apiKey, key => fetch(key).then(r => r.json()))
   return notes.length > 0 ? (
     <ul className="notes-list">
       {notes.map(note =>

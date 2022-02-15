@@ -1,49 +1,23 @@
-import React, { unstable_useTransition } from 'react'
+import React, { forwardRef } from 'react'
 
-import { useLocation } from './LocationContext.client'
-
-export default function EditButton({
-  login,
-  noteId,
-  disabled,
-  title,
-  children,
-}) {
-  const [, setLocation] = useLocation()
-  const [startTransition, isPending] = unstable_useTransition()
+function EditButton(
+  { component: Component = 'button', noteId, children, ...props },
+  ref
+) {
   const isDraft = noteId == null
   return (
-    <button
+    <Component
+      {...props}
+      ref={ref}
       className={[
         'edit-button',
         isDraft ? 'edit-button--solid' : 'edit-button--outline',
       ].join(' ')}
-      disabled={isPending || disabled}
-      title={title}
-      onClick={() => {
-        if (login) {
-          // login needed
-          window.location = '/api/auth'
-          return
-        }
-        if (isDraft) {
-          // hide the sidebar
-          const sidebarToggle = document.getElementById('sidebar-toggle')
-          if (sidebarToggle) {
-            sidebarToggle.checked = true
-          }
-        }
-        startTransition(() => {
-          setLocation(loc => ({
-            selectedId: noteId,
-            isEditing: true,
-            searchText: loc.searchText,
-          }))
-        })
-      }}
       role="menuitem"
     >
       {children}
-    </button>
+    </Component>
   )
 }
+
+export default forwardRef(EditButton)

@@ -1,34 +1,42 @@
-import React, { useState, unstable_useTransition } from 'react'
-import { createFromReadableStream } from 'react-server-dom-webpack'
-
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import NotePreview from './NotePreview'
-import { useRefresh } from './Cache.client'
-import { useLocation } from './LocationContext.client'
 
 export default function NoteEditor({ noteId, initialTitle, initialBody }) {
-  const refresh = useRefresh()
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
-  const [location, setLocation] = useLocation()
-  const [startNavigating, isNavigating] = unstable_useTransition()
+
+  const router = useRouter()
   const [isSaving, saveNote] = useMutation({
-    endpoint: noteId !== null ? `/api/notes/${noteId}` : `/api/notes`,
-    method: noteId !== null ? 'PUT' : 'POST',
+    endpoint: noteId != null ? `/api/notes/${noteId}` : `/api/notes`,
+    method: noteId != null ? 'PUT' : 'POST',
   })
   const [isDeleting, deleteNote] = useMutation({
     endpoint: `/api/notes/${noteId}`,
     method: 'DELETE',
   })
 
+  // sync client text in editor between navigation
+  useEffect(() => {
+    if (title !== initialTitle) {
+      setTitle(initialTitle)
+    }
+    if (body !== initialBody) {
+      setBody(initialBody)
+    }
+  }, [initialTitle, initialBody])
+
   async function handleSave() {
     const payload = { title, body }
     const requestedLocation = {
       selectedId: noteId,
       isEditing: false,
-      searchText: location.searchText,
     }
+
     const response = await saveNote(payload, requestedLocation)
-    navigate(response)
+    const updatedData = await response.json()
+    const finalId = noteId || updatedData.id
+    navigate(`${finalId ? `/note/${finalId}` : '/'}`)
   }
 
   async function handleDelete() {
@@ -36,20 +44,14 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     const requestedLocation = {
       selectedId: null,
       isEditing: false,
-      searchText: location.searchText,
     }
-    const response = await deleteNote(payload, requestedLocation)
-    navigate(response)
+
+    await deleteNote(payload, requestedLocation)
+    navigate('/')
   }
 
-  async function navigate(response) {
-    const cacheKey = response.headers.get('X-Location')
-    const nextLocation = JSON.parse(cacheKey)
-    const seededResponse = createFromReadableStream(response.body)
-    startNavigating(() => {
-      refresh(cacheKey, seededResponse)
-      setLocation(nextLocation)
-    })
+  async function navigate(url) {
+    router.push(url)
   }
 
   const isDraft = noteId === null
@@ -75,8 +77,8 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
           Enter the body for your note
         </label>
         <textarea
-          id="note-body-input"
           value={body}
+          id="note-body-input"
           onChange={e => setBody(e.target.value)}
         />
       </form>
@@ -84,12 +86,12 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
         <div className="note-editor-menu" role="menubar">
           <button
             className="note-editor-done"
-            disabled={isSaving || isNavigating}
+            disabled={Boolean(isSaving)}
             onClick={() => handleSave()}
             role="menuitem"
           >
             <img
-              src="checkmark.svg"
+              src="/checkmark.svg"
               width="14px"
               height="10px"
               alt=""
@@ -100,12 +102,12 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
           {!isDraft && (
             <button
               className="note-editor-delete"
-              disabled={isDeleting || isNavigating}
+              disabled={Boolean(isDeleting)}
               onClick={() => handleDelete()}
               role="menuitem"
             >
               <img
-                src="cross.svg"
+                src="/cross.svg"
                 width="10px"
                 height="10px"
                 alt=""
@@ -134,26 +136,23 @@ function useMutation({ endpoint, method }) {
     throw error
   }
 
-  async function performMutation(payload, requestedLocation) {
+  async function performMutation(payload) {
     setIsSaving(true)
     try {
-      const response = await fetch(
-        `${endpoint}?location=${encodeURIComponent(
-          JSON.stringify(requestedLocation)
-        )}`,
-        {
-          method,
-          body: JSON.stringify(payload),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      const response = await fetch(`${endpoint}`, {
+        method,
+        body: JSON.stringify(payload),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
       if (!response.ok) {
         throw new Error(await response.text())
       }
       return response
     } catch (e) {
+      console.error(e)
       setDidError(true)
       setError(e)
     } finally {

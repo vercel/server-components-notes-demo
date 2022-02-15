@@ -1,34 +1,30 @@
 import React from 'react'
-import { fetch } from 'react-fetch'
 import { format } from 'date-fns'
-
+import { useData } from '../libs/use-fetch'
 import NotePreview from './NotePreview'
 import NoteEditor from './NoteEditor.client'
 import AuthButton from './AuthButton.server'
 
-const endpoint = process.env.ENDPOINT
-
 export default function Note({ selectedId, isEditing, login }) {
+  const apiKey = `/api/notes/${selectedId}`
   const note =
     selectedId != null
-      ? fetch(`${endpoint}/api/notes/${selectedId}`).json()
+      ? useData(apiKey, key => fetch(key).then(r => r.json()), {
+          revalidate: 1,
+        })
       : null
 
   if (note === null) {
-    if (isEditing) {
-      return <NoteEditor noteId={null} initialTitle="Untitled" initialBody="" />
-    } else {
-      return (
-        <div className="note--empty-state">
-          <span className="note-text--empty-state">
-            Click a note on the left to view something! 🥺
-          </span>
-        </div>
-      )
-    }
+    return (
+      <div className="note--empty-state">
+        <span className="note-text--empty-state">
+          Click a note on the left to view something! 🥺
+        </span>
+      </div>
+    )
   }
 
-  let { id, title, body, updated_at, created_by: created_by } = note
+  const { id, title, body, updated_at, created_by: createdBy } = note
   const updatedAt = new Date(updated_at)
 
   if (isEditing) {
@@ -38,7 +34,7 @@ export default function Note({ selectedId, isEditing, login }) {
       <div className="note">
         <div className="note-header">
           <h1 className="note-title">{title}</h1>
-          {created_by ? (
+          {createdBy ? (
             <div
               style={{
                 flex: '1 0 100%',
@@ -48,18 +44,18 @@ export default function Note({ selectedId, isEditing, login }) {
             >
               By{' '}
               <img
-                src={`https://avatars.githubusercontent.com/${created_by}?s=40`}
+                src={`https://avatars.githubusercontent.com/${createdBy}?s=40`}
                 alt="User Avatar"
-                title={created_by}
+                title={createdBy}
                 className="avatar"
               />
               &nbsp;
               <a
-                href={`https://github.com/${created_by}`}
+                href={`https://github.com/${createdBy}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {created_by}
+                {createdBy}
               </a>
             </div>
           ) : null}
@@ -67,7 +63,7 @@ export default function Note({ selectedId, isEditing, login }) {
             <small className="note-updated-at" role="status">
               Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
             </small>
-            {login === created_by ? (
+            {login === createdBy ? (
               <AuthButton login={login} noteId={id}>
                 Edit
               </AuthButton>

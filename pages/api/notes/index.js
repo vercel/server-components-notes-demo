@@ -1,10 +1,7 @@
 import redis from '../../../libs/redis'
-import sendRes from '../../../libs/send-res-with-module-map'
-import session from '../../../libs/session'
+import { getUser } from '../../../libs/session'
 
 export default async (req, res) => {
-  session(req, res)
-
   if (req.method === 'GET') {
     console.time('get all items from redis')
 
@@ -13,16 +10,11 @@ export default async (req, res) => {
       .sort((a, b) => b.id - a.id)
 
     console.timeEnd('get all items from redis')
-    return res.send(JSON.stringify(notes))
+    return res.json(notes)
   }
 
+  const login = getUser(req)
   if (req.method === 'POST') {
-    const login = req.session.login
-
-    if (!login) {
-      return res.status(403).send('Unauthorized')
-    }
-
     console.time('create item from redis')
 
     if ((await redis.hlen('rsc:notes_2')) >= 40) {
@@ -45,7 +37,7 @@ export default async (req, res) => {
     await redis.hset('rsc:notes_2', id, JSON.stringify(newNote))
     console.timeEnd('create item from redis')
 
-    return sendRes(req, res, id)
+    return res.json(newNote)
   }
 
   return res.send('Method not allowed.')
