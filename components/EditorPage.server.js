@@ -1,9 +1,9 @@
 import { Suspense } from 'react'
 import { useData } from '../libs/use-fetch'
 import { getUser } from '../libs/session'
-import NoteEditor from './NoteEditor.client'
 import NoteSkeleton from './NoteSkeleton'
 import Page from './Page.server'
+import NoteUI from './NoteUI.server'
 
 const defaultNote = {
   title: 'Untitled',
@@ -11,7 +11,7 @@ const defaultNote = {
 }
 
 export default function EditNote({ login, router, searchText }) {
-  const selectedId = router.query.id
+  let selectedId = router.query.id
   const apiKey = `/api/notes/${selectedId}`
 
   let note =
@@ -23,13 +23,15 @@ export default function EditNote({ login, router, searchText }) {
 
   note = note || defaultNote
 
+  const isCreator = note.created_by === login
+
   return (
     <Page login={login} searchText={searchText}>
-      <Suspense fallback={<NoteSkeleton isEditing />}>
-        <NoteEditor
-          noteId={selectedId}
-          initialTitle={note.title}
-          initialBody={note.body}
+      <Suspense fallback={<NoteSkeleton isEditing={isCreator} />}>
+        <NoteUI
+          note={note}
+          isEditing={isCreator}
+          selectedId={selectedId}
         />
       </Suspense>
     </Page>

@@ -1,5 +1,6 @@
 export const userCookieKey = '_un'
 export const sessionKey = '_sess'
+export const cookieSep = '^)&_*($'
 
 const iv = encode('encryptiv')
 const password = process.env.SESSION_KEY
@@ -69,10 +70,17 @@ export function createDecrypt() {
   }
 }
 
-export function getUser(req) {
-  return req.cookies[userCookieKey] || null
+export function getSession(req) {
+  const none = [null, null]
+  const value = req.cookies[userCookieKey]
+  if (!value) return none
+  const index = value.indexOf(cookieSep)
+  if (index === -1) return none
+  const user = value.slice(0, index)
+  const session = value.slice(index + cookieSep.length)
+  return [user, session]
 }
 
-export function getSession(req) {
-  return req.cookies[sessionKey] || null
+export function getUser(req) {
+  return getSession(req)[0]
 }
