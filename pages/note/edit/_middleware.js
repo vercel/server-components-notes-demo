@@ -8,6 +8,10 @@ export async function middleware(req) {
 
   let login = null
   let authErr = null
+  if (userCookie) {
+    return NextResponse.next()
+  }
+  /*
   if (sessionCookie && userCookie) {
     try {
       login = await decrypt(sessionCookie)
@@ -20,6 +24,7 @@ export async function middleware(req) {
       return NextResponse.next()
     }
   }
+  */
   const url = req.nextUrl.clone()
   url.pathname = '/'
   return NextResponse.redirect(url)
