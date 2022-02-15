@@ -9,7 +9,8 @@ const CLIENT_ID = process.env.OAUTH_CLIENT_KEY
 const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
 
 const iv = encode('encryptiv')
-const password = 'reactsc'
+const password = process.env.SESSION_KEY
+
 const pwUtf8 = encode(password)
 const algo = { name: 'AES-GCM', iv }
 
@@ -77,7 +78,7 @@ export async function middleware(req) {
   const { nextUrl } = req
   const { searchParams } = nextUrl
   const query = Object.fromEntries(searchParams)
-  const pwHash = await crypto.subtle.digest('SHA-256', pwUtf8)
+  const pwHash = await crypto.subtle.digest('SHA-256', pwUtf8)  
   const encrypt = createEncrypt(pwHash, algo)
   const decrypt = createDecrypt(pwHash, algo)
 
@@ -145,10 +146,9 @@ export async function middleware(req) {
     })
   }
 
-  const ghUser = token
   const user = {
     name: token,
-    encrypted: await encrypt(ghUser),
+    encrypted: await encrypt(token),
   }
 
   let login = null
