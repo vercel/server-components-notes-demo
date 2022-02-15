@@ -16,7 +16,7 @@ export async function middleware(req) {
       authErr = e
     }
 
-    if (!authErr && (login && login === userCookie)) {
+    if (!authErr && (login === userCookie)) {
       return NextResponse.next()
     }
   }

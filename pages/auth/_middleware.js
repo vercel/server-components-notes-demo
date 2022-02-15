@@ -82,13 +82,11 @@ export async function middleware(req) {
   const headers = new Headers()
   headers.append(
     'Set-Cookie',
-    `${userCookieKey}=${user.name}; Secure; HttpOnly`
+    `${userCookieKey}=${user.name}; Secure; HttpOnly; ${sessionKey}=${user.encrypted}; Secure; HttpOnly`
   )
-  headers.append(
-    'Set-Cookie',
-    `${sessionKey}=${user.encrypted}; Secure; HttpOnly`
-  )
+
   const url = req.nextUrl.clone()
+  url.searchParams.delete('code')
   url.pathname = '/'
   headers.append('Location', url.toString())
 
