@@ -1,5 +1,9 @@
 # Next.js 12 React Server Components Demo (Alpha)
 
+Try the demo live here: [**next-server-components.vercel.app**](https://next-server-components.vercel.app).
+
+## Introduction
+
 This is a demo app showing Next.js 12's experimental React Server Components support. It's based on the [React Server Components Demo](https://github.com/reactjs/server-components-demo) by the React team. We recommend you taking a look at these links, before trying out the experimental feature:
 - [**Introducing Zero-Bundle-Size React Server Components**](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html)
 - [**Everything About React Server Components**](https://vercel.com/blog/everything-about-react-server-components)
@@ -7,11 +11,11 @@ This is a demo app showing Next.js 12's experimental React Server Components sup
  
 This demo is built for showing what features that Server Components provide and what the application structure might look like. **It's not ready for production adoption, or performance benchmarks** as the underlying APIs are not stable and might change and be improved in the future. 
 
-## Development
+## Technical Details
 
-This application uses Redis to store the data, and GitHub's OAuth API for authentication. To develop it locally or host it, please follow these instructions:
+This Next.js application uses React 18 (RC build), with `runtime` set to `'nodejs'` and feature flag `serverComponents` enabled. You can check out [next.config.js](https://github.com/vercel/next-server-components/blob/3dac46c5b5e3e2986bfb28e04d070b229932abbb/next.config.js#L3-L5) for more details. It also uses Redis to store the data, and GitHub's OAuth API for authentication. To develop it locally or host it, please follow these instructions:
 
-### Environment Variables
+### Preparation
 
 These environment variables are required to start this application (you can create a `.env` file for Next.js to use):
 
@@ -22,7 +26,7 @@ OAUTH_CLIENT_KEY='github oauth app id'
 OAUTH_CLIENT_SECRET='github oauth app secret'
 ```
 
-### Start
+### Develop It Locally
 
 1. `yarn install`
 2. `yarn dev`
