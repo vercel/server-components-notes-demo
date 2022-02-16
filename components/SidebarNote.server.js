@@ -30,7 +30,7 @@ export default function SidebarNote({ note }) {
   const lastUpdatedAt = isToday(updatedAt)
     ? format(updatedAt, 'h:mm bb')
     : format(updatedAt, 'M/d/yy')
-  const summary = excerpts(marked(note.body || ''), { words: 20 })
+  const summary = excerpts(marked(note.body || ''), 20)
   return (
     <ClientSidebarNote
       id={note.id}
