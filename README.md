@@ -1,4 +1,4 @@
-# Next.js 12 React Server Components Demo (Alpha)
+# Next.js 12 React Server Components Notes Demo (Alpha)
 
 Try the demo live here: [**next-rsc-notes.vercel.app**](https://next-rsc-notes.vercel.app).
 
@@ -13,7 +13,7 @@ This demo is built for showing what features that Server Components provide and 
 
 ## Technical Details
 
-This Next.js application uses React 18 (RC build), with `runtime` set to `'nodejs'` and feature flag `serverComponents` enabled. You can check out [next.config.js](https://github.com/vercel/next-server-components/blob/main/next.config.js) for more details. It also uses Redis to store the data, and GitHub's OAuth API for authentication. To develop it locally or host it, please follow these instructions:
+This Next.js application uses React 18 (RC build), with `runtime` set to `'nodejs'` and feature flag `serverComponents` enabled. You can check out [next.config.js](https://github.com/vercel/server-components-notes-demo/blob/main/next.config.js) for more details. It also uses Redis to store the data, and GitHub's OAuth API for authentication. To develop it locally or host it, please follow these instructions:
 
 ### Preparation
 
@@ -37,7 +37,7 @@ Go to `localhost:3000`.
 
 You can quickly deploy the demo to Vercel by clicking this link:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext-server-components&env=REDIS_URL,SESSION_KEY,OAUTH_CLIENT_KEY,OAUTH_CLIENT_SECRET&project-name=next-rsc-notes&repo-name=next-rsc-notes&demo-title=React%20Server%20Components%20(Experimental%20Demo)&demo-description=Experimental%20demo%20of%20React%20Server%20Components%20with%20Next.js.%20&demo-url=https%3A%2F%2Fnext-rsc-notes.vercel.app&demo-image=https%3A%2F%2Fnext-server-components.vercel.app%2Fog.png)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fserver-components-notes-demo&env=REDIS_URL,SESSION_KEY,OAUTH_CLIENT_KEY,OAUTH_CLIENT_SECRET&project-name=next-rsc-notes&repo-name=next-rsc-notes&demo-title=React%20Server%20Components%20(Experimental%20Demo)&demo-description=Experimental%20demo%20of%20React%20Server%20Components%20with%20Next.js.%20&demo-url=https%3A%2F%2Fnext-rsc-notes.vercel.app&demo-image=https%3A%2F%2Fnext-rsc-notes.vercel.app%2Fog.png)
 
 ## License
 
