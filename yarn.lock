@@ -83,7 +83,7 @@ cheerio-select@^1.5.0:
     domhandler "^4.2.0"
     domutils "^2.7.0"
 
-cheerio@1.0.0-rc.10, cheerio@^0.22.0:
+cheerio@^1.0.0-rc.10:
   version "1.0.0-rc.10"
   resolved "https://registry.yarnpkg.com/cheerio/-/cheerio-1.0.0-rc.10.tgz#2ba3dcdfcc26e7956fc1f440e61d51c643379f3e"
   integrity sha512-g0J0q/O6mW8z5zxQ3A8E8J1hUgp4SMOvEoW/x84OwyHKe/Zccz83PVT4y5Crcr530FV6NgmKI1qvGTKVl9XXVw==
@@ -178,13 +178,6 @@ escape-string-regexp@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz#14ba83a5d373e3d311e5afca29cf5bfad965bf34"
   integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
-
-excerpts@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/excerpts/-/excerpts-0.0.3.tgz#fdfef68aa669279d12aa430af7916327eb16908e"
-  integrity sha512-osE67JikKwTcbZYgEMZrnDFJMto8HDwlYKsjKPyVIkRvOixG6NWqj0hfKkISUwz5R7HOusJEzSqyZmLw565AJQ==
-  dependencies:
-    cheerio "^0.22.0"
 
 htmlparser2@^6.0.0, htmlparser2@^6.1.0:
   version "6.1.0"
