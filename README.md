@@ -13,7 +13,7 @@ This demo is built for showing what features that Server Components provide and 
 
 ## Technical Details
 
-This Next.js application uses React 18 (RC build), with `runtime` set to `'nodejs'` and feature flag `serverComponents` enabled. You can check out [next.config.js](https://github.com/vercel/next-server-components/blob/3dac46c5b5e3e2986bfb28e04d070b229932abbb/next.config.js#L3-L5) for more details. It also uses Redis to store the data, and GitHub's OAuth API for authentication. To develop it locally or host it, please follow these instructions:
+This Next.js application uses React 18 (RC build), with `runtime` set to `'nodejs'` and feature flag `serverComponents` enabled. You can check out [next.config.js](https://github.com/vercel/next-server-components/blob/main/next.config.js) for more details. It also uses Redis to store the data, and GitHub's OAuth API for authentication. To develop it locally or host it, please follow these instructions:
 
 ### Preparation
 
