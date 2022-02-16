@@ -26,7 +26,7 @@ OAUTH_CLIENT_KEY='github oauth app id'
 OAUTH_CLIENT_SECRET='github oauth app secret'
 ```
 
-### Develop It Locally
+### Running Locally
 
 1. `yarn install`
 2. `yarn dev`
