@@ -10,7 +10,7 @@ export default function Page({ children, searchText = '', login }) {
     <div className="container">
       <div className="banner">
         <a href="https://nextjs.org/docs/advanced-features/react-18" target="_blank">
-          Learn more about using React server components it with Next.js →
+          Learn more about using React Server Components in Next.js →
         </a>
       </div>
       <div className="main">

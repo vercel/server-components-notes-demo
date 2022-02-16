@@ -9,11 +9,11 @@ export default function MyApp({ Component, pageProps }) {
         <meta httpEquiv="Content-Language" content="en" />
         <meta
           name="description"
-          content="Experimental demo of React Server Components with Next.js. Hosted on Vercel."
+          content="Experimental demo of React Server Components in Next.js. Hosted on Vercel."
         />
         <meta
           name="og:description"
-          content="Experimental demo of React Server Components with Next.js. Hosted on Vercel."
+          content="Experimental demo of React Server Components in Next.js. Hosted on Vercel."
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
