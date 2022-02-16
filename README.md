@@ -9,7 +9,7 @@ This is a demo app showing Next.js 12's experimental React Server Components sup
 - [**Everything About React Server Components**](https://vercel.com/blog/everything-about-react-server-components)
 - [**Docs of React Server Components in Next.js**](https://nextjs.org/docs/advanced-features/react-18#react-server-components)
  
-This demo is built for showing what features that Server Components provide and what the application structure might look like. **It's not ready for production adoption, or performance benchmarks** as the underlying APIs are not stable and might change and be improved in the future. 
+This demo is built for showing what features that Server Components provide and what the application structure might look like. **It's not ready for production adoption, or performance benchmarking** as the underlying APIs are not stable yet, and might change or be improved in the future. 
 
 ## Technical Details
 
