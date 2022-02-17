@@ -1,6 +1,6 @@
 module.exports = {
   experimental: {
-    runtime: 'nodejs',
+    runtime: 'edge',
     serverComponents: true,
   },
 }

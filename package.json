@@ -9,11 +9,11 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
     "date-fns": "^2.16.1",
-    "excerpts": "^0.0.3",
     "ioredis": "^4.19.4",
     "marked": "^1.2.7",
-    "next": "^12.0.11-canary.18",
+    "next": "^12.0.11-canary.21",
     "oauth": "^0.9.15",
     "react": "^18.0.0-rc.0",
     "react-dom": "^18.0.0-rc.0",

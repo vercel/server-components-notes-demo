@@ -6,21 +6,31 @@
  *
  */
 
-// FIXME: This is a temporary workaround for unsupported hooks in rsc
-// renamed SidebarNote to SidebarNote.server
 import React from 'react'
 import { format, isToday } from 'date-fns'
-import excerpts from 'excerpts'
+import cheerio from 'cheerio'
 import marked from 'marked'
-
 import ClientSidebarNote from './SidebarNote.client'
+
+function excerpts(html, length) {
+  const text = cheerio.load(html).text().trim()
+    .replace(/(\r\n|\r|\n|\s)+/g, ' ')
+
+  let excerpt = ''
+  if (length) {
+    excerpt = text.split(' ').slice(0, length).join(' ')
+  }
+  if (excerpt.length < text.length) excerpt += '...'
+  
+  return excerpt
+}
 
 export default function SidebarNote({ note }) {
   const updatedAt = new Date(note.updated_at)
   const lastUpdatedAt = isToday(updatedAt)
     ? format(updatedAt, 'h:mm bb')
     : format(updatedAt, 'M/d/yy')
-  const summary = excerpts(marked(note.body || ''), { words: 20 })
+  const summary = excerpts(marked(note.body || ''), 20)
   return (
     <ClientSidebarNote
       id={note.id}
