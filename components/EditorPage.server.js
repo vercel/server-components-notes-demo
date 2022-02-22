@@ -16,23 +16,17 @@ export default function EditNote({ login, router, searchText }) {
 
   let note =
     selectedId != null
-      ? useData(apiKey, url =>
-          fetch(url).then(res => res.json())
-        )
+      ? useData(apiKey, url => fetch(url).then(res => res.json()))
       : defaultNote
 
   note = note || defaultNote
 
-  const isCreator = note.created_by === login
+  const isCreator = !selectedId || note.created_by === login
 
   return (
     <Page login={login} searchText={searchText}>
       <Suspense fallback={<NoteSkeleton isEditing={isCreator} />}>
-        <NoteUI
-          note={note}
-          isEditing={isCreator}
-          selectedId={selectedId}
-        />
+        <NoteUI note={note} isEditing={isCreator} selectedId={selectedId} />
       </Suspense>
     </Page>
   )
