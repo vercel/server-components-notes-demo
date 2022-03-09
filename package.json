@@ -13,10 +13,10 @@
     "date-fns": "^2.16.1",
     "ioredis": "^4.19.4",
     "marked": "^1.2.7",
-    "next": "^12.1.0",
+    "next": "12.1.1-canary.8",
     "oauth": "^0.9.15",
-    "react": "^18.0.0-rc.0",
-    "react-dom": "^18.0.0-rc.0",
+    "react": "18.0.0-rc.1",
+    "react-dom": "18.0.0-rc.1",
     "sanitize-html": "^2.3.0"
   },
   "devDependencies": {
