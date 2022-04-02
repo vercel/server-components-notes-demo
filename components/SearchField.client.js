@@ -1,10 +1,9 @@
 import { unstable_useRefreshRoot as useRefreshRoot } from 'next/streaming'
-import React, { useState, useTransition } from 'react'
+import React, { useTransition } from 'react'
 import Spinner from './Spinner'
 
 export default function SearchField() {
   const refresh = useRefreshRoot()
-  const [text, setText] = useState('')
   const [isSearching, startSearching] = useTransition({ timeoutMs: 200 })
 
   return (
@@ -15,12 +14,10 @@ export default function SearchField() {
       <input
         id="sidebar-search-input"
         placeholder="Search"
-        value={text}
         onChange={e => {
-          const newText = e.target.value
-          setText(newText)
-          refresh({ searchText: newText })
-          startSearching(() => {})
+          startSearching(() => {
+            refresh({ searchText: e.target.value })
+          })
         }}
       />
       <Spinner active={isSearching} />
