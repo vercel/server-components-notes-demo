@@ -10,8 +10,8 @@ const defaultNote = {
   body: '',
 }
 
-export default function EditNote({ login, router, searchText }) {
-  let selectedId = router.query.id
+export default function EditNote({ login, id, searchText }) {
+  let selectedId = id || null
   const apiKey = `/api/notes/${selectedId}`
 
   let note =
@@ -32,8 +32,11 @@ export default function EditNote({ login, router, searchText }) {
   )
 }
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ query, req }) {
   return {
-    props: { login: getUser(req) },
+    props: {
+      login: getUser(req),
+      id: query.id || '',
+    },
   }
 }
