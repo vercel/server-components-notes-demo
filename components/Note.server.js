@@ -5,7 +5,7 @@ import NoteUI from './NoteUI.server'
 export default function Note({ selectedId, isEditing, login }) {
   const apiKey = `/api/notes/${selectedId}`
   const note =
-    !selectedId
+    selectedId
       ? useData(apiKey, key => fetch(key).then(r => r.json()), {
           revalidate: 1,
         })

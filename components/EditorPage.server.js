@@ -15,7 +15,7 @@ export default function EditNote({ login, id, searchText }) {
   const apiKey = `/api/notes/${selectedId}`
 
   let note =
-    !selectedId
+    selectedId
       ? useData(apiKey, url => fetch(url).then(res => res.json()))
       : defaultNote
 
