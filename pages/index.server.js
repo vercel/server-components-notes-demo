@@ -8,7 +8,7 @@ export default function NotePage({ login, searchText = '', id }) {
   return (
     <Page login={login} searchText={searchText}>
       <Suspense fallback={<NoteSkeleton isEditing={false} />}>
-        <Note login={login} selectedId={id || null} isEditing={false} />
+        <Note login={login} selectedId={id} isEditing={false} />
       </Suspense>
     </Page>
   )
