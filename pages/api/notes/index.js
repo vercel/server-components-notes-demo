@@ -4,7 +4,6 @@ import { getUser } from '../../../libs/session'
 export default async (req, res) => {
   if (req.method === 'GET') {
     const label = 'get all items from redis'
-    console.log('req', req.url)
     console.time(label)
 
     const notes = (await redis.hvals('rsc:notes_2'))
