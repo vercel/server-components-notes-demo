@@ -54,7 +54,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     router.push(url)
   }
 
-  const isDraft = noteId === null
+  const isDraft = !noteId
   return (
     <div className="note-editor">
       <form

@@ -3,13 +3,14 @@ import { getUser } from '../../../libs/session'
 
 export default async (req, res) => {
   if (req.method === 'GET') {
-    console.time('get all items from redis')
+    const label = 'get all items from redis'
+    console.time(label)
 
     const notes = (await redis.hvals('rsc:notes_2'))
       .map(note => JSON.parse(note))
       .sort((a, b) => b.id - a.id)
 
-    console.timeEnd('get all items from redis')
+    console.timeEnd(label)
     return res.json(notes)
   }
 
