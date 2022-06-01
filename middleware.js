@@ -11,7 +11,6 @@ function matchPathname(url, pathname) {
 export async function middleware(req) {
   const url = req.nextUrl.clone()
   if (matchPathname(url, '/api')) {
-    console.log('match', url.pathname)
     return apiMiddleware(req)
   }
 

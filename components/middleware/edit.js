@@ -3,7 +3,8 @@ import { createDecrypt, getSession } from '../../libs/session'
 
 export default async function middleware(req) {
   const decrypt = createDecrypt()
-  const [userCookie, sessionCookie] = getSession(req)
+  const cookies = Object.fromEntries(req.cookies.entries())
+  const [userCookie, sessionCookie] = getSession(cookies)
 
   let login = null
   let authErr = null

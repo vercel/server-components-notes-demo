@@ -13,7 +13,7 @@ export default async (req, res) => {
     return res.send(note || 'null')
   }
 
-  const login = getUser(req)
+  const login = getUser(req.cookies)
 
   if (req.method === 'DELETE') {
     console.time('delete item from redis')
