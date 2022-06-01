@@ -1,23 +1,15 @@
-import { sessionKey, userCookieKey } from '../../libs/session'
+import { NextResponse } from 'next/server'
+import { userCookieKey } from '../../libs/session'
 
 export default async function middleware(req) {
-  // Set-Cookie: token=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
-  const headers = new Headers()
-  headers.append(
-    'Set-Cookie',
-    `${userCookieKey}=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`
-  )
-  headers.append(
-    'Set-Cookie',
-    `${sessionKey}=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`
-  )
-
   const url = req.nextUrl.clone()
   url.pathname = '/'
-  headers.append('Location', url.toString())
+  const res = NextResponse.redirect(url.toString(), 302)
 
-  return new Response('', {
-    status: 302,
-    headers,
-  })
+  res.cookies.set(
+    userCookieKey,
+    `deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`
+  )
+
+  return res
 }

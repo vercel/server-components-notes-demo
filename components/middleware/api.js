@@ -5,7 +5,7 @@ export default function middleware(req) {
   const user = getUser(req)
 
   if (req.method !== 'GET' && !user) {
-    return new Response('Unauthorized', { status: 403 })
+    return NextResponse.json({message: 'Unauthorized'}, { status: 403 })
   }
 
   return NextResponse.next()

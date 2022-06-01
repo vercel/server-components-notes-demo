@@ -5,14 +5,13 @@ import editMiddleware from './components/middleware/edit'
 import logoutMiddleware from './components/middleware/logout'
 
 function matchPathname(url, pathname) {
-  console.log('match', url, pathname)
   return url.pathname.startsWith(pathname)
 }
 
 export async function middleware(req) {
   const url = req.nextUrl.clone()
-  console.log('->', url.pathname)
   if (matchPathname(url, '/api')) {
+    console.log('match', url.pathname)
     return apiMiddleware(req)
   }
 

@@ -1,5 +1,4 @@
 export const userCookieKey = '_un'
-export const sessionKey = '_sess'
 export const cookieSep = '^)&_*($'
 
 const iv = encode('encryptiv')
