@@ -15,8 +15,8 @@
     "marked": "^1.2.7",
     "next": "^12.1.7-canary.27",
     "oauth": "^0.9.15",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
     "sanitize-html": "^2.3.0"
   },
   "optionalDependencies": {
