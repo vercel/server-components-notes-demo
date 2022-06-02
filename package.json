@@ -6,6 +6,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "postinstall": "patch-package",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -26,6 +27,7 @@
     "@next/swc-win32-x64-msvc": "canary"
   },
   "devDependencies": {
+    "patch-package": "^6.4.7",
     "prettier": "2.2.1"
   },
   "prettier": {
