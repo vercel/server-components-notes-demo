@@ -18,7 +18,7 @@ export default function NotePage({ login, searchText, id }) {
 export async function getServerSideProps({ req, query }) {
   return {
     props: {
-      login: getUser(req.cookies),
+      login: getUser(req.cookies) || '',
       id: query.id || '',
     },
   }
