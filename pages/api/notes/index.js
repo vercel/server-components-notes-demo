@@ -14,7 +14,7 @@ export default async (req, res) => {
     return res.json(notes)
   }
 
-  const login = getUser(req)
+  const login = getUser(req.cookies)
   if (req.method === 'POST') {
     console.time('create item from redis')
 

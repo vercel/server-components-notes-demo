@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server'
 import {
   userCookieKey,
   cookieSep,
@@ -8,7 +9,7 @@ const CLIENT_ID = process.env.OAUTH_CLIENT_KEY
 const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
 
 
-export async function middleware(req) {
+export default async function middleware(req) {
   const { nextUrl } = req
   const { searchParams } = nextUrl
   const query = Object.fromEntries(searchParams)
@@ -20,12 +21,8 @@ export async function middleware(req) {
   // We go with the login flow.
   if (!code) {
     // Login with GitHub
-    return new Response('', {
-      status: 302,
-      headers: {
-        Location: `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&allow_signup=false`,
-      },
-    })
+    const redirectUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&allow_signup=false`
+    return NextResponse.redirect(redirectUrl)
   }
 
   let token = ''
@@ -63,13 +60,14 @@ export async function middleware(req) {
     }
   } catch (err) {
     console.error(err)
-    return new Response(err.toString(), {
+
+    return NextResponse.json({message: err.toString()}, {
       status: 500,
     })
   }
 
   if (!token) {
-    return new Response('Github authorization failed', {
+    return NextResponse.json({message: 'Github authorization failed'}, {
       status: 400,
     })
   }
@@ -78,20 +76,18 @@ export async function middleware(req) {
     name: token,
     encrypted: await encrypt(token),
   }
- 
-  const headers = new Headers()
-  headers.append(
-    'Set-Cookie',
-    `${userCookieKey}=${user.name}${cookieSep}${user.encrypted}; Secure; HttpOnly`
-  )
+
 
   const url = req.nextUrl.clone()
   url.searchParams.delete('code')
   url.pathname = '/'
-  headers.append('Location', url.toString())
 
-  return new Response('', {
-    status: 302,
-    headers,
-  })
+  const res = NextResponse.redirect(url)
+
+  res.cookies.set(
+    userCookieKey,
+    `${user.name}${cookieSep}${user.encrypted}; Secure; HttpOnly`
+  )
+
+  return res
 }

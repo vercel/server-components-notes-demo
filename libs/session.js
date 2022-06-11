@@ -1,5 +1,4 @@
 export const userCookieKey = '_un'
-export const sessionKey = '_sess'
 export const cookieSep = '^)&_*($'
 
 const iv = encode('encryptiv')
@@ -70,9 +69,9 @@ export function createDecrypt() {
   }
 }
 
-export function getSession(req) {
+export function getSession(cookies) {
   const none = [null, null]
-  const value = req.cookies[userCookieKey]
+  const value = decodeURIComponent(cookies[userCookieKey])
   if (!value) return none
   const index = value.indexOf(cookieSep)
   if (index === -1) return none
@@ -81,6 +80,6 @@ export function getSession(req) {
   return [user, session]
 }
 
-export function getUser(req) {
-  return getSession(req)[0]
+export function getUser(cookies) {
+  return getSession(cookies)[0]
 }

@@ -35,7 +35,7 @@ export default function EditNote({ login, id, searchText }) {
 export async function getServerSideProps({ query, req }) {
   return {
     props: {
-      login: getUser(req),
+      login: getUser(req.cookies),
       id: query.id || '',
     },
   }
