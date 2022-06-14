@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { Suspense } from 'react'
 import Note from '../../components/Note.server'
 
@@ -8,6 +9,9 @@ import { getUser } from '../../libs/session'
 export default function NotePage({ login, searchText, id }) {
   return (
     <Page login={login} searchText={searchText}>
+      <Head>
+        <meta name='robots' content='noindex' />
+      </Head>
       <Suspense fallback={<NoteSkeleton isEditing={false} />}>
         <Note login={login} selectedId={id} isEditing={false} />
       </Suspense>
