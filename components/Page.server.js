@@ -33,9 +33,9 @@ export default function Page({ children, searchText = '', login }) {
           </Link>
           <section className="sidebar-menu" role="menubar">
             <SearchField />
-            <AuthButton login={login} noteId={null}>
+            {/* <AuthButton login={login} noteId={null}>
               Add
-            </AuthButton>
+            </AuthButton> */}
           </section>
           <nav>
             <Suspense fallback={<NoteListSkeleton />}>

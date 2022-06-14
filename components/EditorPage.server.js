@@ -21,7 +21,8 @@ export default function EditNote({ login, id, searchText }) {
 
   note = note || defaultNote
 
-  const isCreator = !selectedId || note.created_by === login
+  // disable editing temporarily
+  const isCreator = false // !selectedId || note.created_by === login
 
   return (
     <Page login={login} searchText={searchText}>
