@@ -22,20 +22,10 @@
   resolved "https://registry.yarnpkg.com/@next/swc-darwin-arm64/-/swc-darwin-arm64-12.1.7-canary.35.tgz#f26b5f87a41e1e9799988fb2e6f02c6cb836171f"
   integrity sha512-NbhPQXEWcik91HKbwM5J2YnuWwu330NzNBRgkEZI+16qQ5wiwQwEah2pzzffFw9Mn1A/dvk5zaov77LkrJd2fA==
 
-"@next/swc-darwin-arm64@canary":
-  version "12.1.7-canary.31"
-  resolved "https://registry.yarnpkg.com/@next/swc-darwin-arm64/-/swc-darwin-arm64-12.1.7-canary.31.tgz#2fc672eb85e1a2053af47f10ac98f0e3ba09bbaa"
-  integrity sha512-xn8o3cGTj9HkkFadaKsleEDk2618X5xYFg02jqZiiLSUSVlOXp+cLm42BfECkBXbv1CsgBOF+INy7FUaQilozg==
-
 "@next/swc-darwin-x64@12.1.7-canary.35":
   version "12.1.7-canary.35"
   resolved "https://registry.yarnpkg.com/@next/swc-darwin-x64/-/swc-darwin-x64-12.1.7-canary.35.tgz#053c196b01ea38cd30bb3ade089847f6a857f387"
   integrity sha512-0bB51FlR7BNSOM8q6RAoKcwuWGhEpgNuANs+Vg2BAN8EKCcjwC0Ur0xoTJ5759b4hamS5277wlnYkPBXutMmMg==
-
-"@next/swc-darwin-x64@canary":
-  version "12.1.7-canary.31"
-  resolved "https://registry.yarnpkg.com/@next/swc-darwin-x64/-/swc-darwin-x64-12.1.7-canary.31.tgz#39bc5be644ba46fa023df91a8f181a6f92994950"
-  integrity sha512-gAidb6YTKHXtUY/zIrazjL+BaSC4wvhY1QfS0GVlhAvmmEkg5SgHSwwbApvP0rSxpTILWrws99k7DX36qGFQdw==
 
 "@next/swc-freebsd-x64@12.1.7-canary.35":
   version "12.1.7-canary.35"
@@ -62,11 +52,6 @@
   resolved "https://registry.yarnpkg.com/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-12.1.7-canary.35.tgz#177b2f6118846b29969736b493d220752a0bc497"
   integrity sha512-85KQWz4PBd7DFOfbXAuPpNM8LLWDSgCJotjt7GyB+DqwUgKRxNqzOcXc+9JdJTtBxUEetY7tbPKwIiQBDu0q9Q==
 
-"@next/swc-linux-x64-gnu@canary":
-  version "12.1.7-canary.31"
-  resolved "https://registry.yarnpkg.com/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-12.1.7-canary.31.tgz#b7698e96620fa3469450095e8b3447bfb87fdf0b"
-  integrity sha512-3OCsFsTvPk83myAbzPMKKaX4AH204ny69HEef3qS2OAIgkDKVSU+m3KHxDgSVN9PSiIeh9GPqoObTH0RIj/syg==
-
 "@next/swc-linux-x64-musl@12.1.7-canary.35":
   version "12.1.7-canary.35"
   resolved "https://registry.yarnpkg.com/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-12.1.7-canary.35.tgz#51f6aa7f96fc4c275404f3962a8dcea4bcc92eb7"
@@ -86,11 +71,6 @@
   version "12.1.7-canary.35"
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.1.7-canary.35.tgz#12529d4a3f7d854926e02baaa752387afdf81555"
   integrity sha512-V2uCEFJMWSMw0u0Wcir+cvFloigY+52z4EpJHAoaFRb53iTMwKLbpZ6CPh3D/mobH9PsRyjxPjCxIcTDv9MT8Q==
-
-"@next/swc-win32-x64-msvc@canary":
-  version "12.1.7-canary.31"
-  resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.1.7-canary.31.tgz#d3fd4f9e2f8138f10e2779227b087c323aa14dca"
-  integrity sha512-/7HONHYYeGUL+X3iG3Pa+HXXhYtHAskIBNLRDoMJ/XC0FWpfm3scqLAPrNVKp7QMx8wYToS+IEVipt5785Wmeg==
 
 "@swc/helpers@0.3.17":
   version "0.3.17"
