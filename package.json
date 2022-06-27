@@ -13,7 +13,7 @@
     "date-fns": "^2.16.1",
     "ioredis": "^4.19.4",
     "marked": "^1.2.7",
-    "next": "^12.1.7-canary.35",
+    "next": "^12.1.7-canary.48",
     "oauth": "^0.9.15",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -21,6 +21,12 @@
   },
   "devDependencies": {
     "prettier": "2.2.1"
+  },
+  "optionalDependencies": {
+    "@next/swc-darwin-arm64": "canary",
+    "@next/swc-darwin-x64": "canary",
+    "@next/swc-linux-x64-gnu": "canary",
+    "@next/swc-win32-x64-msvc": "canary"
   },
   "prettier": {
     "semi": false,

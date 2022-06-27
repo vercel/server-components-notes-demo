@@ -1,10 +1,10 @@
-import Head from 'next/head'
+//import Head from 'next/head'
 import '../style.css'
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Head>
+      {/* <Head> */}
         <title>React Server Components (Experimental Demo)</title>
         <meta httpEquiv="Content-Language" content="en" />
         <meta
@@ -36,7 +36,7 @@ export default function MyApp({ Component, pageProps }) {
           name="og:image"
           content="https://next-server-components.vercel.app/og.png"
         />
-      </Head>
+      {/* </Head> */}
       <Component {...pageProps} />
     </>
   )
