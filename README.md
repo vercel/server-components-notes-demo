@@ -2,14 +2,16 @@
 
 Try the demo live here: [**next-rsc-notes.vercel.app**](https://next-rsc-notes.vercel.app).
 
+> **Warning**  
+> This demo is built for showing what features that Server Components provide and what the application structure might look like.  
+> **It's not ready for production adoption, or performance benchmarking** as the underlying APIs are not stable yet, and might change or be improved in the future. 
+
 ## Introduction
 
 This is a demo app showing Next.js 12's experimental React Server Components support. It's based on the [React Server Components Demo](https://github.com/reactjs/server-components-demo) by the React team. We recommend you taking a look at these links, before trying out the experimental feature:
 - [**Introducing Zero-Bundle-Size React Server Components**](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html)
 - [**Everything About React Server Components**](https://vercel.com/blog/everything-about-react-server-components)
 - [**Docs of React Server Components in Next.js**](https://nextjs.org/docs/advanced-features/react-18#react-server-components)
- 
-This demo is built for showing what features that Server Components provide and what the application structure might look like. **It's not ready for production adoption, or performance benchmarking** as the underlying APIs are not stable yet, and might change or be improved in the future. 
 
 ## Technical Details
 
