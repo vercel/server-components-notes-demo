@@ -4,6 +4,8 @@ Try the demo live here: [**next-rsc-notes.vercel.app**](https://next-rsc-notes.v
 
 > **Warning**: This demo showcases using Server Components with the `app` directory inside Next.js 13. **It's not ready for production adoption, or performance benchmarking** as the underlying APIs are not stable yet, and might change or be improved in the future.
 
+This demo was originally [built by the React team](https://github.com/reactjs/server-components-demo). This version has been forked and modified for use with the Next.js App Router.
+
 ## Introduction
 
 This is a demo app of a notes application, which shows Next.js 13's `app` directory (beta) with support for React Server Components.
@@ -36,4 +38,4 @@ You can quickly deploy the demo to Vercel by clicking this link:
 
 ## License
 
-This demo is MIT licensed.
+This demo is MIT licensed. Originally [built by the React team](https://github.com/reactjs/server-components-demo)
