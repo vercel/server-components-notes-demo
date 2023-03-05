@@ -27,6 +27,7 @@ function base64ToArrayBuffer(base64) {
 
 function arrayBufferToBase64(buffer) {
   const bytes = new Uint8Array(buffer)
+  // @ts-ignore
   const binary = String.fromCharCode(...bytes)
   return btoa(binary)
 }
@@ -69,9 +70,9 @@ export function createDecrypt() {
   }
 }
 
-export function getSession(cookies) {
+export function getSession(userCookie) {
   const none = [null, null]
-  const value = decodeURIComponent(cookies[userCookieKey])
+  const value = decodeURIComponent(userCookie)
   if (!value) return none
   const index = value.indexOf(cookieSep)
   if (index === -1) return none
@@ -80,6 +81,6 @@ export function getSession(cookies) {
   return [user, session]
 }
 
-export function getUser(cookies) {
-  return getSession(cookies)[0]
+export function getUser(userCookie) {
+  return getSession(userCookie)[0]
 }

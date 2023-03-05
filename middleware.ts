@@ -1,14 +1,16 @@
 import { NextResponse } from 'next/server'
-import apiMiddleware from './components/middleware/api'
-import authMiddleware from './components/middleware/auth'
-import editMiddleware from './components/middleware/edit'
-import logoutMiddleware from './components/middleware/logout'
+import type { NextRequest } from 'next/server'
+
+import apiMiddleware from 'middleware/api'
+import authMiddleware from 'middleware/auth'
+import editMiddleware from 'middleware/edit'
+import logoutMiddleware from 'middleware/logout'
 
 function matchPathname(url, pathname) {
   return url.pathname.startsWith(pathname)
 }
 
-export async function middleware(req) {
+export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone()
   if (matchPathname(url, '/api')) {
     return apiMiddleware(req)

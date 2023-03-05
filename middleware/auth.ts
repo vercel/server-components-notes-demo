@@ -1,15 +1,11 @@
 import { NextResponse } from 'next/server'
-import {
-  userCookieKey,
-  cookieSep,
-  createEncrypt,
-} from '../../libs/session'
+import type { NextRequest } from 'next/server'
+import { userCookieKey, cookieSep, createEncrypt } from 'libs/session'
 
 const CLIENT_ID = process.env.OAUTH_CLIENT_KEY
 const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
 
-
-export default async function middleware(req) {
+export default async function middleware(req: NextRequest) {
   const { nextUrl } = req
   const { searchParams } = nextUrl
   const query = Object.fromEntries(searchParams)
@@ -33,12 +29,12 @@ export default async function middleware(req) {
         body: JSON.stringify({
           client_id: CLIENT_ID,
           client_secret: CLIENT_SECRET,
-          code,
+          code
         }),
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json'
+        }
       })
     ).json()
 
@@ -51,8 +47,8 @@ export default async function middleware(req) {
           method: 'GET',
           headers: {
             Authorization: `token ${accessToken}`,
-            Accept: 'application/json',
-          },
+            Accept: 'application/json'
+          }
         })
       ).json()
 
@@ -61,22 +57,27 @@ export default async function middleware(req) {
   } catch (err) {
     console.error(err)
 
-    return NextResponse.json({message: err.toString()}, {
-      status: 500,
-    })
+    return NextResponse.json(
+      { message: err.toString() },
+      {
+        status: 500
+      }
+    )
   }
 
   if (!token) {
-    return NextResponse.json({message: 'Github authorization failed'}, {
-      status: 400,
-    })
+    return NextResponse.json(
+      { message: 'Github authorization failed' },
+      {
+        status: 400
+      }
+    )
   }
 
   const user = {
     name: token,
-    encrypted: await encrypt(token),
+    encrypted: await encrypt(token)
   }
-
 
   const url = req.nextUrl.clone()
   url.searchParams.delete('code')

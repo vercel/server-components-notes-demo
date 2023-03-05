@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server'
-import { createDecrypt, getSession } from '../../libs/session'
+import type { NextRequest } from 'next/server'
+import { createDecrypt, getSession, userCookieKey } from 'libs/session'
 
-export default async function middleware(req) {
+export default async function middleware(req: NextRequest) {
   const decrypt = createDecrypt()
-  const cookies = Object.fromEntries(req.cookies.entries())
-  const [userCookie, sessionCookie] = getSession(cookies)
+  const cookie = req.cookies.get(userCookieKey)?.value
+  const [userCookie, sessionCookie] = getSession(cookie)
 
-  let login = null
+  let login: string | null = null
   let authErr = null
 
   if (sessionCookie && userCookie) {
@@ -17,7 +18,7 @@ export default async function middleware(req) {
       authErr = e
     }
 
-    if (!authErr && (login === userCookie)) {
+    if (!authErr && login === userCookie) {
       return NextResponse.next()
     }
   }

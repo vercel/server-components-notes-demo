@@ -1,19 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import NotePreview from './NotePreview'
+'use client'
 
-export default function NoteEditor({ noteId, initialTitle, initialBody }) {
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import NotePreview from './note-preview'
+
+export default function NoteEditor({
+  noteId,
+  initialTitle,
+  initialBody
+}: {
+  noteId: string | null
+  initialTitle: string
+  initialBody: string
+}) {
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
 
   const router = useRouter()
   const [isSaving, saveNote] = useMutation({
     endpoint: noteId != null ? `/api/notes/${noteId}` : `/api/notes`,
-    method: noteId != null ? 'PUT' : 'POST',
+    method: noteId != null ? 'PUT' : 'POST'
   })
   const [isDeleting, deleteNote] = useMutation({
     endpoint: `/api/notes/${noteId}`,
-    method: 'DELETE',
+    method: 'DELETE'
   })
 
   // sync client text in editor between navigation
@@ -30,9 +40,10 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     const payload = { title, body }
     const requestedLocation = {
       selectedId: noteId,
-      isEditing: false,
+      isEditing: false
     }
 
+    // @ts-ignore
     const response = await saveNote(payload, requestedLocation)
     const updatedData = await response.json()
     const finalId = noteId || updatedData.id
@@ -43,9 +54,10 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
     const payload = {}
     const requestedLocation = {
       selectedId: null,
-      isEditing: false,
+      isEditing: false
     }
 
+    // @ts-ignore
     await deleteNote(payload, requestedLocation)
     navigate('/')
   }
@@ -60,7 +72,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
       <form
         className="note-editor-form"
         autoComplete="off"
-        onSubmit={e => e.preventDefault()}
+        onSubmit={(e) => e.preventDefault()}
       >
         <label className="offscreen" htmlFor="note-title-input">
           Enter a title for your note
@@ -69,7 +81,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
           id="note-title-input"
           type="text"
           value={title}
-          onChange={e => {
+          onChange={(e) => {
             setTitle(e.target.value)
           }}
         />
@@ -79,7 +91,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
         <textarea
           value={body}
           id="note-body-input"
-          onChange={e => setBody(e.target.value)}
+          onChange={(e) => setBody(e.target.value)}
         />
       </form>
       <div className="note-editor-preview">
@@ -121,7 +133,7 @@ export default function NoteEditor({ noteId, initialTitle, initialBody }) {
           Preview
         </div>
         <h1 className="note-title">{title}</h1>
-        <NotePreview title={title} body={body} />
+        <NotePreview>{body}</NotePreview>
       </div>
     </div>
   )
@@ -144,8 +156,8 @@ function useMutation({ endpoint, method }) {
         body: JSON.stringify(payload),
         credentials: 'include',
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json'
+        }
       })
       if (!response.ok) {
         throw new Error(await response.text())

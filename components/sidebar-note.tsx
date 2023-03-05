@@ -1,19 +1,24 @@
+'use client'
+
 import { useState, useRef, useEffect, useTransition } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter, usePathname } from 'next/navigation'
 
 export default function SidebarNote({ id, title, children, expandedChildren }) {
   const router = useRouter()
-  const selectedId = router.pathname.split('/')[1] || null
-  const [isPending, startTransition] = useTransition()
+  const pathname = usePathname()
+  const selectedId = pathname?.split('/')[1] || null
+  const [isPending] = useTransition()
   const [isExpanded, setIsExpanded] = useState(false)
   const isActive = id === selectedId
 
-  // Animate after title is edited.
+  // Animate after title is edited
   const itemRef = useRef(null)
   const prevTitleRef = useRef(title)
+
   useEffect(() => {
     if (title !== prevTitleRef.current) {
       prevTitleRef.current = title
+      // @ts-ignore
       itemRef.current.classList.add('flash')
     }
   }, [title])
@@ -22,11 +27,12 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
     <div
       ref={itemRef}
       onAnimationEnd={() => {
+        // @ts-ignore
         itemRef.current.classList.remove('flash')
       }}
       className={[
         'sidebar-note-list-item',
-        isExpanded ? 'note-expanded' : '',
+        isExpanded ? 'note-expanded' : ''
       ].join(' ')}
     >
       {children}
@@ -40,12 +46,13 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
             : undefined,
           border: isActive
             ? '1px solid var(--primary-border)'
-            : '1px solid transparent',
+            : '1px solid transparent'
         }}
         onClick={() => {
           // hide the sidebar
           const sidebarToggle = document.getElementById('sidebar-toggle')
           if (sidebarToggle) {
+            // @ts-ignore
             sidebarToggle.checked = true
           }
           router.push(`/note/${id}`)
@@ -55,7 +62,7 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
       </button>
       <button
         className="sidebar-note-toggle-expand"
-        onClick={e => {
+        onClick={(e) => {
           e.stopPropagation()
           setIsExpanded(!isExpanded)
         }}

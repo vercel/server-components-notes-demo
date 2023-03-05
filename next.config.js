@@ -1,6 +1,8 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   experimental: {
-    runtime: 'edge',
-    serverComponents: true,
+    appDir: true,
   },
 }
+
+module.exports = nextConfig

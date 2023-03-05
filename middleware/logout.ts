@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
-import { userCookieKey } from '../../libs/session'
+import type { NextRequest } from 'next/server'
+import { userCookieKey } from 'libs/session'
 
-export default async function middleware(req) {
+export default async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone()
   url.pathname = '/'
   const res = NextResponse.redirect(url.toString(), 302)

@@ -1,15 +1,21 @@
 import { format } from 'date-fns'
-import NotePreview from './NotePreview'
-import NoteEditor from './NoteEditor.client'
-import AuthButton from './AuthButton.server'
+import NotePreview from 'components/note-preview'
+import NoteEditor from 'components/note-editor'
+import AuthButton from 'components/auth-button'
+import { cookies } from 'next/headers'
+import { getUser, userCookieKey } from 'libs/session'
 
-export default function NoteUI({ note, isEditing, login }) {
+export default function NoteUI({ note, isEditing }) {
+  const cookieStore = cookies()
+  const userCookie = cookieStore.get(userCookieKey)
+  const user = getUser(userCookie?.value)
   const { id, title, body, updated_at, created_by: createdBy } = note
   const updatedAt = new Date(updated_at || 0)
 
   if (isEditing) {
     return <NoteEditor noteId={id} initialTitle={title} initialBody={body} />
   }
+
   return (
     <div className="note">
       <div className="note-header">
@@ -19,7 +25,7 @@ export default function NoteUI({ note, isEditing, login }) {
             style={{
               flex: '1 0 100%',
               order: '-1',
-              marginTop: 10,
+              marginTop: 10
             }}
           >
             By{' '}
@@ -43,16 +49,14 @@ export default function NoteUI({ note, isEditing, login }) {
           <small className="note-updated-at" role="status">
             Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
           </small>
-          {login === createdBy ? (
-            <AuthButton login={login} noteId={id}>
-              Edit
-            </AuthButton>
+          {user === createdBy ? (
+            <AuthButton noteId={id}>Edit</AuthButton>
           ) : (
             <div style={{ height: 30 }} />
           )}
         </div>
       </div>
-      <NotePreview body={body} />
+      <NotePreview>{body}</NotePreview>
     </div>
   )
 }
