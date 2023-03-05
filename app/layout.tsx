@@ -58,8 +58,7 @@ export default async function RootLayout({ children }) {
 function Sidebar({ children }) {
   return (
     <>
-      {/* TODO: Mobile */}
-      {/* <input type="checkbox" className="sidebar-toggle" id="sidebar-toggle" /> */}
+      <input type="checkbox" className="sidebar-toggle" id="sidebar-toggle" />
       <section className="col sidebar">
         <Link href={'/'} className="link--unstyled">
           <section className="sidebar-header">

@@ -47,6 +47,7 @@ export default function NoteEditor({
     const response = await saveNote(payload, requestedLocation)
     const updatedData = await response.json()
     const finalId = noteId || updatedData.id
+    router.refresh()
     navigate(`${finalId ? `/note/${finalId}` : '/'}`)
   }
 
@@ -59,6 +60,7 @@ export default function NoteEditor({
 
     // @ts-ignore
     await deleteNote(payload, requestedLocation)
+    router.refresh()
     navigate('/')
   }
 
