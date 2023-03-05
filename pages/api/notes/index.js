@@ -2,14 +2,13 @@ import redis from 'libs/redis'
 import { getUser, userCookieKey } from 'libs/session'
 
 export default async (req, res) => {
-  // we don't need this right now
-  // if ((await redis.hlen('rsc:notes_2')) >= 40) {
-  //   // let's remove the oldest note
-  //   const noteIds = (await redis.hkeys('rsc:notes_2')).sort()
-  //   if (noteIds[0]) {
-  //     await redis.hdel('rsc:notes_2', noteIds[0])
-  //   }
-  // }
+  if ((await redis.hlen('rsc:notes_2')) >= 40) {
+    // let's remove the oldest note
+    const noteIds = (await redis.hkeys('rsc:notes_2')).sort()
+    if (noteIds[0]) {
+      await redis.hdel('rsc:notes_2', noteIds[0])
+    }
+  }
 
   const id = Date.now()
   const newNote = {
