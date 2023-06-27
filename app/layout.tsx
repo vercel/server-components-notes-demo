@@ -2,7 +2,7 @@ import './style.css'
 
 import React, { Suspense } from 'react'
 import Link from 'next/link'
-import redis from 'libs/redis'
+import { kv } from '@vercel/kv'
 import SearchField from 'components/search'
 import NoteList from 'components/note-list'
 import AuthButton from 'components/auth-button'
@@ -20,13 +20,13 @@ export const metadata = {
   robots: {
     index: true,
     follow: true
-  }
+  },
+  metadataBase: new URL('https://next-rsc-notes.vercel.app/')
 }
 
 export default async function RootLayout({ children }) {
-  const notes = (await redis.hvals('rsc:notes_2'))
-    .map((note) => JSON.parse(note))
-    .sort((a, b) => b.id - a.id)
+  // This isn't right yet
+  const notes = (await kv.hvals('chat')).sort((a, b) => b.id - a.id)
 
   return (
     <html lang="en">
@@ -34,7 +34,7 @@ export default async function RootLayout({ children }) {
         <div className="container">
           <div className="banner">
             <a
-              href="https://beta.nextjs.org/docs/rendering/server-and-client-components"
+              href="https://nextjs.org/docs/getting-started/react-essentials"
               target="_blank"
             >
               Learn more about using React Server Components in Next.js →
@@ -43,7 +43,6 @@ export default async function RootLayout({ children }) {
           <div className="main">
             <Sidebar>
               <Suspense fallback={<NoteListSkeleton />}>
-                {/* @ts-expect-error Server Component */}
                 <NoteList notes={notes} />
               </Suspense>
             </Sidebar>

@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import NotePreview from './note-preview'
+import { experimental_useFormStatus as useFormStatus } from 'react-dom'
+import { deleteNote, saveNote } from '../app/actions'
 
 export default function NoteEditor({
   noteId,
@@ -13,69 +14,14 @@ export default function NoteEditor({
   initialTitle: string
   initialBody: string
 }) {
+  const { pending } = useFormStatus()
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
-
-  const router = useRouter()
-  const [isSaving, saveNote] = useMutation({
-    endpoint: noteId != null ? `/api/notes/${noteId}` : `/api/notes`,
-    method: noteId != null ? 'PUT' : 'POST'
-  })
-  const [isDeleting, deleteNote] = useMutation({
-    endpoint: `/api/notes/${noteId}`,
-    method: 'DELETE'
-  })
-
-  // sync client text in editor between navigation
-  useEffect(() => {
-    if (title !== initialTitle) {
-      setTitle(initialTitle)
-    }
-    if (body !== initialBody) {
-      setBody(initialBody)
-    }
-  }, [initialTitle, initialBody])
-
-  async function handleSave() {
-    const payload = { title, body }
-    const requestedLocation = {
-      selectedId: noteId,
-      isEditing: false
-    }
-
-    // @ts-ignore
-    const response = await saveNote(payload, requestedLocation)
-    const updatedData = await response.json()
-    const finalId = noteId || updatedData.id
-    router.refresh()
-    navigate(`${finalId ? `/note/${finalId}` : '/'}`)
-  }
-
-  async function handleDelete() {
-    const payload = {}
-    const requestedLocation = {
-      selectedId: null,
-      isEditing: false
-    }
-
-    // @ts-ignore
-    await deleteNote(payload, requestedLocation)
-    router.refresh()
-    navigate('/')
-  }
-
-  async function navigate(url) {
-    router.push(url)
-  }
-
   const isDraft = !noteId
+
   return (
     <div className="note-editor">
-      <form
-        className="note-editor-form"
-        autoComplete="off"
-        onSubmit={(e) => e.preventDefault()}
-      >
+      <form className="note-editor-form" autoComplete="off">
         <label className="offscreen" htmlFor="note-title-input">
           Enter a title for your note
         </label>
@@ -97,11 +43,12 @@ export default function NoteEditor({
         />
       </form>
       <div className="note-editor-preview">
-        <div className="note-editor-menu" role="menubar">
+        <form className="note-editor-menu" role="menubar">
           <button
             className="note-editor-done"
-            disabled={Boolean(isSaving)}
-            onClick={() => handleSave()}
+            disabled={pending}
+            type="submit"
+            formAction={() => saveNote(noteId || '1', title, body)}
             role="menuitem"
           >
             <img
@@ -116,8 +63,8 @@ export default function NoteEditor({
           {!isDraft && (
             <button
               className="note-editor-delete"
-              disabled={Boolean(isDeleting)}
-              onClick={() => handleDelete()}
+              disabled={pending}
+              formAction={() => deleteNote(noteId)}
               role="menuitem"
             >
               <img
@@ -130,7 +77,7 @@ export default function NoteEditor({
               Delete
             </button>
           )}
-        </div>
+        </form>
         <div className="label label--preview" role="status">
           Preview
         </div>
@@ -139,40 +86,4 @@ export default function NoteEditor({
       </div>
     </div>
   )
-}
-
-function useMutation({ endpoint, method }) {
-  const [isSaving, setIsSaving] = useState(false)
-  const [didError, setDidError] = useState(false)
-  const [error, setError] = useState(null)
-  if (didError) {
-    // Let the nearest error boundary handle errors while saving.
-    throw error
-  }
-
-  async function performMutation(payload) {
-    setIsSaving(true)
-    try {
-      const response = await fetch(`${endpoint}`, {
-        method,
-        body: JSON.stringify(payload),
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      if (!response.ok) {
-        throw new Error(await response.text())
-      }
-      return response
-    } catch (e) {
-      console.error(e)
-      setDidError(true)
-      setError(e)
-    } finally {
-      setIsSaving(false)
-    }
-  }
-
-  return [isSaving, performMutation]
 }

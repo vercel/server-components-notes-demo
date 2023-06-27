@@ -1,23 +1,19 @@
 # Next.js 13 + React Server Components Notes Demo
 
-Try the demo live here: [**next-rsc-notes.vercel.app**](https://next-rsc-notes.vercel.app).
-
-> **Warning**: This demo showcases using Server Components with the `app` directory inside Next.js 13. **It's not ready for production adoption, or performance benchmarking** as the underlying APIs are not stable yet, and might change or be improved in the future.
+> Try the demo live here: [**next-rsc-notes.vercel.app**](https://next-rsc-notes.vercel.app).
 
 This demo was originally [built by the React team](https://github.com/reactjs/server-components-demo). This version has been forked and modified for use with the Next.js App Router.
 
 ## Introduction
 
-This is a demo app of a notes application, which shows Next.js 13's `app` directory (beta) with support for React Server Components.
-
-[Learn more](https://beta.nextjs.org/docs/rendering/server-and-client-components).
+This is a demo app of a notes application, which shows Next.js 13's App Router with support for React Server Components. [Learn more](https://nextjs.org/docs/getting-started/react-essentials).
 
 ### Environment Variables
 
 These environment variables are required to start this application (you can create a `.env` file for Next.js to use):
 
 ```bash
-REDIS_URL='rediss://:<password>@<url>:<port>' # or `redis://` if no TLS support
+KV_URL='redis://:<password>@<url>:<port>' # vercel.com/kv
 SESSION_KEY='your session key'
 OAUTH_CLIENT_KEY='github oauth app id'
 OAUTH_CLIENT_SECRET='github oauth app secret'

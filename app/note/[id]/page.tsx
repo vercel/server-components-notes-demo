@@ -1,4 +1,4 @@
-import redis from 'libs/redis'
+import { kv } from '@vercel/kv'
 import NoteUI from 'components/note-ui'
 
 export const metadata = {
@@ -8,7 +8,7 @@ export const metadata = {
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const note = JSON.parse((await redis.hget('rsc:notes_2', params.id)) || null)
+  const note = await kv.hgetall(`note:${params.id}`)
 
   if (note === null) {
     return (

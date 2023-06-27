@@ -1,29 +1,18 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import React, { useTransition } from 'react'
+import { experimental_useFormStatus as useFormStatus } from 'react-dom'
+import { searchNotes } from '../app/actions'
 
 export default function SearchField() {
-  const router = useRouter()
-  // @ts-ignore
-  const [isSearching, startSearching] = useTransition({ timeoutMs: 200 })
+  const { pending } = useFormStatus()
 
   return (
-    <form className="search" role="search" onSubmit={(e) => e.preventDefault()}>
+    <form className="search" role="search" action={searchNotes}>
       <label className="offscreen" htmlFor="sidebar-search-input">
         Search for a note by title
       </label>
-      <input
-        id="sidebar-search-input"
-        placeholder="Search"
-        onChange={(e) => {
-          startSearching(() => {
-            // e.target.value
-            router.refresh()
-          })
-        }}
-      />
-      <Spinner active={isSearching} />
+      <input id="sidebar-search-input" placeholder="Search" name="search" />
+      <Spinner active={pending} />
     </form>
   )
 }

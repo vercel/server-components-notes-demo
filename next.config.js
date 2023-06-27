@@ -1,8 +1,5 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   experimental: {
-    appDir: true,
-  },
+    serverActions: true
+  }
 }
-
-module.exports = nextConfig

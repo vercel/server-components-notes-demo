@@ -1,4 +1,4 @@
-import redis from 'libs/redis'
+import { kv } from '@vercel/kv'
 import { cookies } from 'next/headers'
 import { getUser, userCookieKey } from 'libs/session'
 import NoteUI from 'components/note-ui'
@@ -9,12 +9,17 @@ export const metadata = {
   }
 }
 
+type Note = {
+  id: string
+  created_by: string
+}
+
 export default async function EditPage({ params }: { params: { id: string } }) {
   const cookieStore = cookies()
   const userCookie = cookieStore.get(userCookieKey)
   const user = getUser(userCookie?.value)
 
-  const note = JSON.parse((await redis.hget('rsc:notes_2', params.id)) || null)
+  const note = await kv.hgetall<Note>(`note:${params.id}`)
   const isCreator = note?.created_by === user || true
 
   if (note === null) {
