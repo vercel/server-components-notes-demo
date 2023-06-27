@@ -383,7 +383,7 @@ ul.notes-list {
   flex: 0 0 auto;
 }
 .banner:before {
-  content: '⚠️ React Server Components are an experimental and unstable tech preview. ';
+  content: 'The Next.js App Router uses React Server Components by default. ';
 }
 .banner a {
   color: #3aa3ff;
@@ -398,7 +398,7 @@ ul.notes-list {
 
 @media screen and (max-width: 640px) {
   .banner:before {
-    content: '⚠️ React Server Components are experimental. ';
+    content: 'Next.js App Router using React Server Components. ';
   }
   .banner {
     font-size: 13px;

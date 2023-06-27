@@ -37,7 +37,7 @@ export default async function RootLayout({ children }) {
               href="https://nextjs.org/docs/getting-started/react-essentials"
               target="_blank"
             >
-              Learn more about using React Server Components in Next.js →
+              Learn more →
             </a>
           </div>
           <div className="main">
