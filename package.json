@@ -1,37 +1,31 @@
 {
-  "name": "server-components-next",
   "private": true,
-  "license": "MIT",
   "scripts": {
-    "dev": "next",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "format": "prettier --write ."
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.10",
-    "date-fns": "^2.16.1",
-    "ioredis": "^4.19.4",
-    "marked": "^1.2.7",
-    "next": "12.1.7-canary.48",
-    "oauth": "^0.9.15",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "sanitize-html": "^2.3.0"
-  },
-  "devDependencies": {
-    "prettier": "2.2.1"
-  },
-  "optionalDependencies": {
-    "@next/swc-darwin-arm64": "canary",
-    "@next/swc-darwin-x64": "canary",
-    "@next/swc-linux-x64-gnu": "canary",
-    "@next/swc-win32-x64-msvc": "canary"
+    "@types/node": "^20.8.9",
+    "@types/react": "18.2.33",
+    "@vercel/kv": "^0.2.3",
+    "cheerio": "1.0.0-rc.12",
+    "date-fns": "^2.30.0",
+    "marked": "^1.2.9",
+    "ms": "2.1.3",
+    "next": "14.0.0",
+    "oauth": "^0.10.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "sanitize-html": "^2.11.0",
+    "typescript": "^5.2.2"
   },
   "prettier": {
-    "semi": false,
+    "arrowParens": "always",
     "singleQuote": true,
-    "jsxBracketSameLine": false,
-    "arrowParens": "avoid"
+    "semi": false,
+    "tabWidth": 2,
+    "trailingComma": "none"
   }
 }
