@@ -35,9 +35,9 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const notes = await kv.hgetall('notes')
-  let notesArray = notes
-    ? Object.values(notes).sort(
-        (a, b) => Number((a as Note).id) - Number((b as Note).id)
+  let notesArray: Note[] = notes
+    ? (Object.values(notes) as Note[]).sort(
+        (a, b) => Number(a.id) - Number(b.id)
       )
     : []
 
