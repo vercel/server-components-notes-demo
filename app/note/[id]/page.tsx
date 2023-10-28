@@ -8,7 +8,7 @@ export const metadata = {
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const note = await kv.hgetall(`note:${params.id}`)
+  const note = await kv.hget('notes', params.id)
 
   if (note === null) {
     return (

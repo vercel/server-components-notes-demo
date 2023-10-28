@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { format, isToday } from 'date-fns'
 import cheerio from 'cheerio'

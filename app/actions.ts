@@ -6,24 +6,18 @@ import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-type Note = {
-  id: string
-  created_by: string
-  title: string
+export async function saveNote(
+  noteId: string | null,
+  title: string,
   body: string
-  updated_at: number
-}
-
-export async function searchNotes() {
-  // TODO
-
-  return null
-}
-
-export async function saveNote(noteId: string, title: string, body: string) {
+) {
   const cookieStore = cookies()
   const userCookie = cookieStore.get(userCookieKey)
   const user = getUser(userCookie?.value)
+
+  if (!noteId) {
+    noteId = Date.now().toString()
+  }
 
   const payload = {
     id: noteId,
@@ -33,7 +27,7 @@ export async function saveNote(noteId: string, title: string, body: string) {
     created_by: user
   }
 
-  await kv.hmset(`note:${noteId}`, payload)
+  await kv.hset('notes', { [noteId]: JSON.stringify(payload) })
 
   revalidatePath('/')
   redirect(`/note/${noteId}`)

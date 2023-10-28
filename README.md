@@ -1,4 +1,4 @@
-# Next.js 13 + React Server Components Notes Demo
+# Next.js App Router + Server Components Notes Demo
 
 > Try the demo live here: [**next-rsc-notes.vercel.app**](https://next-rsc-notes.vercel.app).
 

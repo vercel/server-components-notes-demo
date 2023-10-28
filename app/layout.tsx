@@ -1,12 +1,9 @@
 import './style.css'
 
-import React, { Suspense } from 'react'
-import Link from 'next/link'
+import React from 'react'
 import { kv } from '@vercel/kv'
-import SearchField from 'components/search'
-import NoteList from 'components/note-list'
+import Sidebar from 'components/sidebar'
 import AuthButton from 'components/auth-button'
-import NoteListSkeleton from 'components/note-list-skeleton'
 
 export const metadata = {
   title: 'Next.js 13 + React Server Components Demo',
@@ -24,9 +21,25 @@ export const metadata = {
   metadataBase: new URL('https://next-rsc-notes.vercel.app/')
 }
 
-export default async function RootLayout({ children }) {
-  // This isn't right yet
-  const notes = (await kv.hvals('chat')).sort((a, b) => b.id - a.id)
+type Note = {
+  id: string
+  created_by: string
+  title: string
+  body: string
+  updated_at: number
+}
+
+export default async function RootLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
+  const notes = await kv.hgetall('notes')
+  let notesArray = notes
+    ? Object.values(notes).sort(
+        (a, b) => Number((a as Note).id) - Number((b as Note).id)
+      )
+    : []
 
   return (
     <html lang="en">
@@ -34,50 +47,20 @@ export default async function RootLayout({ children }) {
         <div className="container">
           <div className="banner">
             <a
-              href="https://nextjs.org/docs/getting-started/react-essentials"
+              href="https://nextjs.org/docs/app/building-your-application/rendering/server-components"
               target="_blank"
             >
               Learn more →
             </a>
           </div>
           <div className="main">
-            <Sidebar>
-              <Suspense fallback={<NoteListSkeleton />}>
-                <NoteList notes={notes} />
-              </Suspense>
+            <Sidebar notes={notesArray}>
+              <AuthButton noteId={null}>Add</AuthButton>
             </Sidebar>
             <section className="col note-viewer">{children}</section>
           </div>
         </div>
       </body>
     </html>
-  )
-}
-
-function Sidebar({ children }) {
-  return (
-    <>
-      <input type="checkbox" className="sidebar-toggle" id="sidebar-toggle" />
-      <section className="col sidebar">
-        <Link href={'/'} className="link--unstyled">
-          <section className="sidebar-header">
-            <img
-              className="logo"
-              src="/logo.svg"
-              width="22px"
-              height="20px"
-              alt=""
-              role="presentation"
-            />
-            <strong>React Notes</strong>
-          </section>
-        </Link>
-        <section className="sidebar-menu" role="menubar">
-          <SearchField />
-          <AuthButton noteId={null}>Add</AuthButton>
-        </section>
-        <nav>{children}</nav>
-      </section>
-    </>
   )
 }

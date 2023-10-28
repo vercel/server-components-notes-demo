@@ -19,7 +19,7 @@ export default async function EditPage({ params }: { params: { id: string } }) {
   const userCookie = cookieStore.get(userCookieKey)
   const user = getUser(userCookie?.value)
 
-  const note = await kv.hgetall<Note>(`note:${params.id}`)
+  const note = await kv.hget<Note>('notes', params.id)
   const isCreator = note?.created_by === user || true
 
   if (note === null) {

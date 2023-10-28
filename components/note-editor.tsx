@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import NotePreview from './note-preview'
-import { experimental_useFormStatus as useFormStatus } from 'react-dom'
+import { useFormStatus } from 'react-dom'
 import { deleteNote, saveNote } from '../app/actions'
 
 export default function NoteEditor({
@@ -48,7 +48,7 @@ export default function NoteEditor({
             className="note-editor-done"
             disabled={pending}
             type="submit"
-            formAction={() => saveNote(noteId || '1', title, body)}
+            formAction={() => saveNote(noteId, title, body)}
             role="menuitem"
           >
             <img
