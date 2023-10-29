@@ -6,13 +6,13 @@ import Sidebar from 'components/sidebar'
 import AuthButton from 'components/auth-button'
 
 export const metadata = {
-  title: 'Next.js 13 + React Server Components Demo',
+  title: 'Next.js App Router + React Server Components Demo',
   description: 'Demo of React Server Components in Next.js. Hosted on Vercel.',
   openGraph: {
-    title: 'Next.js 13 + React Server Components Demo',
+    title: 'Next.js App Router + React Server Components Demo',
     description:
       'Demo of React Server Components in Next.js. Hosted on Vercel.',
-    images: ['https://next-server-components.vercel.app/og.png']
+    images: ['https://next-rsc-notes.vercel.app/og.png']
   },
   robots: {
     index: true,
