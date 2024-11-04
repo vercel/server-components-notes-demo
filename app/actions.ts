@@ -11,7 +11,7 @@ export async function saveNote(
   title: string,
   body: string
 ) {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const userCookie = cookieStore.get(userCookieKey)
   const user = getUser(userCookie?.value)
 

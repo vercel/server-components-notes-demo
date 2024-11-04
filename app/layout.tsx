@@ -37,7 +37,7 @@ export default async function RootLayout({
   const notes = await kv.hgetall('notes')
   let notesArray: Note[] = notes
     ? (Object.values(notes) as Note[]).sort(
-        (a, b) => Number(a.id) - Number(b.id)
+        (a, b) => Number(b.id) - Number(a.id)
       )
     : []
 

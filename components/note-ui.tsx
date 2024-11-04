@@ -5,8 +5,8 @@ import AuthButton from 'components/auth-button'
 import { cookies } from 'next/headers'
 import { getUser, userCookieKey } from 'libs/session'
 
-export default function NoteUI({ note, isEditing }) {
-  const cookieStore = cookies()
+export default async function NoteUI({ note, isEditing }) {
+  const cookieStore = await cookies()
   const userCookie = cookieStore.get(userCookieKey)
   const user = getUser(userCookie?.value)
   const { id, title, body, updated_at, created_by: createdBy } = note

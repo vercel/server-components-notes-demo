@@ -1,11 +1,12 @@
 'use client'
 
 import { useState, useRef, useEffect, useTransition } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 
 export default function SidebarNote({ id, title, children, expandedChildren }) {
   const router = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
   const selectedId = pathname?.split('/')[1] || null
   const [isPending] = useTransition()
   const [isExpanded, setIsExpanded] = useState(false)
@@ -42,8 +43,8 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
           backgroundColor: isPending
             ? 'var(--gray-80)'
             : isActive
-            ? 'var(--tertiary-blue)'
-            : undefined,
+              ? 'var(--tertiary-blue)'
+              : undefined,
           border: isActive
             ? '1px solid var(--primary-border)'
             : '1px solid transparent'
@@ -55,7 +56,13 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
             // @ts-ignore
             sidebarToggle.checked = true
           }
-          router.push(`/note/${id}`)
+
+          const url = new URL(`/note/${id}`, window.location.origin)
+          searchParams.forEach((value, key) => {
+            url.searchParams.append(key, value)
+          })
+
+          router.push(url.pathname + url.search)
         }}
       >
         Open note for preview
