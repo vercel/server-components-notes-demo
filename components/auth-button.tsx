@@ -2,14 +2,14 @@ import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { getUser, userCookieKey } from 'libs/session'
 
-export default function AuthButton({
+export default async function AuthButton({
   children,
   noteId
 }: {
   children: React.ReactNode
   noteId: string | null
 }) {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const userCookie = cookieStore.get(userCookieKey)
   const user = getUser(userCookie?.value)
   const isDraft = noteId == null

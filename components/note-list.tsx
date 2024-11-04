@@ -2,11 +2,11 @@
 
 import React from 'react'
 import { format, isToday } from 'date-fns'
-import cheerio from 'cheerio'
 import marked from 'marked'
 import ClientSidebarNote from './sidebar-note'
+import { load } from 'cheerio'
 
-export default async function NoteList({ notes, searchText }) {
+export default function NoteList({ notes, searchText }) {
   if (notes.length === 0) {
     return (
       <div className="notes-empty">
@@ -33,8 +33,7 @@ export default async function NoteList({ notes, searchText }) {
 }
 
 function excerpts(html, length) {
-  const text = cheerio
-    .load(html)
+  const text = load(html)
     .text()
     .trim()
     .replace(/(\r\n|\r|\n|\s)+/g, ' ')

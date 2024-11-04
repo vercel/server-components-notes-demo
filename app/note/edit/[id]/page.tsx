@@ -14,8 +14,9 @@ type Note = {
   created_by: string
 }
 
-export default async function EditPage({ params }: { params: { id: string } }) {
-  const cookieStore = cookies()
+export default async function EditPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+  const cookieStore = await cookies()
   const userCookie = cookieStore.get(userCookieKey)
   const user = getUser(userCookie?.value)
 

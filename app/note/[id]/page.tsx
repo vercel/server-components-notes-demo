@@ -7,7 +7,8 @@ export const metadata = {
   }
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const note = await kv.hget('notes', params.id)
 
   if (note === null) {

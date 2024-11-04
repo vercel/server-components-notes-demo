@@ -44,7 +44,9 @@ export default function Sidebar({
           {children}
         </section>
         <nav>
-          <Notes notes={notes} />
+          <Suspense fallback={<NoteListSkeleton />}>
+            <Notes notes={notes} />
+          </Suspense>
         </nav>
       </section>
     </>
@@ -55,9 +57,5 @@ function Notes({ notes }: { notes: Note[] }) {
   const searchParams = useSearchParams()
   const search = searchParams.get('q')
 
-  return (
-    <Suspense fallback={<NoteListSkeleton />}>
-      <NoteList notes={notes} searchText={search} />
-    </Suspense>
-  )
+  return <NoteList notes={notes} searchText={search} />
 }
