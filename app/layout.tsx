@@ -1,7 +1,7 @@
 import './style.css'
 
 import React from 'react'
-import { kv } from '@vercel/kv'
+import { kv } from './kv-client'
 import Sidebar from 'components/sidebar'
 import AuthButton from 'components/auth-button'
 

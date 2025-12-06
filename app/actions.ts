@@ -1,6 +1,6 @@
 'use server'
 
-import { kv } from '@vercel/kv'
+import { kv } from './kv-client'
 import { getUser, userCookieKey } from 'libs/session'
 import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'

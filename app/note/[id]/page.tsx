@@ -1,4 +1,4 @@
-import { kv } from '@vercel/kv'
+import { kv } from '../../kv-client'
 import NoteUI from 'components/note-ui'
 
 export const metadata = {

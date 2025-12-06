@@ -1,4 +1,4 @@
-import { kv } from '@vercel/kv'
+import { kv } from '../../../kv-client'
 import { cookies } from 'next/headers'
 import { getUser, userCookieKey } from 'libs/session'
 import NoteUI from 'components/note-ui'
